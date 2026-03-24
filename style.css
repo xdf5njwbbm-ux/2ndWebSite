@@ -2041,7 +2041,7 @@
 }
 .profile-avatar-circle:hover {
   background: rgba(255, 255, 255, 0.1);
-  border-color: #EDB345;
+  border-color: var(--accent);
 }
 .profile-badge-free {
   position: absolute;
@@ -2128,11 +2128,11 @@
 .ref-input {
   flex: 1;
   background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(237, 179, 69, 0.3);
+  border: 1px solid rgba(0, 136, 255, 0.3);
   border-radius: 12px;
   height: 48px;
   padding: 0 16px;
-  color: #EDB345;
+  color: var(--accent);
   font-size: 14px;
   outline: none;
 }
@@ -2150,9 +2150,9 @@
   flex-shrink: 0;
 }
 .ref-copy-btn:hover {
-  background: #EDB345;
+  background: var(--accent);
   color: #111;
-  border-color: #EDB345;
+  border-color: var(--accent);
 }
 .ref-helper {
   color: #666;
