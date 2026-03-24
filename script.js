@@ -106,12 +106,23 @@ renderBrowsePage(currentPage);
 
 // ── Shared Video Rendering for Videos View ────────────────────────
 const videosViewGrid = document.getElementById("videosViewGrid");
-function renderVideosView() {
+function renderVideosView(isPopular = false) {
   if (!videosViewGrid) return;
   videosViewGrid.innerHTML = "";
   
+  let dataCopy = [...VIDEO_DATA];
+  
+  if (isPopular) {
+    // Helper to parse '32.6K views' into 32600
+    const parseViewsNum = (str) => {
+      const num = parseFloat(str.replace(/[^0-9.]/g, ''));
+      return str.toLowerCase().includes('k') ? num * 1000 : num;
+    };
+    dataCopy.sort((a, b) => parseViewsNum(b.views) - parseViewsNum(a.views));
+  }
+
   // Use first 12 items for this demo page
-  const pageItems = VIDEO_DATA.slice(0, 12);
+  const pageItems = dataCopy.slice(0, 12);
   
   pageItems.forEach(v => {
     const badgeHTML = v.badge ? `<span class="content-badge">${v.badge}</span>` : "";
@@ -149,6 +160,28 @@ function renderVideosView() {
 }
 renderVideosView();
 
+// ── Videos Filter & Toggle ───────────────────────────────────────
+const popularToggleBtn   = document.getElementById("popularToggleBtn");
+const popularStatusBadge = document.getElementById("popularStatusBadge");
+
+if (popularToggleBtn && popularStatusBadge) {
+  let isPopularActive = false;
+  
+  popularToggleBtn.addEventListener("click", () => {
+    isPopularActive = !isPopularActive;
+    
+    // Toggle active classes
+    popularToggleBtn.classList.toggle("active", isPopularActive);
+    popularStatusBadge.classList.toggle("hidden", !isPopularActive);
+    
+    // Re-render with sort
+    renderVideosView(isPopularActive);
+    
+    // Smooth transition: scroll to grid top
+    videosViewGrid.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  });
+}
+
 
 // ── View Navigation & Routing ──────────────────────────────────
 const homeView       = document.getElementById("homeView");
@@ -158,16 +191,23 @@ const videosView     = document.getElementById("videosView");
 const freeVideosView = document.getElementById("freeVideosView");
 const profileView    = document.getElementById("profileView");
 const premiumView    = document.getElementById("premiumView");
+const subscribeView  = document.getElementById("subscribeView");
 
-const allViews = [homeView, videoDetail, chatView, videosView, freeVideosView, profileView, premiumView];
+const allViews = [homeView, videoDetail, chatView, videosView, freeVideosView, profileView, premiumView, subscribeView];
 
 function showView(viewToShow) {
+  // Hide all views
   allViews.forEach(v => {
     if (v && v !== viewToShow) v.classList.add("hidden");
   });
+  
+  // Show the target view
   if (viewToShow) {
     viewToShow.classList.remove("hidden");
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    // Scroll to top instantly (force after DOM update)
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 0);
   }
 }
 
@@ -190,10 +230,17 @@ const vdAvatar     = document.getElementById("vdAvatar");
 const vdCreator    = document.getElementById("vdCreator");
 const vdSubs       = document.getElementById("vdSubs");
 const vdLikesBtn   = document.getElementById("vdLikesBtn");
+const vdPremiumCta = document.getElementById("vdPremiumCta");
 
 function openVideoDetail(id) {
   const v = VIDEO_DATA[id];
   if (!v) return;
+
+  // Check if premium
+  if (v.badge === "VIP") {
+    showView(subscribeView);
+    return;
+  }
 
   vdTitle.textContent    = v.title;
   vdBadge.textContent    = v.badge || "";
@@ -217,6 +264,19 @@ function closeVideoDetail() {
 vdBackBtn.addEventListener("click", closeVideoDetail);
 vdGoBack.addEventListener("click", closeVideoDetail);
 
+if (vdPremiumCta) {
+  vdPremiumCta.addEventListener("click", () => {
+    showView(subscribeView);
+  });
+}
+
+const subGoBackBtn = document.getElementById("subGoBackBtn");
+if (subGoBackBtn) {
+  subGoBackBtn.addEventListener("click", () => {
+    showView(homeView);
+  });
+}
+
 
 // ── Mobile Menu Toggle ─────────────────────────────────────────
 const menuToggle       = document.getElementById("menuToggle");
@@ -226,7 +286,8 @@ const menuCards        = document.querySelectorAll(".menu-grid-card");
 
 if (menuToggle && mobileMenuOverlay && mobileMenuPanel) {
   // Toggle menu
-  menuToggle.addEventListener("click", () => {
+  menuToggle.addEventListener("click", (e) => {
+    e.stopPropagation();
     document.body.classList.toggle("menu-open");
   });
 
@@ -244,27 +305,31 @@ if (menuToggle && mobileMenuOverlay && mobileMenuPanel) {
   const menuPremiumBtn = document.getElementById("menuPremiumBtn");
 
   if (menuVideosBtn) {
-    menuVideosBtn.addEventListener("click", () => {
+    menuVideosBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
       document.body.classList.remove("menu-open");
       showView(videosView);
     });
   }
   if (menuFreeVideosBtn) {
-    menuFreeVideosBtn.addEventListener("click", () => {
+    menuFreeVideosBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
       document.body.classList.remove("menu-open");
       showView(freeVideosView);
     });
   }
   if (menuChatBtn) {
-    menuChatBtn.addEventListener("click", () => {
+    menuChatBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
       document.body.classList.remove("menu-open");
       showView(chatView);
     });
   }
   if (menuPremiumBtn) {
-    menuPremiumBtn.addEventListener("click", () => {
+    menuPremiumBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
       document.body.classList.remove("menu-open");
-      showView(premiumView);
+      showView(subscribeView);
     });
   }
 }
@@ -274,10 +339,36 @@ const profileBtn = document.getElementById("profileBtn");
 const profileDropdown = document.getElementById("profileDropdown");
 const navMyProfileBtn = document.getElementById("navMyProfileBtn");
 
+// ── Notification Dropdown ───────────────────────────────────────
+const notificationBtn = document.getElementById("notificationBtn");
+const notificationDropdown = document.getElementById("notificationDropdown");
+
+if (notificationBtn && notificationDropdown) {
+  notificationBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    notificationDropdown.classList.toggle("show");
+    notificationBtn.classList.toggle("active");
+    if (profileDropdown) profileDropdown.classList.remove("show");
+  });
+  
+  document.addEventListener("click", (e) => {
+    if (!notificationDropdown.contains(e.target) && e.target !== notificationBtn) {
+      notificationDropdown.classList.remove("show");
+      notificationBtn.classList.remove("active");
+    }
+  });
+}
+
 if (profileBtn && profileDropdown) {
   profileBtn.addEventListener("click", (e) => {
     e.stopPropagation();
     profileDropdown.classList.toggle("show");
+    
+    // Close notification if open
+    if (notificationDropdown) {
+      notificationDropdown.classList.remove("show");
+      notificationBtn.classList.remove("active");
+    }
   });
   
   // Close when clicking outside
@@ -394,22 +485,10 @@ const rc2 = document.getElementById("refreshCode2");
 if(rc2) rc2.addEventListener("click", () => document.getElementById("verifyCode2").textContent = randomCode());
 
 const premiumButton = document.getElementById("openPremium");
-const premiumModal  = document.getElementById("premiumModal");
-const closePremiumModal = document.getElementById("closePremiumModal");
 
-if(premiumButton && premiumModal) {
+if(premiumButton) {
   premiumButton.addEventListener("click", () => {
-    premiumModal.classList.add("show");
-  });
-
-  closePremiumModal.addEventListener("click", () => {
-    premiumModal.classList.remove("show");
-  });
-
-  premiumModal.addEventListener("click", (e) => {
-    if (e.target === premiumModal) {
-      premiumModal.classList.remove("show");
-    }
+    showView(subscribeView);
   });
 }
 

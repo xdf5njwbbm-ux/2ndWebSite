@@ -107,10 +107,30 @@
       </div>
 
       <div class="topbar-actions">
-        <button class="icon-button notification-button" aria-label="Notifications">
-          <span class="icon">🔔</span>
-          <span class="badge-count">3</span>
-        </button>
+        <div class="notification-wrap">
+          <button class="icon-button notification-button" id="notificationBtn" aria-label="Notifications">
+            <svg class="notify-icon-svg" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span class="badge-count">3</span>
+          </button>
+          
+          <div class="notification-dropdown" id="notificationDropdown">
+            <div class="notif-header">
+              <h3>Notifications</h3>
+            </div>
+            <div class="notif-body">
+              <div class="notif-pref-row">
+                <div class="notif-pref-text">
+                  <h4>Notify me when new videos are uploaded</h4>
+                  <p>Get alerts when fresh lessons or videos are added.</p>
+                </div>
+                <label class="premium-toggle">
+                  <input type="checkbox" checked id="notifPrefToggle">
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div class="profile-menu-wrap">
           <button class="profile-button" id="profileBtn" aria-label="Profile">J</button>
@@ -151,47 +171,22 @@
     <div class="mobile-menu-overlay" id="mobileMenuOverlay">
       <div class="mobile-menu-panel" id="mobileMenuPanel">
         <div class="menu-search-container">
-          <span class="search-icon">&#128269;</span>
+          <svg class="search-icon-svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           <input type="text" class="menu-search-input" placeholder="Search videos...">
         </div>
         <div class="menu-grid">
-          <button class="menu-grid-card" id="menuVideosBtn">
-            <span class="menu-icon">&#128249;</span> Videos
-          </button>
-          <button class="menu-grid-card" id="menuFreeVideosBtn">
-            <span class="menu-icon">&#127902;</span> Free Videos
-          </button>
-          <button class="menu-grid-card" id="menuChatBtn">
-            <span class="menu-icon">&#128172;</span> Chat
-          </button>
-          <button class="menu-grid-card" id="menuPremiumBtn">
-            <span class="menu-icon">&#128081;</span> Premium
-          </button>
+          <button class="menu-grid-card" id="menuVideosBtn">Videos</button>
+          <button class="menu-grid-card" id="menuFreeVideosBtn">Free Videos</button>
+          <button class="menu-grid-card" id="menuChatBtn">Chat</button>
+          <button class="menu-grid-card" id="menuPremiumBtn">Premium</button>
         </div>
       </div>
     </div>
 
-    <!-- ── PREMIUM POPUP MODAL ───────────────────────────── -->
-    <div class="premium-modal-overlay" id="premiumModal">
-      <section class="premium-panel glow-card">
-        <button class="square-icon-button close-modal-btn" id="closePremiumModal" aria-label="Close">&#10005;</button>
-        <div class="panel-crown">👑</div>
-        <h2>Premium Content</h2>
-        <p class="panel-subtext">Unlock exclusive content with premium access.</p>
-        <div class="feature-pill-grid">
-          <div class="feature-pill">∞ Unlimited Videos</div>
-          <div class="feature-pill">⇩ Download Access</div>
-          <div class="feature-pill">★ Premium Content</div>
-          <div class="feature-pill">🎧 Priority Support</div>
-        </div>
-        <div class="panel-actions">
-          <button class="primary-button">Get Premium</button>
-        </div>
-      </section>
-    </div>
 
-    <main class="page-content">
-      <div id="homeView">
+
+    <main class="page-content" id="appContent">
+      <section id="homeView">
         <section class="hero-card glow-card">
           <div class="hero-copy">
             <p class="eyebrow">Premium dashboard</p>
@@ -258,25 +253,56 @@
             Next <span class="pag-icon">&#10095;</span>
           </button>
         </div>
+      </section> <!-- end homeView -->
 
-        <!-- Premium Footer -->
-        <footer class="app-footer">
-          <div class="footer-links">
-            <span class="footer-link">&#9901; PGP</span>
-            <span class="footer-divider">//</span>
-            <span class="footer-link">&#9282; Mirrors</span>
+      <!-- ── PREMIUM SUBSCRIBE VIEW ────────────────────────── -->
+      <section id="subscribeView" class="hidden">
+        <div class="subscribe-container">
+          <div class="subscribe-header">
+            <h1>Unlock Premium Access</h1>
+            <p class="subscribe-subtext">A premium subscription is required to watch our exclusive VIP videos.</p>
           </div>
-          <p class="footer-copyright">&copy; 2026 VOID - All rights reserved.</p>
-        </footer>
 
-        <section class="comment-section">
-          <h2>Comments</h2>
-          <div class="comment-box">
-            <textarea placeholder="Write a comment..."></textarea>
-            <button class="comment-float-button" aria-label="Audio support">🎧</button>
+          <div class="pricing-card glow-card active-plan">
+            <div class="plan-badge">BEST VALUE</div>
+            <h2 class="plan-title">VIP Membership</h2>
+            <div class="plan-price">
+              <span class="currency">$</span>
+              <span class="amount">19.99</span>
+              <span class="period">/ month</span>
+            </div>
+            
+            <ul class="benefits-list">
+              <li class="benefit-item">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                Unlimited Premium Videos
+              </li>
+              <li class="benefit-item">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                Instant Download Access
+              </li>
+              <li class="benefit-item">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                Exclusive Behind-the-Scenes
+              </li>
+              <li class="benefit-item">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                24/7 Priority Support
+              </li>
+            </ul>
+
+            <button class="primary-button subscribe-now-btn">
+              <span>Continue to Payment</span>
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
           </div>
-        </section>
-      </div> <!-- end homeView -->
+
+          <button class="secondary-button go-back-btn" id="subGoBackBtn">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Go Back
+          </button>
+        </div>
+      </section>
 
       <!-- ── VIDEO DETAIL SCREEN ───────────────────────────── -->
       <section class="vd-screen hidden" id="videoDetail" aria-label="Video detail">
@@ -295,7 +321,7 @@
             <div class="feature-pill">🎧 Priority Support</div>
           </div>
           <div class="panel-actions">
-            <button class="primary-button vd-premium-cta">👑 GET PREMIUM</button>
+            <button class="primary-button vd-premium-cta" id="vdPremiumCta">👑 GET PREMIUM</button>
             <button class="secondary-button vd-go-back" id="vdGoBack">&#8592; GO BACK</button>
           </div>
         </div>
@@ -333,12 +359,11 @@
           </div>
         </div>
       </section>
-    </main>
 
     <!-- ── VIDEOS DIRECTORY VIEW ──────────────────────────── -->
-    <main id="videosView" class="hidden page-content">
+    <section id="videosView" class="hidden">
       <div class="videos-header-area">
-        <h2><span class="view-icon">🎞</span> Videos</h2>
+        <h2>Videos</h2>
         <p class="view-subtitle">42,236 videos available</p>
       </div>
       
@@ -348,15 +373,15 @@
           <input type="text" placeholder="Search videos, creators, or keywords">
           <button class="clear-search-btn" aria-label="Clear">✕</button>
         </div>
-        <div class="sort-segmented-control">
-          <button class="sort-btn">🔥</button>
-          <button class="sort-btn active">🕒</button>
-          <button class="sort-btn">📈</button>
+        <div class="filter-actions">
+          <button class="popular-toggle-btn" id="popularToggleBtn" aria-label="Show Most Popular">
+            <span class="fire-icon">🔥</span>
+          </button>
+          <div id="popularStatusBadge" class="popular-status-badge hidden">Most Popular Videos</div>
         </div>
       </div>
       
       <div class="keyword-scroll-container">
-        <button class="filter-icon-btn">⎈</button>
         <div class="keyword-pills">
           <button class="pill active">All</button>
           <button class="pill">Action</button>
@@ -371,10 +396,10 @@
       </div>
       
       <div class="video-grid" id="videosViewGrid"></div>
-    </main>
+    </section>
 
     <!-- ── FREE PREVIEWS VIEW ─────────────────────────────── -->
-    <main id="freeVideosView" class="hidden page-content">
+    <section id="freeVideosView" class="hidden">
       <div class="videos-header-area">
         <h2>
           <span class="view-icon" style="color:var(--accent)">👁</span> Free Previews
@@ -405,10 +430,10 @@
           </div>
         </div>
       </div>
-    </main>
+    </section>
 
     <!-- ── CHAT VIEW ──────────────────────────────────────── -->
-    <main id="chatView" class="hidden chat-layout">
+    <section id="chatView" class="hidden chat-layout">
       <div class="chat-room-header">
         <div class="room-title">
           <span class="chat-icon">💬</span> General Chat
@@ -430,10 +455,10 @@
         <input type="text" class="chat-input-field" placeholder="Message the community...">
         <button class="chat-send-btn"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
       </div>
-    </main>
+    </section>
 
     <!-- ── PROFILE VIEW ─────────────────────────────────────── -->
-    <main id="profileView" class="hidden page-content">
+    <section id="profileView" class="hidden">
       <div class="videos-header-area">
         <h2><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color:var(--accent)"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> My Profile</h2>
       </div>
@@ -475,10 +500,10 @@
           <p class="ref-helper">Share this link to invite friends and earn rewards</p>
         </div>
       </div>
-    </main>
+    </section>
 
     <!-- ── PREMIUM / PACKAGES VIEW ─────────────────────────── -->
-    <main id="premiumView" class="hidden page-content">
+    <section id="premiumView" class="hidden">
       <div class="premium-header-area">
         <h2 class="premium-welcome">Welcome, Jejdjdjsnx</h2>
         <p class="premium-subtitle">Choose a subscription plan or purchase content packages</p>
@@ -510,7 +535,8 @@
           </button>
         </div>
       </div>
-    </main>
+    </section>
+  </main>
 
     <!-- ── SUPPORT FLOATING MENU ────────────────────────────── -->
     <div class="support-fab-wrapper" id="supportFabWrapper">
