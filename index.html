@@ -363,8 +363,8 @@
     <!-- ── VIDEOS DIRECTORY VIEW ──────────────────────────── -->
     <section id="videosView" class="hidden">
       <div class="videos-header-area">
-        <h2>Videos</h2>
-        <p class="view-subtitle">42,236 videos available</p>
+        <h2 id="videosViewTitle">Videos</h2>
+        <p class="view-subtitle" id="videosViewSubtitle">42,236 videos available</p>
       </div>
       
       <div class="search-sort-bar">
@@ -465,40 +465,21 @@
       <div class="mini-accent-line" style="margin: 8px 0 24px 0; width: 60px; background:linear-gradient(90deg, var(--accent), transparent);"></div>
 
       <div class="profile-card glow-card">
+        <div class="profile-badge-free">FREE MEMBER</div>
+        
         <div class="profile-avatar-wrap">
           <button class="profile-avatar-circle">J</button>
-          <div class="profile-badge-free">FREE MEMBER</div>
         </div>
         
         <div class="profile-username-wrap">
           <h3>Jejdjdjsnx</h3>
-          <span class="tier-pill"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M2 4h20l-2 10H4L2 4z"/><path d="M12 14v8"/><path d="M8 22h8"/></svg> FREE</span>
+          <div class="profile-stat-mini">
+            <span class="stat-label">Videos Bought</span>
+            <span class="stat-value">0</span>
+          </div>
           <p class="tap-to-change">Tap photo to change</p>
         </div>
-        
-        <div class="profile-stats">
-          <div class="stat-row">
-            <span class="stat-label">Tier Level</span>
-            <span class="stat-val">0</span>
-          </div>
-          <div class="stat-row">
-            <span class="stat-label">Invites</span>
-            <span class="stat-val"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-right:6px;vertical-align:-3px;"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg> 0</span>
-          </div>
-          <div class="stat-row">
-            <span class="stat-label">Videos Unlocked</span>
-            <span class="stat-val">0</span>
-          </div>
-        </div>
-        
-        <div class="profile-referral">
-          <p class="ref-label">Referral Link</p>
-          <div class="ref-input-group">
-            <input type="text" readonly value="https://vo1d.best/register?ref=jejdjdjsnx" class="ref-input">
-            <button class="ref-copy-btn"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
-          </div>
-          <p class="ref-helper">Share this link to invite friends and earn rewards</p>
-        </div>
+      </div>
       </div>
     </section>
 
@@ -536,6 +517,68 @@
         </div>
       </div>
     </section>
+      <!-- ── PAYMENT VIEW ──────────────────────────────────── -->
+      <section id="paymentView" class="hidden">
+        <div class="payment-container">
+          <div class="payment-header">
+            <div class="payment-plan-summary">
+              <span class="plan-label">Payment Summary</span>
+              <h2 class="plan-name">VIP Membership – $19.99/month</h2>
+            </div>
+          </div>
+
+          <div class="billing-form-card">
+            <form id="billingForm">
+              <div class="form-group">
+                <label for="cardName">Cardholder Name</label>
+                <input type="text" id="cardName" class="billing-input" placeholder="Full Name as on card" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="cardNumber">Card Number</label>
+                <input type="text" id="cardNumber" class="billing-input" placeholder="0000 0000 0000 0000" required>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="cardExpiry">Expiration Date</label>
+                  <input type="text" id="cardExpiry" class="billing-input" placeholder="MM/YY" required>
+                </div>
+                <div class="form-group">
+                  <label for="cardCvv">CVV</label>
+                  <input type="text" id="cardCvv" class="billing-input" placeholder="123" required>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="billingZip">Zip / Postal Code</label>
+                  <input type="text" id="billingZip" class="billing-input" placeholder="12345" required>
+                </div>
+                <div class="form-group">
+                  <label for="billingEmail">Email Address</label>
+                  <input type="email" id="billingEmail" class="billing-input" placeholder="email@example.com" required>
+                </div>
+              </div>
+
+              <button type="submit" class="primary-button pay-now-btn">
+                <span>Complete Payment</span>
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </button>
+            </form>
+
+            <div class="secure-tag">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              Secure 256-bit SSL Encrypted Payment
+            </div>
+          </div>
+
+          <button class="secondary-button payment-go-back" id="payGoBackBtn">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Go Back
+          </button>
+        </div>
+      </section>
   </main>
 
     <!-- ── SUPPORT FLOATING MENU ────────────────────────────── -->

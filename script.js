@@ -170,6 +170,14 @@ if (popularToggleBtn && popularStatusBadge) {
   popularToggleBtn.addEventListener("click", () => {
     isPopularActive = !isPopularActive;
     
+    // Update Header Text for clarity
+    const titleEle = document.getElementById("videosViewTitle");
+    const subTitleEle = document.getElementById("videosViewSubtitle");
+    if (titleEle && subTitleEle) {
+      titleEle.textContent = isPopularActive ? "Most Popular Videos" : "Videos";
+      subTitleEle.textContent = isPopularActive ? "Showing trending content" : "42,236 videos available";
+    }
+    
     // Toggle active classes
     popularToggleBtn.classList.toggle("active", isPopularActive);
     popularStatusBadge.classList.toggle("hidden", !isPopularActive);
@@ -192,8 +200,9 @@ const freeVideosView = document.getElementById("freeVideosView");
 const profileView    = document.getElementById("profileView");
 const premiumView    = document.getElementById("premiumView");
 const subscribeView  = document.getElementById("subscribeView");
+const paymentView    = document.getElementById("paymentView");
 
-const allViews = [homeView, videoDetail, chatView, videosView, freeVideosView, profileView, premiumView, subscribeView];
+const allViews = [homeView, videoDetail, chatView, videosView, freeVideosView, profileView, premiumView, subscribeView, paymentView];
 
 function showView(viewToShow) {
   // Hide all views
@@ -500,3 +509,33 @@ premiumToggleBtns.forEach(btn => {
     btn.classList.add("active");
   });
 });
+
+// ── Payment Flow Navigation ──────────────────────────────
+const subNowBtns = document.querySelectorAll(".subscribe-now-btn");
+const payGoBackBtn = document.getElementById("payGoBackBtn");
+const billingForm = document.getElementById("billingForm");
+
+if (subNowBtns) {
+  subNowBtns.forEach(btn => {
+    btn.addEventListener("click", () => showView(paymentView));
+  });
+}
+
+if (payGoBackBtn) {
+  payGoBackBtn.addEventListener("click", () => showView(subscribeView));
+}
+
+if (billingForm) {
+  billingForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const btn = billingForm.querySelector(".pay-now-btn span");
+    if (btn) btn.textContent = "Processing...";
+    
+    setTimeout(() => {
+      alert("Payment Successful! Your VIP Membership is now active.");
+      showView(homeView);
+      if (btn) btn.textContent = "Complete Payment";
+      billingForm.reset();
+    }, 2000);
+  });
+}
