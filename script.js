@@ -1,32 +1,261 @@
-const premiumButton = document.getElementById("openPremium");
-const premiumPanel = document.getElementById("premiumPanel");
-const goBackTop = document.getElementById("goBackTop");
+// ── Expanded Video Data (32 items) ─────────────────────────────
+const categories = ["Girls", "Lifestyle", "Trending", "Exclusive", "Vlog", "Behind the Scenes"];
+const creators = ["@StudioVault", "@NovaCuts", "@LuxeLife", "@PremiumVibes", "@NightOwl", "@RubyRose"];
+const avatars = ["S", "N", "L", "P", "N", "R"];
 
-const authTabs = document.querySelectorAll(".auth-tab");
-const signinForm = document.getElementById("signinForm");
-const signupForm = document.getElementById("signupForm");
+const VIDEO_DATA = Array.from({ length: 32 }).map((_, i) => {
+  const cIdx = i % creators.length;
+  const isPremium = i % 5 === 0;
+  const isNew = i % 7 === 0 && !isPremium;
+  
+  let badge = "";
+  if (isPremium) badge = "VIP";
+  else if (isNew) badge = "NEW";
 
-premiumButton.addEventListener("click", () => {
-  premiumPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+  return {
+    id: i,
+    title: `Premium Collection Vol. ${i + 1} - Exclusive Content`,
+    badge: badge,
+    views: `${(Math.random() * 100 + 1).toFixed(1)}K views`,
+    likes: Math.floor(Math.random() * 10000).toLocaleString(),
+    time: `${Math.floor(Math.random() * 11 + 1)}d ago`,
+    duration: `${Math.floor(Math.random() * 10 + 10)}:${Math.floor(Math.random() * 50 + 10)}`,
+    category: categories[i % categories.length],
+    creator: creators[cIdx],
+    avatar: avatars[cIdx],
+    subs: `${(Math.random() * 50 + 5).toFixed(1)}K subscribers`,
+    // Generate a consistent gradient per card for the placeholder thumbnail
+    bg: `linear-gradient(135deg, rgba(8, 10, 18, 0.4), rgba(8, 10, 18, 0.1)), linear-gradient(${120 + (i * 15)}deg, #13141c 0%, #${(220000 + i * 1111).toString(16)} 40%, #0057b7 100%)`
+  };
 });
 
-goBackTop.addEventListener("click", () => {
+// ── Pagination Logic ───────────────────────────────────────────
+const ITEMS_PER_PAGE = 8;
+let currentPage = 1;
+const totalPages = Math.ceil(VIDEO_DATA.length / ITEMS_PER_PAGE);
+
+const browseList = document.getElementById("browseList");
+const prevPageBtn = document.getElementById("prevPageBtn");
+const nextPageBtn = document.getElementById("nextPageBtn");
+const currentPageDisplay = document.getElementById("currentPageDisplay");
+const totalPagesDisplay = document.getElementById("totalPagesDisplay");
+
+function renderBrowsePage(page) {
+  browseList.innerHTML = "";
+  
+  const startIndex = (page - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const pageItems = VIDEO_DATA.slice(startIndex, endIndex);
+
+  pageItems.forEach(v => {
+    const badgeHTML = v.badge ? `<span class="content-badge">${v.badge}</span>` : "";
+    
+    const cardHTML = `
+      <article class="content-card" data-video-id="${v.id}" role="button" tabindex="0" aria-label="Open ${v.title}">
+        <div class="content-image" style="background: ${v.bg}">
+          ${badgeHTML}
+          <div class="duration-badge">${v.duration}</div>
+        </div>
+        <div class="content-info">
+          <h3>${v.title}</h3>
+          <div class="content-meta-row">
+            <span>&#128065; ${v.views}</span>
+            <span>&#9200; ${v.time}</span>
+          </div>
+          <span class="content-category-tag">${v.category}</span>
+        </div>
+      </article>
+    `;
+    browseList.insertAdjacentHTML("beforeend", cardHTML);
+  });
+
+  // Attach click listeners to new cards
+  document.querySelectorAll(".content-card[data-video-id]").forEach((card) => {
+    const handler = () => openVideoDetail(Number(card.dataset.videoId));
+    card.addEventListener("click", handler);
+    card.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handler(); }
+    });
+  });
+
+  // Update pagination UI
+  currentPageDisplay.textContent = page;
+  totalPagesDisplay.textContent = totalPages;
+  prevPageBtn.disabled = page === 1;
+  nextPageBtn.disabled = page === totalPages;
+}
+
+prevPageBtn.addEventListener("click", () => {
+  if (currentPage > 1) {
+    currentPage--;
+    renderBrowsePage(currentPage);
+    browseList.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+});
+
+nextPageBtn.addEventListener("click", () => {
+  if (currentPage < totalPages) {
+    currentPage++;
+    renderBrowsePage(currentPage);
+    browseList.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+});
+
+// Initial render
+renderBrowsePage(currentPage);
+
+
+// ── Video Detail Screen Logic ──────────────────────────────────
+const homeView    = document.getElementById("homeView");
+const videoDetail = document.getElementById("videoDetail");
+const vdBackBtn   = document.getElementById("vdBackBtn");
+const vdGoBack    = document.getElementById("vdGoBack");
+
+const vdTitle    = document.getElementById("vdTitle");
+const vdBadge    = document.getElementById("vdBadge");
+const vdViews    = document.getElementById("vdViews");
+const vdLikes    = document.getElementById("vdLikes");
+const vdDuration = document.getElementById("vdDuration");
+const vdCategory = document.getElementById("vdCategory");
+const vdAvatar   = document.getElementById("vdAvatar");
+const vdCreator  = document.getElementById("vdCreator");
+const vdSubs     = document.getElementById("vdSubs");
+const vdLikesBtn = document.getElementById("vdLikesBtn");
+
+function openVideoDetail(id) {
+  const v = VIDEO_DATA[id];
+  if (!v) return;
+
+  vdTitle.textContent    = v.title;
+  vdBadge.textContent    = v.badge || "";
+  vdBadge.style.display  = v.badge ? "inline-block" : "none";
+  vdViews.textContent    = v.views;
+  vdLikes.textContent    = v.likes + " likes";
+  vdDuration.textContent = v.duration;
+  vdCategory.textContent = v.category;
+  vdAvatar.textContent   = v.avatar;
+  vdCreator.textContent  = v.creator;
+  vdSubs.textContent     = v.subs;
+  vdLikesBtn.textContent = v.likes;
+
+  homeView.classList.add("hidden");
+  videoDetail.classList.remove("hidden");
   window.scrollTo({ top: 0, behavior: "smooth" });
-});
+}
 
-authTabs.forEach((tab) => {
-  tab.addEventListener("click", () => {
-    authTabs.forEach((item) => item.classList.remove("active"));
-    tab.classList.add("active");
+function closeVideoDetail() {
+  videoDetail.classList.add("hidden");
+  homeView.classList.remove("hidden");
+}
 
-    const mode = tab.dataset.auth;
+vdBackBtn.addEventListener("click", closeVideoDetail);
+vdGoBack.addEventListener("click", closeVideoDetail);
 
-    if (mode === "signin") {
-      signinForm.classList.remove("hidden");
-      signupForm.classList.add("hidden");
-    } else {
-      signupForm.classList.remove("hidden");
-      signinForm.classList.add("hidden");
+
+// ── Mobile Menu Toggle ─────────────────────────────────────────
+const menuToggle       = document.getElementById("menuToggle");
+const mobileMenuOverlay= document.getElementById("mobileMenuOverlay");
+const mobileMenuPanel  = document.getElementById("mobileMenuPanel");
+const menuCards        = document.querySelectorAll(".menu-grid-card");
+
+if (menuToggle && mobileMenuOverlay && mobileMenuPanel) {
+  // Toggle menu
+  menuToggle.addEventListener("click", () => {
+    document.body.classList.toggle("menu-open");
+  });
+
+  // Close when clicking outside panel
+  mobileMenuOverlay.addEventListener("click", (e) => {
+    if (e.target === mobileMenuOverlay) {
+      document.body.classList.remove("menu-open");
     }
   });
-});
+
+  // Close when clicking a menu item
+  menuCards.forEach(card => {
+    card.addEventListener("click", () => {
+      document.body.classList.remove("menu-open");
+      // Add logic to navigate to section if needed
+    });
+  });
+}
+
+// ── Login Gate ──────────────────────────────────────────────────
+const loginScreen = document.getElementById("loginScreen");
+const appShell    = document.getElementById("appShell");
+
+const signinForm   = document.getElementById("signinForm");
+const signupForm   = document.getElementById("signupForm");
+const signupPrompt = document.getElementById("signupPrompt");
+const signinPrompt = document.getElementById("signinPrompt");
+const showSignupBtn= document.getElementById("showSignupBtn");
+const showSigninBtn= document.getElementById("showSigninBtn");
+
+if (showSignupBtn && signinForm && signupForm) {
+  showSignupBtn.addEventListener("click", () => {
+    signinForm.classList.add("hidden");
+    signupPrompt.classList.add("hidden");
+    signupForm.classList.remove("hidden");
+    signinPrompt.classList.remove("hidden");
+  });
+}
+
+if (showSigninBtn) {
+  showSigninBtn.addEventListener("click", () => {
+    signupForm.classList.add("hidden");
+    signinPrompt.classList.add("hidden");
+    signinForm.classList.remove("hidden");
+    signupPrompt.classList.remove("hidden");
+  });
+}
+
+function enterApp() {
+  loginScreen.classList.add("fade-out");
+  loginScreen.addEventListener("transitionend", () => {
+    loginScreen.style.display = "none";
+  }, { once: true });
+  appShell.classList.remove("hidden");
+}
+
+document.getElementById("signInBtn").addEventListener("click", enterApp);
+document.getElementById("createAccountBtn").addEventListener("click", enterApp);
+
+
+// ── Utilities ───────────────────────────────────────────────────
+const passwordInput  = document.getElementById("passwordInput");
+const togglePassword = document.getElementById("togglePassword");
+if(togglePassword) {
+  togglePassword.addEventListener("click", () => {
+    const isHidden = passwordInput.type === "password";
+    passwordInput.type = isHidden ? "text" : "password";
+    togglePassword.textContent = isHidden ? "🙈" : "👁";
+  });
+}
+
+function randomCode() {
+  return String(Math.floor(1000 + Math.random() * 9000));
+}
+const rc1 = document.getElementById("refreshCode1");
+if(rc1) rc1.addEventListener("click", () => document.getElementById("verifyCode1").textContent = randomCode());
+const rc2 = document.getElementById("refreshCode2");
+if(rc2) rc2.addEventListener("click", () => document.getElementById("verifyCode2").textContent = randomCode());
+
+const premiumButton = document.getElementById("openPremium");
+const premiumModal  = document.getElementById("premiumModal");
+const closePremiumModal = document.getElementById("closePremiumModal");
+
+if(premiumButton && premiumModal) {
+  premiumButton.addEventListener("click", () => {
+    premiumModal.classList.add("show");
+  });
+
+  closePremiumModal.addEventListener("click", () => {
+    premiumModal.classList.remove("show");
+  });
+
+  premiumModal.addEventListener("click", (e) => {
+    if (e.target === premiumModal) {
+      premiumModal.classList.remove("show");
+    }
+  });
+}
