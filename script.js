@@ -104,23 +104,92 @@ nextPageBtn.addEventListener("click", () => {
 // Initial render
 renderBrowsePage(currentPage);
 
+// ── Shared Video Rendering for Videos View ────────────────────────
+const videosViewGrid = document.getElementById("videosViewGrid");
+function renderVideosView() {
+  if (!videosViewGrid) return;
+  videosViewGrid.innerHTML = "";
+  
+  // Use first 12 items for this demo page
+  const pageItems = VIDEO_DATA.slice(0, 12);
+  
+  pageItems.forEach(v => {
+    const badgeHTML = v.badge ? `<span class="content-badge">${v.badge}</span>` : "";
+    const cardHTML = `
+      <article class="content-card" data-video-id="${v.id}" role="button" tabindex="0">
+        <div class="content-image" style="background: ${v.bg}">
+          ${badgeHTML}
+          <div class="duration-badge">${v.duration}</div>
+        </div>
+        <div class="content-info">
+          <h3>${v.title}</h3>
+          <div class="content-meta">
+            ${v.creator}<br>
+            <span>${v.views}</span> • <span>${v.time}</span>
+          </div>
+          <div class="content-tags">
+            <span class="tag">${v.category}</span>
+          </div>
+        </div>
+      </article>
+    `;
+    videosViewGrid.insertAdjacentHTML("beforeend", cardHTML);
+  });
+  
+  // Attach click listeners to new cards
+  videosViewGrid.querySelectorAll(".content-card[data-video-id]").forEach((card) => {
+    const handler = () => {
+      openVideoDetail(Number(card.dataset.videoId));
+    };
+    card.addEventListener("click", handler);
+    card.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handler(); }
+    });
+  });
+}
+renderVideosView();
 
-// ── Video Detail Screen Logic ──────────────────────────────────
-const homeView    = document.getElementById("homeView");
-const videoDetail = document.getElementById("videoDetail");
-const vdBackBtn   = document.getElementById("vdBackBtn");
-const vdGoBack    = document.getElementById("vdGoBack");
 
-const vdTitle    = document.getElementById("vdTitle");
-const vdBadge    = document.getElementById("vdBadge");
-const vdViews    = document.getElementById("vdViews");
-const vdLikes    = document.getElementById("vdLikes");
-const vdDuration = document.getElementById("vdDuration");
-const vdCategory = document.getElementById("vdCategory");
-const vdAvatar   = document.getElementById("vdAvatar");
-const vdCreator  = document.getElementById("vdCreator");
-const vdSubs     = document.getElementById("vdSubs");
-const vdLikesBtn = document.getElementById("vdLikesBtn");
+// ── View Navigation & Routing ──────────────────────────────────
+const homeView       = document.getElementById("homeView");
+const videoDetail    = document.getElementById("videoDetail");
+const chatView       = document.getElementById("chatView");
+const videosView     = document.getElementById("videosView");
+const freeVideosView = document.getElementById("freeVideosView");
+const profileView    = document.getElementById("profileView");
+const premiumView    = document.getElementById("premiumView");
+
+const allViews = [homeView, videoDetail, chatView, videosView, freeVideosView, profileView, premiumView];
+
+function showView(viewToShow) {
+  allViews.forEach(v => {
+    if (v && v !== viewToShow) v.classList.add("hidden");
+  });
+  if (viewToShow) {
+    viewToShow.classList.remove("hidden");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+}
+
+// Logo clicks go home
+const navLogoBtn = document.getElementById("navLogoBtn");
+if (navLogoBtn) {
+  navLogoBtn.addEventListener("click", () => showView(homeView));
+}
+
+// Video Detail elements
+const vdBackBtn    = document.getElementById("vdBackBtn");
+const vdGoBack     = document.getElementById("vdGoBack");
+const vdTitle      = document.getElementById("vdTitle");
+const vdBadge      = document.getElementById("vdBadge");
+const vdViews      = document.getElementById("vdViews");
+const vdLikes      = document.getElementById("vdLikes");
+const vdDuration   = document.getElementById("vdDuration");
+const vdCategory   = document.getElementById("vdCategory");
+const vdAvatar     = document.getElementById("vdAvatar");
+const vdCreator    = document.getElementById("vdCreator");
+const vdSubs       = document.getElementById("vdSubs");
+const vdLikesBtn   = document.getElementById("vdLikesBtn");
 
 function openVideoDetail(id) {
   const v = VIDEO_DATA[id];
@@ -138,14 +207,11 @@ function openVideoDetail(id) {
   vdSubs.textContent     = v.subs;
   vdLikesBtn.textContent = v.likes;
 
-  homeView.classList.add("hidden");
-  videoDetail.classList.remove("hidden");
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  showView(videoDetail);
 }
 
 function closeVideoDetail() {
-  videoDetail.classList.add("hidden");
-  homeView.classList.remove("hidden");
+  showView(homeView);
 }
 
 vdBackBtn.addEventListener("click", closeVideoDetail);
@@ -171,12 +237,99 @@ if (menuToggle && mobileMenuOverlay && mobileMenuPanel) {
     }
   });
 
-  // Close when clicking a menu item
-  menuCards.forEach(card => {
-    card.addEventListener("click", () => {
+  // Menu Navigation Routing
+  const menuVideosBtn = document.getElementById("menuVideosBtn");
+  const menuFreeVideosBtn = document.getElementById("menuFreeVideosBtn");
+  const menuChatBtn = document.getElementById("menuChatBtn");
+  const menuPremiumBtn = document.getElementById("menuPremiumBtn");
+
+  if (menuVideosBtn) {
+    menuVideosBtn.addEventListener("click", () => {
       document.body.classList.remove("menu-open");
-      // Add logic to navigate to section if needed
+      showView(videosView);
     });
+  }
+  if (menuFreeVideosBtn) {
+    menuFreeVideosBtn.addEventListener("click", () => {
+      document.body.classList.remove("menu-open");
+      showView(freeVideosView);
+    });
+  }
+  if (menuChatBtn) {
+    menuChatBtn.addEventListener("click", () => {
+      document.body.classList.remove("menu-open");
+      showView(chatView);
+    });
+  }
+  if (menuPremiumBtn) {
+    menuPremiumBtn.addEventListener("click", () => {
+      document.body.classList.remove("menu-open");
+      showView(premiumView);
+    });
+  }
+}
+
+// ── Profile Dropdown ───────────────────────────────────────────
+const profileBtn = document.getElementById("profileBtn");
+const profileDropdown = document.getElementById("profileDropdown");
+const navMyProfileBtn = document.getElementById("navMyProfileBtn");
+
+if (profileBtn && profileDropdown) {
+  profileBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    profileDropdown.classList.toggle("show");
+  });
+  
+  // Close when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!profileDropdown.contains(e.target) && e.target !== profileBtn) {
+      profileDropdown.classList.remove("show");
+    }
+  });
+}
+
+if (navMyProfileBtn) {
+  navMyProfileBtn.addEventListener("click", () => {
+    profileDropdown.classList.remove("show");
+    showView(profileView);
+  });
+}
+
+// ── Support FAB ───────────────────────────────────────────────
+const supportFabBtn = document.getElementById("supportFabBtn");
+const supportMenu = document.getElementById("supportMenu");
+
+if (supportFabBtn && supportMenu) {
+  supportFabBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    supportMenu.classList.toggle("open");
+    
+    // Toggle the icons inside the button
+    const closedIcon = supportFabBtn.querySelector(".opened-hidden");
+    const openedIcon = supportFabBtn.querySelector(".opened-visible");
+    if (closedIcon && openedIcon) {
+      if (supportMenu.classList.contains("open")) {
+        closedIcon.style.display = "none";
+        openedIcon.style.display = "block";
+      } else {
+        closedIcon.style.display = "block";
+        openedIcon.style.display = "none";
+      }
+    }
+  });
+
+  // Close when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!supportMenu.contains(e.target) && e.target !== supportFabBtn && !supportFabBtn.contains(e.target)) {
+      supportMenu.classList.remove("open");
+      
+      const closedIcon = supportFabBtn.querySelector(".opened-hidden");
+      const openedIcon = supportFabBtn.querySelector(".opened-visible");
+      if (closedIcon && openedIcon) {
+        closedIcon.style.display = "block";
+        openedIcon.style.display = "none";
+      }
+    }
   });
 }
 
@@ -259,3 +412,12 @@ if(premiumButton && premiumModal) {
     }
   });
 }
+
+// ── Premium View UI Interactions ─────────────────────────────────
+const premiumToggleBtns = document.querySelectorAll(".premium-toggle-group .p-toggle-btn");
+premiumToggleBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    premiumToggleBtns.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+  });
+});
