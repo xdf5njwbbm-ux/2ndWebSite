@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VOID</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand-wrap">
+        <div class="brand-badge">V</div>
+        <div class="brand-text">VOID</div>
+      </div>
+
+      <div class="topbar-actions">
+        <button class="icon-button notification-button" aria-label="Notifications">
+          <span class="icon">🔔</span>
+          <span class="badge-count">3</span>
+        </button>
+
+        <button class="profile-button" aria-label="Profile">J</button>
+
+        <button class="icon-button menu-button" id="menuToggle" aria-label="Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <main class="page-content">
+      <section class="hero-card glow-card">
+        <div class="hero-copy">
+          <p class="eyebrow">Premium dashboard</p>
+          <h1>
+            Welcome back,<br />
+            <span class="gold-text">Jejdjdjsnx</span>
+          </h1>
+          <p class="hero-subtext">
+            Explore exclusive content, trending videos, and premium collections.
+          </p>
+
+          <div class="hero-actions">
+            <button class="primary-button" id="openPremium">
+              <span class="button-icon">👑</span>
+              <span>Get Premium</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="stats-grid">
+        <article class="stat-card">
+          <div class="stat-icon">▶</div>
+          <div>
+            <div class="stat-value">42236</div>
+            <div class="stat-label">Total Videos</div>
+          </div>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-icon">⚡</div>
+          <div>
+            <div class="stat-value">Free</div>
+            <div class="stat-label">Your Plan</div>
+          </div>
+        </article>
+      </section>
+
+      <section class="section-heading">
+        <h2>Browse Videos</h2>
+
+        <div class="segment-control">
+          <button class="segment active">🔥</button>
+          <button class="segment">🕘</button>
+          <button class="segment">↗</button>
+        </div>
+      </section>
+
+      <div class="gold-line"></div>
+
+      <section class="content-list">
+        <article class="content-card">
+          <div class="content-image image-one">
+            <span class="content-badge">VIP</span>
+            <button class="floating-circle" aria-label="Audio">
+              🎧
+            </button>
+          </div>
+          <div class="content-info">
+            <h3>Featured Premium Collection</h3>
+            <p>Curated premium content in a sleek luxury interface.</p>
+          </div>
+        </article>
+
+        <article class="content-card">
+          <div class="content-image image-two">
+            <span class="content-badge">NEW</span>
+            <button class="floating-circle" aria-label="Play">
+              ▶
+            </button>
+          </div>
+          <div class="content-info">
+            <h3>Trending Releases</h3>
+            <p>Fresh drops, popular picks, and polished featured previews.</p>
+          </div>
+        </article>
+      </section>
+
+      <section class="premium-panel glow-card" id="premiumPanel">
+        <div class="panel-crown">👑</div>
+        <h2>Premium Content</h2>
+        <p class="panel-subtext">
+          Unlock exclusive content with premium access.
+        </p>
+
+        <div class="feature-pill-grid">
+          <div class="feature-pill">∞ Unlimited Videos</div>
+          <div class="feature-pill">⇩ Download Access</div>
+          <div class="feature-pill">★ Premium Content</div>
+          <div class="feature-pill">🎧 Priority Support</div>
+        </div>
+
+        <div class="panel-actions">
+          <button class="primary-button">Get Premium</button>
+          <button class="secondary-button" id="goBackTop">Go Back</button>
+        </div>
+      </section>
+
+      <section class="comment-section">
+        <h2>Comments</h2>
+        <div class="comment-box">
+          <textarea placeholder="Write a comment..."></textarea>
+          <button class="comment-float-button" aria-label="Audio support">🎧</button>
+        </div>
+      </section>
+
+      <section class="auth-section">
+        <div class="auth-brand">
+          <div class="brand-wrap auth-brand-wrap">
+            <div class="brand-badge">V</div>
+            <div class="brand-text">VOID</div>
+          </div>
+          <div class="mini-gold-line"></div>
+          <p class="auth-brand-subtitle">Premium Content Platform</p>
+        </div>
+
+        <div class="auth-toggle">
+          <button class="auth-tab active" data-auth="signin">Sign In</button>
+          <button class="auth-tab" data-auth="signup">Create Account</button>
+        </div>
+
+        <div class="auth-card" id="signinForm">
+          <h2>Sign In</h2>
+          <p class="auth-subtitle">Welcome back to VOID</p>
+
+          <label class="field-label">Username</label>
+          <div class="input-wrap">
+            <span class="input-icon">👤</span>
+            <input type="text" placeholder="Enter username" />
+          </div>
+
+          <label class="field-label">Password</label>
+          <div class="input-row">
+            <div class="input-wrap">
+              <span class="input-icon">🔒</span>
+              <input type="password" placeholder="Enter password" />
+            </div>
+            <button class="square-icon-button" type="button">👁</button>
+          </div>
+
+          <label class="field-label">Verification</label>
+          <div class="verification-row">
+            <div class="verification-code">7712</div>
+            <button class="square-icon-button" type="button">↻</button>
+          </div>
+
+          <div class="input-wrap">
+            <input type="text" placeholder="Enter the 4 digits" />
+          </div>
+
+          <button class="submit-button">Sign In</button>
+        </div>
+
+        <div class="auth-card hidden" id="signupForm">
+          <h2>Create Account</h2>
+          <p class="auth-subtitle">Join the VOID community</p>
+
+          <label class="field-label">Username</label>
+          <div class="input-wrap">
+            <span class="input-icon">👤</span>
+            <input type="text" placeholder="Choose a username" />
+          </div>
+
+          <label class="field-label">Password</label>
+          <div class="input-row">
+            <div class="input-wrap">
+              <span class="input-icon">🔒</span>
+              <input type="password" placeholder="Min 6 characters" />
+            </div>
+            <button class="square-icon-button" type="button">👁</button>
+          </div>
+
+          <label class="field-label">Verification</label>
+          <div class="verification-row">
+            <div class="verification-code">1511</div>
+            <button class="square-icon-button" type="button">↻</button>
+          </div>
+
+          <div class="input-wrap">
+            <input type="text" placeholder="Enter the 4 digits" />
+          </div>
+
+          <button class="submit-button">Create Account</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
