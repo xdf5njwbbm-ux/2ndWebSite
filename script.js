@@ -58,10 +58,6 @@ function renderBrowsePage(page) {
         </div>
         <div class="content-info">
           <h3>${v.title}</h3>
-          <div class="content-meta-row">
-            <span>&#128065; ${v.views}</span>
-            <span>&#9200; ${v.time}</span>
-          </div>
           <span class="content-category-tag">${v.category}</span>
         </div>
       </article>
@@ -135,8 +131,7 @@ function renderVideosView(isPopular = false) {
         <div class="content-info">
           <h3>${v.title}</h3>
           <div class="content-meta">
-            ${v.creator}<br>
-            <span>${v.views}</span> • <span>${v.time}</span>
+            ${v.creator}
           </div>
           <div class="content-tags">
             <span class="tag">${v.category}</span>
@@ -263,7 +258,6 @@ function openVideoDetail(id) {
   vdTitle.textContent = v.title;
   vdBadge.textContent = v.badge || "";
   vdBadge.style.display = v.badge ? "inline-block" : "none";
-  vdViews.textContent = v.views;
   vdLikes.textContent = v.likes + " likes";
   vdDuration.textContent = v.duration;
   vdCategory.textContent = v.category;
@@ -573,6 +567,10 @@ document.addEventListener("DOMContentLoaded", () => {
   if (ageYesBtn && ageGate) {
     ageYesBtn.addEventListener("click", () => {
       ageGate.classList.add("fade-out");
+      // Bypass login and enter app directly
+      if (typeof enterApp === "function") {
+        enterApp();
+      }
       // Optional: Store in localStorage to avoid re-prompting
       // localStorage.setItem("ageVerified", "true");
     });

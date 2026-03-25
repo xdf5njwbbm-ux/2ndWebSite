@@ -3109,19 +3109,21 @@ h3 {
   flex: 1;
   padding: 18px;
   border-radius: 18px;
-  background: linear-gradient(135deg, #0088ff 0%, #0057b7 100%);
+  background: rgba(255, 255, 255, 0.05); /* Same as NO */
   color: #fff;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Same as NO */
   font-weight: 800;
   font-size: 16px;
   letter-spacing: 1px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 10px 25px rgba(0, 136, 255, 0.3);
+  box-shadow: none;
 }
 
 .age-btn-yes:hover {
   transform: translateY(-2px);
+  background: linear-gradient(135deg, #0088ff 0%, #0057b7 100%);
+  border-color: transparent;
   box-shadow: 0 15px 35px rgba(0, 136, 255, 0.5);
   filter: brightness(1.1);
 }
@@ -3135,18 +3137,19 @@ h3 {
   padding: 18px;
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.05);
-  color: rgba(255, 255, 255, 0.6);
+  color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  font-weight: 700;
+  font-weight: 800;
   font-size: 16px;
   cursor: pointer;
   transition: all 0.3s;
 }
 
 .age-btn-no:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, #0088ff 0%, #0057b7 100%);
   color: #fff;
-  border-color: rgba(255, 255, 255, 0.3);
+  border-color: transparent;
+  box-shadow: 0 10px 25px rgba(0, 136, 255, 0.3);
 }
 
 @media (max-width: 480px) {
