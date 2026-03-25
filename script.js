@@ -527,6 +527,7 @@ const billingForm = document.getElementById("billingForm");
 if (subNowBtns) {
   subNowBtns.forEach(btn => {
     btn.addEventListener("click", () => showView(paymentView));
+    btn.addEventListener("mouseenter", () => showView(paymentView));
   });
 }
 

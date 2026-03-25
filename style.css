@@ -1012,6 +1012,7 @@
       radial-gradient(circle at top left, rgba(0, 136, 255, 0.08), transparent 28%),
       radial-gradient(circle at top right, rgba(0, 136, 255, 0.06), transparent 24%),
       linear-gradient(180deg, #05060a 0%, #070910 100%);
+    box-shadow: inset 0 0 120px rgba(0, 136, 255, 0.15);
     overflow-y: auto;
     display: flex;
     align-items: flex-start;
@@ -1131,8 +1132,8 @@
   .input-wrap {
     display: flex;
     align-items: center;
-    padding: 0 18px;
-    gap: 14px;
+    padding: 0 24px;
+    height: 82px;
   }
   
   .input-wrap input {
@@ -1150,13 +1151,25 @@
     flex-shrink: 0;
   }
   
-  /* password row: never collapse — eye stays on same line */
+  /* Row layouts: grid system for perfect icon alignment */
+  .username-row,
   .input-row,
   .verification-row {
     display: grid;
-    grid-template-columns: 1fr 82px;
+    grid-template-columns: 82px 1fr;
     gap: 12px;
     align-items: center;
+    margin-bottom: 14px;
+  }
+
+  /* Password row specific: input, then the toggle button */
+  .input-row {
+    grid-template-columns: 82px 1fr 82px;
+  }
+
+  /* Verification row specific: the code box, then the refresh button */
+  .verification-row {
+    grid-template-columns: 1fr 82px;
   }
   
   /* gray icon buttons (eye, refresh) */
@@ -2477,14 +2490,30 @@
   /* ── Mobile Login Scale Refinements ─────────────────────────── */
   @media (max-width: 480px) {
     .login-inner {
-      padding: 10px 16px;
+      padding: 40px 32px 60px;
       width: 100%;
     }
 
     .auth-card {
-      padding: 16px 14px 12px;
+      max-width: 360px;
+      padding: 30px 24px;
       border-radius: 16px;
       margin-bottom: 8px;
+    }
+
+    .username-row,
+    .input-row,
+    .verification-row {
+      grid-template-columns: 42px 1fr;
+      gap: 8px;
+    }
+
+    .input-row {
+      grid-template-columns: 42px 1fr 42px;
+    }
+
+    .verification-row {
+      grid-template-columns: 1fr 42px;
     }
     
     .auth-brand {
