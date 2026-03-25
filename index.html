@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,6 +9,7 @@
   <title>DRAIN</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
   <!-- ── LOGIN SCREEN (shown first) ───────────────────────────── -->
@@ -27,30 +29,33 @@
         <p class="auth-subtitle">Returning to your owner?</p>
 
         <label class="field-label">Username</label>
-        <div class="username-row">
-          <div class="square-icon-button icon-btn no-pointer">&#9750;</div>
-          <div class="input-wrap">
-            <input type="text" placeholder="Enter username" />
+        <div class="input-wrap">
+          <div class="icon-box">
+            <span class="input-icon">&#9750;</span>
           </div>
+          <input type="text" placeholder="Username" />
         </div>
 
         <label class="field-label">Password</label>
-        <div class="input-row">
-          <div class="square-icon-button icon-btn no-pointer">&#128274;</div>
-          <div class="input-wrap">
-            <input type="password" id="passwordInput" placeholder="Enter password" />
+        <div class="input-wrap">
+          <div class="icon-box">
+            <span class="input-icon">&#128274;</span>
           </div>
-          <button class="square-icon-button icon-btn" type="button" id="togglePassword">&#128065;</button>
+          <input type="password" id="passwordInput" placeholder="Password" />
+          <button class="toggle-box" type="button" id="togglePassword">
+            <span class="eye-icon">&#128065;</span>
+          </button>
         </div>
 
         <label class="field-label">Verification</label>
-        <div class="verification-row">
-          <div class="verification-code" id="verifyCode1">7712</div>
-          <button class="square-icon-button icon-btn" type="button" id="refreshCode1">&#8635;</button>
-        </div>
-
-        <div class="input-wrap">
-          <input type="text" placeholder="Enter the 4 digits" />
+        <div class="verification-group">
+          <div class="verify-row">
+            <div class="verify-code-display" id="verifyCode1">7712</div>
+            <button class="verify-refresh-btn" type="button" id="refreshCode1">&#8635;</button>
+          </div>
+          <div class="input-wrap mini-wrap">
+            <input type="text" placeholder="Enter the 4 digits" />
+          </div>
         </div>
 
         <button class="submit-button" id="signInBtn">SIGN IN</button>
@@ -66,30 +71,33 @@
         <p class="auth-subtitle">Join the VOID community</p>
 
         <label class="field-label">Username</label>
-        <div class="username-row">
-          <div class="square-icon-button no-pointer">👤</div>
-          <div class="input-wrap">
-            <input type="text" placeholder="Choose a username" />
+        <div class="input-wrap">
+          <div class="icon-box">
+            <span class="input-icon">👤</span>
           </div>
+          <input type="text" placeholder="Username" />
         </div>
 
         <label class="field-label">Password</label>
-        <div class="input-row">
-          <div class="square-icon-button no-pointer">🔒</div>
-          <div class="input-wrap">
-            <input type="password" placeholder="Min 6 characters" />
+        <div class="input-wrap">
+          <div class="icon-box">
+            <span class="input-icon">🔒</span>
           </div>
-          <button class="square-icon-button" type="button">👁</button>
+          <input type="password" id="signupPasswordInput" placeholder="Password" />
+          <button class="toggle-box" type="button" id="toggleSignupPassword">
+            <span class="eye-icon">👁</span>
+          </button>
         </div>
 
         <label class="field-label">Verification</label>
-        <div class="verification-row">
-          <div class="verification-code" id="verifyCode2">1511</div>
-          <button class="square-icon-button" type="button" id="refreshCode2">↻</button>
-        </div>
-
-        <div class="input-wrap">
-          <input type="text" placeholder="Enter the 4 digits" />
+        <div class="verification-group">
+          <div class="verify-row">
+            <div class="verify-code-display" id="verifyCode2">1511</div>
+            <button class="verify-refresh-btn" type="button" id="refreshCode2">↻</button>
+          </div>
+          <div class="input-wrap mini-wrap">
+            <input type="text" placeholder="Enter the 4 digits" />
+          </div>
         </div>
 
         <button class="submit-button" id="createAccountBtn">CREATE ACCOUNT</button>
@@ -113,10 +121,13 @@
       <div class="topbar-actions">
         <div class="notification-wrap">
           <button class="icon-button notification-button" id="notificationBtn" aria-label="Notifications">
-            <svg class="notify-icon-svg" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-            <span class="badge-count">3</span>
+            <svg class="notify-icon-svg" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+              <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+            </svg>
           </button>
-          
+
           <div class="notification-dropdown" id="notificationDropdown">
             <div class="notif-header">
               <h3>Notifications</h3>
@@ -125,7 +136,6 @@
               <div class="notif-pref-row">
                 <div class="notif-pref-text">
                   <h4>Notify me when new videos are uploaded</h4>
-                  <p>Get alerts when fresh lessons or videos are added.</p>
                 </div>
                 <label class="premium-toggle">
                   <input type="checkbox" checked id="notifPrefToggle">
@@ -138,28 +148,36 @@
 
         <div class="profile-menu-wrap">
           <button class="profile-button" id="profileBtn" aria-label="Profile">J</button>
-          
+
           <div class="profile-dropdown" id="profileDropdown">
-            <button class="p-drop-item" id="navMyProfileBtn"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> My Profile</button>
-            <button class="p-drop-item"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> Bookmarks</button>
-            <button class="p-drop-item"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6z"/><path d="M22 12A2 2 0 0 0 20 10 2 2 0 0 0 22 14z"/></svg> Wallet</button>
-            <button class="p-drop-item"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="10" rx="2" ry="2"/><path d="M2 12a4 4 0 0 1 4-4 4 4 0 0 1-4-4"/><path d="M22 12a4 4 0 0 0-4-4 4 4 0 0 0 4-4"/></svg> Support Tickets</button>
-            <button class="p-drop-item"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg> My Invites</button>
-            
-            <div class="p-drop-divider"></div>
-            
-            <div class="p-drop-lang">
-              <div class="lang-label"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/></svg> Language</div>
-              <div class="lang-pills">
-                <button class="lang-pill active">EN</button>
-                <button class="lang-pill">PT</button>
-                <button class="lang-pill">ES</button>
-              </div>
-            </div>
-            
-            <div class="p-drop-divider"></div>
-            
-            <button class="p-drop-item logout-item"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Logout</button>
+            <button class="p-drop-item" id="navMyProfileBtn"><svg width="18" height="18" fill="none"
+                stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg> My Profile</button>
+            <button class="p-drop-item"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                viewBox="0 0 24 24">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+              </svg> Exclusive Bundles</button>
+            <button class="p-drop-item"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                viewBox="0 0 24 24">
+                <path d="M22 6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6z" />
+                <path d="M22 12A2 2 0 0 0 20 10 2 2 0 0 0 22 14z" />
+              </svg> Recently Watched</button>
+            <button class="p-drop-item"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                viewBox="0 0 24 24">
+                <rect x="2" y="7" width="20" height="10" rx="2" ry="2" />
+                <path d="M2 12a4 4 0 0 1 4-4 4 4 0 0 1-4-4" />
+                <path d="M22 12a4 4 0 0 0-4-4 4 4 0 0 0 4-4" />
+              </svg> Billing</button>
+            <button class="p-drop-item"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                viewBox="0 0 24 24">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                <circle cx="8.5" cy="7" r="4" />
+                <line x1="20" y1="8" x2="20" y2="14" />
+                <line x1="23" y1="11" x2="17" y2="11" />
+              </svg> Notifications</button>
+
           </div>
         </div>
 
@@ -175,7 +193,11 @@
     <div class="mobile-menu-overlay" id="mobileMenuOverlay">
       <div class="mobile-menu-panel" id="mobileMenuPanel">
         <div class="menu-search-container">
-          <svg class="search-icon-svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <svg class="search-icon-svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
           <input type="text" class="menu-search-input" placeholder="Search videos...">
         </div>
         <div class="menu-grid">
@@ -221,10 +243,10 @@
           </article>
 
           <article class="stat-card">
-            <div class="stat-icon">⚡</div>
+            <div class="stat-icon">✨</div>
             <div>
-              <div class="stat-value">Free</div>
-              <div class="stat-label">Your Plan</div>
+              <div class="stat-value">Custom</div>
+              <div class="stat-label">Requests</div>
             </div>
           </article>
         </section>
@@ -263,46 +285,57 @@
       <section id="subscribeView" class="hidden">
         <div class="subscribe-container">
           <div class="subscribe-header">
-            <h1>Unlock Premium Access</h1>
-            <p class="subscribe-subtext">A premium subscription is required to watch our exclusive VIP videos.</p>
+            <h1>Premium Bundles</h1>
+            <p class="subscribe-subtext">Sometimes you just want it all.</p>
           </div>
 
           <div class="pricing-card glow-card active-plan">
             <div class="plan-badge">BEST VALUE</div>
-            <h2 class="plan-title">VIP Membership</h2>
+            <h2 class="plan-title">Domination Bundle</h2>
             <div class="plan-price">
               <span class="currency">$</span>
               <span class="amount">19.99</span>
-              <span class="period">/ month</span>
             </div>
-            
+
             <ul class="benefits-list">
               <li class="benefit-item">
-                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                Unlimited Premium Videos
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                Full Control Package
               </li>
               <li class="benefit-item">
-                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                Instant Download Access
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                Humiliation
               </li>
               <li class="benefit-item">
-                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                Exclusive Behind-the-Scenes
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                Traumitizing
               </li>
               <li class="benefit-item">
-                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                24/7 Priority Support
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                NO remorse
               </li>
             </ul>
 
             <button class="primary-button subscribe-now-btn">
-              <span>Continue to Payment</span>
-              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              <span>Claim Your Access</span>
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
             </button>
           </div>
 
           <button class="secondary-button go-back-btn" id="subGoBackBtn">
-            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
             Go Back
           </button>
         </div>
@@ -325,7 +358,7 @@
             <div class="feature-pill">🎧 Priority Support</div>
           </div>
           <div class="panel-actions">
-            <button class="primary-button vd-premium-cta" id="vdPremiumCta">👑 GET PREMIUM</button>
+            <button class="primary-button vd-premium-cta" id="vdPremiumCta">GET PREMIUM</button>
             <button class="secondary-button vd-go-back" id="vdGoBack">&#8592; GO BACK</button>
           </div>
         </div>
@@ -364,162 +397,194 @@
         </div>
       </section>
 
-    <!-- ── VIDEOS DIRECTORY VIEW ──────────────────────────── -->
-    <section id="videosView" class="hidden">
-      <div class="videos-header-area">
-        <h2 id="videosViewTitle">Videos</h2>
-        <p class="view-subtitle" id="videosViewSubtitle">42,236 videos available</p>
-      </div>
-      
-      <div class="search-sort-bar">
-        <div class="search-input-wrap">
-          <span class="search-icon">🔍</span>
-          <input type="text" placeholder="Search videos, creators, or keywords">
-          <button class="clear-search-btn" aria-label="Clear">✕</button>
+      <!-- ── VIDEOS DIRECTORY VIEW ──────────────────────────── -->
+      <section id="videosView" class="hidden">
+        <div class="videos-header-area">
+          <h2 id="videosViewTitle">Videos</h2>
+          <p class="view-subtitle" id="videosViewSubtitle">42,236 videos available</p>
         </div>
-        <div class="filter-actions">
-          <button class="popular-toggle-btn" id="popularToggleBtn" aria-label="Show Most Popular">
-            <span class="fire-icon">🔥</span>
-          </button>
-          <div id="popularStatusBadge" class="popular-status-badge hidden">Most Popular Videos</div>
-        </div>
-      </div>
-      
-      <div class="keyword-scroll-container">
-        <div class="keyword-pills">
-          <button class="pill active">All</button>
-          <button class="pill">Action</button>
-          <button class="pill">Comedy</button>
-          <button class="pill">Drama</button>
-          <button class="pill">Sci-Fi</button>
-          <button class="pill">Horror</button>
-          <button class="pill">Documentary</button>
-          <button class="pill">Romance</button>
-          <button class="pill">Thriller</button>
-        </div>
-      </div>
-      
-      <div class="video-grid" id="videosViewGrid"></div>
-    </section>
 
-    <!-- ── FREE PREVIEWS VIEW ─────────────────────────────── -->
-    <section id="freeVideosView" class="hidden">
-      <div class="videos-header-area">
-        <h2>
-          <span class="view-icon" style="color:var(--accent)">👁</span> Free Previews
-          <span class="badge-tag" style="background:rgba(255,255,255,0.05); color:#999; font-size:12px; margin-left:8px; border:none; padding:4px 8px;">9 videos</span>
-        </h2>
-      </div>
-      <div class="mini-accent-line" style="margin: 8px 0 24px 0; width: 60px;"></div>
-
-      <div class="free-video-list" id="freeVideosList">
-        <div class="free-video-card glow-card" onclick="alert('Opening Free Preview 01...')">
-          <div class="free-video-thumb">
-            <span class="free-badge">FREE</span>
-            <div class="thumb-placeholder-logo">V</div>
+        <div class="search-sort-bar">
+          <div class="search-input-wrap">
+            <span class="search-icon">🔍</span>
+            <input type="text" placeholder="Search videos or keywords">
+            <button class="clear-search-btn" aria-label="Clear">✕</button>
           </div>
-          <div class="free-card-info">
-            <h3>Preview Video 01</h3>
-            <p class="free-card-sub"><span class="icon">🎬</span> Free Preview</p>
+          <div class="filter-actions">
+            <button class="popular-toggle-btn" id="popularToggleBtn" aria-label="Show Most Popular">
+              <span class="fire-icon">🔥</span>
+            </button>
+            <div id="popularStatusBadge" class="popular-status-badge hidden">Most Popular Videos</div>
           </div>
         </div>
-        <div class="free-video-card glow-card" onclick="alert('Opening Free Preview 02...')">
-          <div class="free-video-thumb">
-            <span class="free-badge">FREE</span>
-            <div class="thumb-placeholder-logo">V</div>
-          </div>
-          <div class="free-card-info">
-            <h3>Preview Video 02</h3>
-            <p class="free-card-sub"><span class="icon">🎬</span> Free Preview</p>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- ── CHAT VIEW ──────────────────────────────────────── -->
-    <section id="chatView" class="hidden chat-layout">
-      <div class="chat-room-header">
-        <div class="room-title">
-          <span class="chat-icon">💬</span> General Chat
-        </div>
-        <div class="room-status"><span class="status-dot"></span> Online</div>
-      </div>
-      
-      <div class="chat-messages" id="chatMessagesList">
-        <div class="chat-msg">
-          <div class="chat-avatar">A</div>
-          <div class="chat-body">
-            <div class="chat-name">Admin <span class="premium-badge content-badge">VIP</span> <span class="chat-time">12:44 PM</span></div>
-            <div class="chat-text">Welcome to the premium chat! Drop a message below.</div>
+        <div class="keyword-scroll-container">
+          <div class="keyword-pills">
+            <button class="pill active">All</button>
+            <button class="pill">Domination</button>
+            <button class="pill">Foot Worship</button>
+            <button class="pill">Muscle Worship</button>
+            <button class="pill">Giant POV</button>
+            <button class="pill">Chokeholds</button>
+            <button class="pill">Documentary</button>
+            <button class="pill">Romance</button>
+            <button class="pill">Thriller</button>
           </div>
         </div>
-      </div>
-      
-      <div class="chat-input-bar">
-        <input type="text" class="chat-input-field" placeholder="Message the community...">
-        <button class="chat-send-btn"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
-      </div>
-    </section>
 
-    <!-- ── PROFILE VIEW ─────────────────────────────────────── -->
-    <section id="profileView" class="hidden">
-      <div class="videos-header-area">
-        <h2><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color:var(--accent)"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> My Profile</h2>
-      </div>
-      <div class="mini-accent-line" style="margin: 8px 0 24px 0; width: 60px; background:linear-gradient(90deg, var(--accent), transparent);"></div>
+        <div class="video-grid" id="videosViewGrid"></div>
+      </section>
 
-      <div class="profile-card glow-card">
-        <div class="profile-badge-free">FREE MEMBER</div>
-        
-        <div class="profile-avatar-wrap">
-          <button class="profile-avatar-circle">J</button>
+      <!-- ── FREE PREVIEWS VIEW ─────────────────────────────── -->
+      <section id="freeVideosView" class="hidden">
+        <div class="videos-header-area">
+          <h2>
+            <span class="view-icon" style="color:var(--accent)">👁</span> Free Previews
+            <span class="badge-tag"
+              style="background:rgba(255,255,255,0.05); color:#999; font-size:12px; margin-left:8px; border:none; padding:4px 8px;">9
+              videos</span>
+          </h2>
         </div>
-        
-        <div class="profile-username-wrap">
-          <h3>Jejdjdjsnx</h3>
-          <div class="profile-stat-mini">
-            <span class="stat-label">Videos Bought</span>
-            <span class="stat-value">0</span>
+        <div class="mini-accent-line" style="margin: 8px 0 24px 0; width: 60px;"></div>
+
+        <div class="free-video-list" id="freeVideosList">
+          <div class="free-video-card glow-card" onclick="alert('Opening Free Preview 01...')">
+            <div class="free-video-thumb">
+              <span class="free-badge">FREE</span>
+              <div class="thumb-placeholder-logo">V</div>
+            </div>
+            <div class="free-card-info">
+              <h3>Preview Video 01</h3>
+              <p class="free-card-sub"><span class="icon">🎬</span> Free Preview</p>
+            </div>
           </div>
-          <p class="tap-to-change">Tap photo to change</p>
+          <div class="free-video-card glow-card" onclick="alert('Opening Free Preview 02...')">
+            <div class="free-video-thumb">
+              <span class="free-badge">FREE</span>
+              <div class="thumb-placeholder-logo">V</div>
+            </div>
+            <div class="free-card-info">
+              <h3>Preview Video 02</h3>
+              <p class="free-card-sub"><span class="icon">🎬</span> Free Preview</p>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- ── PREMIUM / PACKAGES VIEW ─────────────────────────── -->
-    <section id="premiumView" class="hidden">
-      <div class="premium-header-area">
-        <h2 class="premium-welcome">Welcome, Jejdjdjsnx</h2>
-        <p class="premium-subtitle">Choose a subscription plan or purchase content packages</p>
-      </div>
+      <!-- ── CHAT VIEW ──────────────────────────────────────── -->
+      <section id="chatView" class="hidden chat-layout">
+        <div class="chat-room-header">
+          <div class="room-title">
+            <span class="chat-icon">💬</span> Owner/Master Chat
+          </div>
+          <div class="room-status"><span class="status-dot"></span> Online</div>
+        </div>
 
-      <div class="premium-toggle-group">
-        <button class="p-toggle-btn"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> Subscription Plans</button>
-        <button class="p-toggle-btn active"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> Content Packages</button>
-      </div>
+        <div class="chat-messages" id="chatMessagesList">
+          <div class="chat-msg">
+            <div class="chat-avatar">M/div>
+              <div class="chat-body">
+                <div class="chat-name">Master <span class="premium-badge content-badge">VIP</span> <span
+                    class="chat-time">12:44 PM</span></div>
+                <div class="chat-text">Whatever you say better be important.</div>
+              </div>
+            </div>
+          </div>
 
-      <div class="premium-card">
-        <div class="p-card-header">
-          <h3>Tier 1</h3>
-          <p>30 invites or buy directly</p>
-          <div class="p-card-price">$15</div>
+          <div class="chat-input-bar">
+            <input type="text" class="chat-input-field" placeholder="Message the community...">
+            <button class="chat-send-btn"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+                viewBox="0 0 24 24">
+                <line x1="22" y1="2" x2="11" y2="13" />
+                <polygon points="22 2 15 22 11 13 2 9 22 2" />
+              </svg></button>
+          </div>
+      </section>
+
+      <!-- ── PROFILE VIEW ─────────────────────────────────────── -->
+      <section id="profileView" class="hidden">
+        <div class="videos-header-area">
+          <h2><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+              style="color:var(--accent)">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg> My Profile</h2>
         </div>
-        <div class="p-card-banner">
-          60GB MEGA LINK
+        <div class="mini-accent-line"
+          style="margin: 8px 0 24px 0; width: 60px; background:linear-gradient(90deg, var(--accent), transparent);">
         </div>
-        <div class="p-card-body">
-          <ul class="p-card-features">
-            <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Access to Tier 1 content</li>
-            <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Basic support</li>
-            <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> 30 day access</li>
-          </ul>
-          
-          <button class="p-card-buy-btn">
-            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Buy Now
-          </button>
+
+        <div class="profile-card glow-card">
+          <div class="profile-badge-free">FREE MEMBER</div>
+
+          <div class="profile-avatar-wrap">
+            <button class="profile-avatar-circle">J</button>
+          </div>
+
+          <div class="profile-username-wrap">
+            <h3>Jejdjdjsnx</h3>
+            <div class="profile-stat-mini">
+              <span class="stat-label">Videos Bought</span>
+              <span class="stat-value">0</span>
+            </div>
+            <p class="tap-to-change">Tap photo to change</p>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <!-- ── PREMIUM / PACKAGES VIEW ─────────────────────────── -->
+      <section id="premiumView" class="hidden">
+        <div class="premium-header-area">
+          <h2 class="premium-welcome">Welcome, Jejdjdjsnx</h2>
+          <p class="premium-subtitle">Choose a subscription plan or purchase content packages</p>
+        </div>
+
+        <div class="premium-toggle-group">
+          <button class="p-toggle-btn"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+            </svg> Subscription Plans</button>
+          <button class="p-toggle-btn active"><svg width="18" height="18" fill="none" stroke="currentColor"
+              stroke-width="2" viewBox="0 0 24 24">
+              <path
+                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+              <line x1="12" y1="22.08" x2="12" y2="12" />
+            </svg> Content Packages</button>
+        </div>
+
+        <div class="premium-card">
+          <div class="p-card-header">
+            <h3>Tier 1</h3>
+            <p>30 invites or buy directly</p>
+            <div class="p-card-price">$15</div>
+          </div>
+          <div class="p-card-banner">
+            60GB MEGA LINK
+          </div>
+          <div class="p-card-body">
+            <ul class="p-card-features">
+              <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg> Access to Tier 1 content</li>
+              <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg> Basic support</li>
+              <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg> 30 day access</li>
+            </ul>
+
+            <button class="p-card-buy-btn">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <circle cx="9" cy="21" r="1" />
+                <circle cx="20" cy="21" r="1" />
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+              </svg> Buy Now
+            </button>
+          </div>
+        </div>
+      </section>
       <!-- ── PAYMENT VIEW ──────────────────────────────────── -->
       <section id="paymentView" class="hidden page-content">
         <div class="payment-container">
@@ -536,7 +601,7 @@
                 <label for="cardName">Cardholder Name</label>
                 <input type="text" id="cardName" class="billing-input" placeholder="Full Name as on card" required>
               </div>
-              
+
               <div class="form-group">
                 <label for="cardNumber">Card Number</label>
                 <input type="text" id="cardNumber" class="billing-input" placeholder="0000 0000 0000 0000" required>
@@ -566,63 +631,133 @@
 
               <button type="submit" class="primary-button pay-now-btn">
                 <span>Complete Payment</span>
-                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
               </button>
             </form>
 
             <div class="secure-tag">
-              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
               Secure 256-bit SSL Encrypted Payment
             </div>
           </div>
 
           <button class="secondary-button payment-go-back" id="payGoBackBtn">
-            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
             Go Back
           </button>
         </div>
       </section>
-  </main>
+    </main>
 
     <!-- ── SUPPORT FLOATING MENU ────────────────────────────── -->
     <div class="support-fab-wrapper" id="supportFabWrapper">
       <div class="support-menu" id="supportMenu">
         <button class="support-menu-item">
-          <div class="s-icon-box"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
+          <div class="s-icon-box"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <circle cx="9" cy="21" r="1" />
+              <circle cx="20" cy="21" r="1" />
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+            </svg></div>
           <div class="s-text-box">
-            <span class="s-title">Autobuy</span>
-            <span class="s-sub">Automatic purchases</span>
+            <span class="s-title">Bundles</span>
+            <span class="s-sub">Save with content packs</span>
           </div>
         </button>
         <button class="support-menu-item">
-          <div class="s-icon-box"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+          <div class="s-icon-box"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path
+                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+              <line x1="12" y1="22.08" x2="12" y2="12" />
+            </svg></div>
           <div class="s-text-box">
-            <span class="s-title">Mirror</span>
-            <span class="s-sub">Alternative access</span>
+            <span class="s-title">Custom Requests</span>
+            <span class="s-sub">Personalized content</span>
           </div>
         </button>
         <button class="support-menu-item">
-          <div class="s-icon-box"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+          <div class="s-icon-box"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="17 8 12 3 7 8" />
+              <line x1="12" y1="3" x2="12" y2="15" />
+            </svg></div>
           <div class="s-text-box">
-            <span class="s-title">Backup</span>
-            <span class="s-sub">Never lose access</span>
+            <span class="s-title">Live Access</span>
+            <span class="s-sub">Join private live sessions</span>
           </div>
         </button>
         <button class="support-menu-item">
-          <div class="s-icon-box"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg></div>
+          <div class="s-icon-box"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
+              <path
+                d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
+            </svg></div>
           <div class="s-text-box">
-            <span class="s-title">Support</span>
-            <span class="s-sub">Get help now</span>
+            <span class="s-title">Direct Messages</span>
+            <span class="s-sub"> chat with your owner</span>
           </div>
         </button>
       </div>
       <button class="support-fab" id="supportFabBtn" aria-label="Support">
-        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="opened-hidden"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+          class="opened-hidden">
+          <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
+          <path
+            d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
+        </svg>
         <span class="opened-visible" style="font-size:24px; display:none; transform:scale(1.2);">✕</span>
       </button>
     </div>
   </div><!-- end #appShell -->
 
+  <!-- ── AGE VERIFICATION OVERLAY ───────────────────────── -->
+  <div id="ageVerification" class="age-gate">
+    <div class="age-modal">
+      <div class="age-content">
+        <h1>ARE YOU 18+?</h1>
+        <div class="age-accent-line"></div>
+        <p>This content is for adults only.</p>
+        <p class="age-subtext">Are you 18 or over?</p>
+      </div>
+      <div class="age-actions">
+        <button class="age-btn-yes" id="ageYesBtn">YES</button>
+        <button class="age-btn-no" id="ageNoBtn">NO</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PAGE UNAVAILABLE OVERLAY (Access Denied) ────────── -->
+  <div id="ageUnavailable" class="age-gate hidden">
+    <div class="age-modal unavailable-modal">
+      <div class="age-content">
+        <div class="restricted-icon">
+          <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M16 16s-1.5-2-4-2-4 2-4 2"/>
+            <line x1="9" y1="9" x2="9.01" y2="9"/>
+            <line x1="15" y1="9" x2="15.01" y2="9"/>
+          </svg>
+        </div>
+        <h1>SORRY, THIS PAGE IS <span class="accent-text">UNAVAILABLE</span></h1>
+        <p>You must be 18 or over to access this content.</p>
+      </div>
+      <div class="age-actions">
+        <button class="age-btn-yes" id="ageBackBtn">GO BACK</button>
+      </div>
+    </div>
+  </div>
+
   <script src="script.js"></script>
 </body>
+
 </html>
