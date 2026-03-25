@@ -205,6 +205,19 @@ const paymentView    = document.getElementById("paymentView");
 const allViews = [homeView, videoDetail, chatView, videosView, freeVideosView, profileView, premiumView, subscribeView, paymentView];
 
 function showView(viewToShow) {
+  // Save and temporarily disable smooth scrolling for an instant view cut
+  const html = document.documentElement;
+  const originalScroll = html.style.scrollBehavior;
+  html.style.scrollBehavior = 'auto';
+
+  // Instantly reset scroll to the top of the window
+  window.scrollTo(0, 0);
+  document.body.scrollTop = 0;
+  html.scrollTop = 0;
+
+  // Restore smooth scrolling behavior
+  html.style.scrollBehavior = originalScroll;
+
   // Hide all views
   allViews.forEach(v => {
     if (v && v !== viewToShow) v.classList.add("hidden");
@@ -213,10 +226,6 @@ function showView(viewToShow) {
   // Show the target view
   if (viewToShow) {
     viewToShow.classList.remove("hidden");
-    // Scroll to top instantly (force after DOM update)
-    setTimeout(() => {
-      window.scrollTo(0, 0);
-    }, 0);
   }
 }
 
