@@ -1,7 +1,7 @@
 // ── Expanded Video Data (32 items) ─────────────────────────────
 const categories = ["All", "Domination", "Foot Worship", "Muscle Worship", "Giant POV", "Chokeholds", "Documentary", "Romance", "Thriller"];
-const creators = ["@StudioVault", "@NovaCuts", "@LuxeLife", "@PremiumVibes", "@NightOwl", "@RubyRose"];
-const avatars = ["S", "N", "L", "P", "N", "R"];
+const creators = ["", ";
+const avatars = ["MG", "MG", "MG", "MG", "MG", "MG"];
 
 const VIDEO_DATA = Array.from({ length: 32 }).map((_, i) => {
   const cIdx = i % creators.length;

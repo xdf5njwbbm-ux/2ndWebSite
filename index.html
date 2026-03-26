@@ -17,8 +17,9 @@
     <div class="login-inner">
       <div class="auth-brand">
         <div class="brand-wrap auth-brand-wrap">
-          <div class="brand-badge">V</div>
-          <div class="brand-text">DRAIN</div>
+          <div class="brand-text-logo">
+            <span class="t-drain">DRAIN</span> <span class="t-me">ME</span>
+          </div>
         </div>
         <div class="mini-accent-line"></div>
         <p class="auth-brand-subtitle">Findom Master & Muscle God</p>
@@ -114,8 +115,9 @@
   <div class="app-shell hidden" id="appShell">
     <header class="topbar">
       <div class="brand-wrap" id="navLogoBtn" style="cursor: pointer;">
-        <div class="brand-badge">V</div>
-        <div class="brand-text">DRAIN</div>
+        <div class="brand-text-logo">
+          <span class="t-drain">DRAIN</span> <span class="t-me">ME</span>
+        </div>
       </div>
 
       <div class="topbar-actions">
@@ -146,40 +148,6 @@
           </div>
         </div>
 
-        <div class="profile-menu-wrap">
-          <button class="profile-button" id="profileBtn" aria-label="Profile">J</button>
-
-          <div class="profile-dropdown" id="profileDropdown">
-            <button class="p-drop-item" id="navMyProfileBtn"><svg width="18" height="18" fill="none"
-                stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                <circle cx="12" cy="7" r="4" />
-              </svg> My Profile</button>
-            <button class="p-drop-item"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
-                viewBox="0 0 24 24">
-                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-              </svg> Exclusive Bundles</button>
-            <button class="p-drop-item"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
-                viewBox="0 0 24 24">
-                <path d="M22 6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6z" />
-                <path d="M22 12A2 2 0 0 0 20 10 2 2 0 0 0 22 14z" />
-              </svg> Recently Watched</button>
-            <button class="p-drop-item"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
-                viewBox="0 0 24 24">
-                <rect x="2" y="7" width="20" height="10" rx="2" ry="2" />
-                <path d="M2 12a4 4 0 0 1 4-4 4 4 0 0 1-4-4" />
-                <path d="M22 12a4 4 0 0 0-4-4 4 4 0 0 0 4-4" />
-              </svg> Billing</button>
-            <button class="p-drop-item"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
-                viewBox="0 0 24 24">
-                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                <circle cx="8.5" cy="7" r="4" />
-                <line x1="20" y1="8" x2="20" y2="14" />
-                <line x1="23" y1="11" x2="17" y2="11" />
-              </svg> Notifications</button>
-
-          </div>
-        </div>
 
         <button class="icon-button menu-button" id="menuToggle" aria-label="Menu">
           <span></span>
@@ -406,29 +374,33 @@
         <div class="search-sort-bar">
           <div class="search-input-wrap">
             <span class="search-icon">🔍</span>
-            <input type="text" placeholder="Search videos or keywords">
-            <button class="clear-search-btn" aria-label="Clear">✕</button>
+            <input type="text" id="videosSearchInput" placeholder="Search videos or keywords">
+            <button class="clear-search-btn" id="clearSearchBtn" aria-label="Clear">✕</button>
           </div>
           <div class="filter-actions">
-            <button class="popular-toggle-btn" id="popularToggleBtn" aria-label="Show Most Popular">
+            <button class="popular-toggle-btn" id="popularToggleBtn" aria-label="Show Most Popular" title="Most Popular">
               <span class="fire-icon">🔥</span>
             </button>
-            <div id="popularStatusBadge" class="popular-status-badge hidden">Most Popular Videos</div>
           </div>
         </div>
 
         <div class="keyword-scroll-container">
           <div class="keyword-pills">
-            <button class="pill active">All</button>
-            <button class="pill">Domination</button>
-            <button class="pill">Foot Worship</button>
-            <button class="pill">Muscle Worship</button>
-            <button class="pill">Giant POV</button>
-            <button class="pill">Chokeholds</button>
-            <button class="pill">Documentary</button>
-            <button class="pill">Romance</button>
-            <button class="pill">Thriller</button>
+            <button class="pill active" data-category="All">All</button>
+            <button class="pill" data-category="Domination">Domination</button>
+            <button class="pill" data-category="Foot Worship">Foot Worship</button>
+            <button class="pill" data-category="Muscle Worship">Muscle Worship</button>
+            <button class="pill" data-category="Giant POV">Giant POV</button>
+            <button class="pill" data-category="Chokeholds">Chokeholds</button>
+            <button class="pill" data-category="Documentary">Documentary</button>
+            <button class="pill" data-category="Romance">Romance</button>
+            <button class="pill" data-category="Thriller">Thriller</button>
           </div>
+        </div>
+
+        <!-- Popular status banner – shown above grid when active -->
+        <div id="popularStatusBadge" class="popular-status-badge hidden">
+          <span class="pop-fire">&#128293;</span> Most Popular Videos
         </div>
 
         <div class="video-grid" id="videosViewGrid"></div>
@@ -481,15 +453,13 @@
 
         <div class="chat-messages" id="chatMessagesList">
           <div class="chat-msg">
-            <div class="chat-avatar">M/div>
+            <div class="chat-avatar">M</div>
               <div class="chat-body">
                 <div class="chat-name">Master <span class="premium-badge content-badge">VIP</span> <span
                     class="chat-time">12:44 PM</span></div>
                 <div class="chat-text">Whatever you say better be important.</div>
               </div>
             </div>
-          </div>
-
           <div class="chat-input-bar">
             <input type="text" class="chat-input-field" placeholder="Message the community...">
             <button class="chat-send-btn"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
@@ -498,6 +468,7 @@
                 <polygon points="22 2 15 22 11 13 2 9 22 2" />
               </svg></button>
           </div>
+        </div>
       </section>
 
       <!-- ── PROFILE VIEW ─────────────────────────────────────── -->
@@ -757,6 +728,16 @@
   </div>
 
   <script src="script.js"></script>
+  <script>
+    // Temporary debug script to track click intercepts
+    document.addEventListener('click', function(e) {
+      console.log('CLICK CAPTURED BY:', e.target.tagName, e.target.id, e.target.className);
+      // See if it's the YES button or something blocking it
+      if (e.target.id === 'ageYesBtn') {
+        console.log('YES button actually clicked natively!');
+      }
+    }, true); // Use capture phase to see the first element hit
+  </script>
 </body>
 
 </html>
