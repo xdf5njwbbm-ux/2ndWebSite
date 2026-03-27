@@ -63,7 +63,7 @@ button {
 .topbar {
   position: sticky;
   top: 0;
-  z-index: 95;
+  z-index: 3000; /* Increased to stay above menu overlay */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -325,12 +325,11 @@ body.menu-open .menu-button span:nth-child(3) {
 /* ── MOBILE MENU OVERLAY ───────────────────────────── */
 .mobile-menu-overlay {
   position: fixed;
-  top: 0;
+  top: 86px; /* Measured header height to prevent blurring the top bar */
   left: 0;
   width: 100%;
-  height: 100vh;
-  padding-top: 96px;
-  /* Offset for full header visibility */
+  height: calc(100vh - 86px);
+  padding-top: 0; /* Removed padding now that top is offset */
   background: rgba(8, 10, 18, 0.85);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -751,7 +750,7 @@ h3 {
   display: grid;
   grid-template-columns: 1fr;
   /* Mobile default */
-  gap: 18px;
+  gap: 32px; /* Increased for cleaner mobile spacing */
   margin-bottom: 30px;
 }
 
@@ -777,6 +776,8 @@ h3 {
   background-size: cover;
   background-position: center;
   background-color: var(--card-2);
+  border: 2px solid rgba(0, 136, 255, 0.4);
+  box-shadow: 0 0 15px rgba(0, 136, 255, 0.3), inset 0 0 15px rgba(0, 136, 255, 0.1);
 }
 
 /* Bottom right duration badge */
@@ -1848,10 +1849,10 @@ h3 {
 }
 
 .keyword-scroll-container {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 30px;
+  display: block; /* Removed flex to prevent clipping; handle centering within the container */
+  width: 100%;
+  margin-bottom: 24px;
+  overflow: visible;
 }
 
 .filter-icon-btn {
@@ -1872,14 +1873,22 @@ h3 {
   align-items: center;
   gap: 10px;
   overflow-x: auto;
-  padding-bottom: 8px;
-  /* For scrollbar */
+  overflow-y: hidden;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch; /* Momentum scrolling for iOS */
+  padding: 0 18px 8px; /* Added horizontal padding for 'breathe' at ends */
+  margin: 0 -18px; /* Negative margin to bleed to edges if within container */
+  
+  /* Hide scrollbar for Chrome/Safari/Edge */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for Firefox */
   scrollbar-width: none;
-  /* Firefox */
-}
-
-.keyword-pills::-webkit-scrollbar {
-  display: none;
+  
+  /* IE/Edge legacy */
+  -ms-overflow-style: none;
 }
 
 .pill {
@@ -1891,6 +1900,7 @@ h3 {
   font-size: 14px;
   font-weight: 600;
   white-space: nowrap;
+  flex-shrink: 0; /* Important: prevents squashing in horizontal scroll */
   cursor: pointer;
   transition: all 0.18s cubic-bezier(0.2, 0, 0, 1);
 }
