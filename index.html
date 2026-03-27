@@ -308,6 +308,130 @@
           </button>
         </div>
       </section>
+      
+      <!-- ── ACCESS OPTIONS VIEW ────────────────────────── -->
+      <section id="optionsView" class="hidden">
+        <div class="view-header-area">
+          <h1 class="view-title">Choose Your Access Method</h1>
+          <p class="view-subtitle">Select the method that works best for you to unlock access.</p>
+        </div>
+        
+        <div class="options-grid">
+          <!-- Crypto -->
+          <button class="access-option-card" id="optCrypto">
+            <div class="option-icon-box crypto-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><path d="M12 8v8M9 12h6"/><path d="M10 8h4"/><path d="M10 16h4"/>
+              </svg>
+            </div>
+            <div class="option-content">
+              <h3>Cryptocurrency</h3>
+              <ul class="option-bullets">
+                <li>Bitcoin, Ethereum, USDT & More</li>
+                <li>Fast confirmation</li>
+                <li>Secure checkout</li>
+                <li>Powered by our payment processor</li>
+              </ul>
+            </div>
+          </button>
+
+          <!-- Cash App -->
+          <button class="access-option-card" id="optCashApp">
+            <div class="option-icon-box cashapp-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              </svg>
+            </div>
+            <div class="option-content">
+              <h3>Cash App</h3>
+              <ul class="option-bullets">
+                <li>Buy Bitcoin on Cash App</li>
+                <li>Send to our BTC address</li>
+                <li>Submit transaction ID</li>
+                <li>Manual approval (5–15 min)</li>
+              </ul>
+            </div>
+          </button>
+
+          <!-- Venmo -->
+          <button class="access-option-card" id="optVenmo">
+            <div class="option-icon-box venmo-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 4 L12 20 L17 4"/>
+              </svg>
+            </div>
+            <div class="option-content">
+              <h3>Venmo</h3>
+              <ul class="option-bullets">
+                <li>Send payment through Venmo</li>
+                <li>Use the provided username or QR</li>
+                <li>Submit confirmation after payment</li>
+                <li>Fast manual approval</li>
+              </ul>
+            </div>
+          </button>
+
+          <!-- Throne -->
+          <button class="access-option-card" id="optThrone">
+            <div class="option-icon-box throne-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 17H2v-2l2-1V7a8 8 0 1 1 16 0v7l2 1v2z"/><path d="M6 21h12"/><path d="M12 17v4"/>
+              </svg>
+            </div>
+            <div class="option-content">
+              <h3>Throne</h3>
+              <ul class="option-bullets">
+                <li>Send payment through Throne</li>
+                <li>Secure creator-friendly checkout</li>
+                <li>Confirm purchase automatically or manually</li>
+                <li>Quick access approval</li>
+              </ul>
+            </div>
+          </button>
+
+          <!-- Amazon -->
+          <button class="access-option-card" id="optAmazon">
+            <div class="option-icon-box amazon-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 14.5s2.5 3 8 3 8-3 8-3"/><path d="M17.5 13c0 0 1.5 1 2.5 4l-4-1"/>
+              </svg>
+            </div>
+            <div class="option-content">
+              <h3>Amazon</h3>
+              <ul class="option-bullets">
+                <li>Purchase via Amazon gift card option</li>
+                <li>Follow the provided steps carefully</li>
+                <li>Submit confirmation once completed</li>
+                <li>Manual approval after review</li>
+              </ul>
+            </div>
+          </button>
+
+          <!-- Card -->
+          <button class="access-option-card" id="optCard">
+            <div class="option-icon-box card-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>
+              </svg>
+            </div>
+            <div class="option-content">
+              <h3>Debit / Credit Card</h3>
+              <ul class="option-bullets">
+                <li>Instant access after payment</li>
+                <li>Secure 256-bit encrypted checkout</li>
+                <li>All major cards accepted</li>
+              </ul>
+            </div>
+          </button>
+        </div>
+
+        <button class="secondary-button go-back-btn" id="optGoBackBtn">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+          Go Back
+        </button>
+      </section>
 
       <!-- ── VIDEO DETAIL SCREEN ───────────────────────────── -->
       <section class="vd-screen hidden" id="videoDetail" aria-label="Video detail">

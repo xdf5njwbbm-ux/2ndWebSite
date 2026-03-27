@@ -1,6 +1,6 @@
 // ── Expanded Video Data (32 items) ─────────────────────────────
 const categories = ["All", "Domination", "Foot Worship", "Muscle Worship", "Giant POV", "Chokeholds", "Documentary", "Romance", "Thriller"];
-const creators = ["", ";
+const creators = ["Muscle God", "Muscle God", "Muscle God", "Muscle God", "Muscle God", "Muscle God"];
 const avatars = ["MG", "MG", "MG", "MG", "MG", "MG"];
 
 const VIDEO_DATA = Array.from({ length: 32 }).map((_, i) => {
@@ -102,14 +102,41 @@ renderBrowsePage(currentPage);
 
 // ── Shared Video Rendering for Videos View ────────────────────────
 const videosViewGrid = document.getElementById("videosViewGrid");
-function renderVideosView(isPopular = false) {
+const videosSearchInput = document.getElementById("videosSearchInput");
+const clearSearchBtn = document.getElementById("clearSearchBtn");
+const popularToggleBtn = document.getElementById("popularToggleBtn");
+const popularStatusBadge = document.getElementById("popularStatusBadge");
+const videosViewTitle = document.getElementById("videosViewTitle");
+const videosViewSubtitle = document.getElementById("videosViewSubtitle");
+
+let isPopularActive = false;
+let currentSearchQuery = "";
+let activeCategory = "All";
+
+function renderVideosView() {
   if (!videosViewGrid) return;
   videosViewGrid.innerHTML = "";
 
+  // 1. Filter and Sort logic
   let dataCopy = [...VIDEO_DATA];
 
-  if (isPopular) {
-    // Helper to parse '32.6K views' into 32600
+  // Filter by Category
+  if (activeCategory !== "All") {
+    dataCopy = dataCopy.filter(v => v.category === activeCategory);
+  }
+
+  // Filter by Search Query
+  if (currentSearchQuery) {
+    const query = currentSearchQuery.toLowerCase();
+    dataCopy = dataCopy.filter(v => 
+      v.title.toLowerCase().includes(query) || 
+      v.category.toLowerCase().includes(query) ||
+      v.creator.toLowerCase().includes(query)
+    );
+  }
+
+  // Sort by Popularity
+  if (isPopularActive) {
     const parseViewsNum = (str) => {
       const num = parseFloat(str.replace(/[^0-9.]/g, ''));
       return str.toLowerCase().includes('k') ? num * 1000 : num;
@@ -117,8 +144,19 @@ function renderVideosView(isPopular = false) {
     dataCopy.sort((a, b) => parseViewsNum(b.views) - parseViewsNum(a.views));
   }
 
-  // Use first 12 items for this demo page
+  // 2. Render first 12 results for this view
   const pageItems = dataCopy.slice(0, 12);
+
+  if (pageItems.length === 0) {
+    videosViewGrid.innerHTML = `
+      <div class="no-results-message">
+        <span class="icon">🔍</span>
+        <p>No videos found matching your filters.</p>
+        <button class="clear-filters-link" onclick="resetFilters()">Clear all filters</button>
+      </div>
+    `;
+    return;
+  }
 
   pageItems.forEach(v => {
     const badgeHTML = v.badge ? `<span class="content-badge">${v.badge}</span>` : "";
@@ -144,46 +182,90 @@ function renderVideosView(isPopular = false) {
 
   // Attach click listeners to new cards
   videosViewGrid.querySelectorAll(".content-card[data-video-id]").forEach((card) => {
-    const handler = () => {
-      openVideoDetail(Number(card.dataset.videoId));
-    };
+    const handler = () => openVideoDetail(Number(card.dataset.videoId));
     card.addEventListener("click", handler);
     card.addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handler(); }
     });
   });
 }
-renderVideosView();
 
-// ── Videos Filter & Toggle ───────────────────────────────────────
-const popularToggleBtn = document.getElementById("popularToggleBtn");
-const popularStatusBadge = document.getElementById("popularStatusBadge");
+// Global reset helper for "No Results"
+window.resetFilters = () => {
+  activeCategory = "All";
+  currentSearchQuery = "";
+  isPopularActive = false;
+  
+  if (videosSearchInput) videosSearchInput.value = "";
+  if (popularToggleBtn) popularToggleBtn.classList.remove("active");
+  if (popularStatusBadge) popularStatusBadge.classList.add("hidden");
+  
+  // Reset pills
+  document.querySelectorAll(".keyword-pills .pill").forEach(p => {
+    p.classList.toggle("active", p.dataset.category === "All");
+  });
 
-if (popularToggleBtn && popularStatusBadge) {
-  let isPopularActive = false;
+  updateHeaderText();
+  renderVideosView();
+};
 
+function updateHeaderText() {
+  if (videosViewTitle && videosViewSubtitle) {
+    videosViewTitle.textContent = isPopularActive ? "Most Popular Videos" : "Videos";
+    videosViewSubtitle.textContent = isPopularActive 
+      ? "Showing trending content" 
+      : "42,236 videos available";
+  }
+}
+
+// ── Videos Filter & Toggle Listeners ──────────────────────────────────
+if (popularToggleBtn) {
   popularToggleBtn.addEventListener("click", () => {
     isPopularActive = !isPopularActive;
-
-    // Update Header Text for clarity
-    const titleEle = document.getElementById("videosViewTitle");
-    const subTitleEle = document.getElementById("videosViewSubtitle");
-    if (titleEle && subTitleEle) {
-      titleEle.textContent = isPopularActive ? "Most Popular Videos" : "Videos";
-      subTitleEle.textContent = isPopularActive ? "Showing trending content" : "42,236 videos available";
-    }
-
-    // Toggle active classes
+    
     popularToggleBtn.classList.toggle("active", isPopularActive);
-    popularStatusBadge.classList.toggle("hidden", !isPopularActive);
-
-    // Re-render with sort
-    renderVideosView(isPopularActive);
-
-    // Smooth transition: scroll to grid top
-    videosViewGrid.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    if (popularStatusBadge) popularStatusBadge.classList.toggle("hidden", !isPopularActive);
+    
+    updateHeaderText();
+    renderVideosView();
   });
 }
+
+if (videosSearchInput) {
+  videosSearchInput.addEventListener("input", (e) => {
+    currentSearchQuery = e.target.value.trim();
+    if (clearSearchBtn) {
+      clearSearchBtn.style.display = currentSearchQuery ? "flex" : "none";
+    }
+    renderVideosView();
+  });
+}
+
+if (clearSearchBtn) {
+  clearSearchBtn.addEventListener("click", () => {
+    videosSearchInput.value = "";
+    currentSearchQuery = "";
+    clearSearchBtn.style.display = "none";
+    renderVideosView();
+    videosSearchInput.focus();
+  });
+}
+
+// Category Pills Implementation
+document.querySelectorAll(".keyword-pills .pill").forEach(pill => {
+  pill.addEventListener("click", () => {
+    // Update active UI
+    document.querySelectorAll(".keyword-pills .pill").forEach(p => p.classList.remove("active"));
+    pill.classList.add("active");
+
+    // Update state and re-render
+    activeCategory = pill.dataset.category || "All";
+    renderVideosView();
+  });
+});
+
+// Initial render
+renderVideosView();
 
 
 // ── View Navigation & Routing ──────────────────────────────────
@@ -196,8 +278,9 @@ const profileView = document.getElementById("profileView");
 const premiumView = document.getElementById("premiumView");
 const subscribeView = document.getElementById("subscribeView");
 const paymentView = document.getElementById("paymentView");
+const optionsView = document.getElementById("optionsView");
 
-const allViews = [homeView, videoDetail, chatView, videosView, freeVideosView, profileView, premiumView, subscribeView, paymentView];
+const allViews = [homeView, videoDetail, chatView, videosView, freeVideosView, profileView, premiumView, subscribeView, paymentView, optionsView];
 
 function showView(viewToShow) {
   // Save and temporarily disable smooth scrolling for an instant view cut
@@ -534,9 +617,29 @@ const billingForm = document.getElementById("billingForm");
 
 if (subNowBtns) {
   subNowBtns.forEach(btn => {
-    btn.addEventListener("click", () => showView(paymentView));
+    btn.addEventListener("click", () => showView(optionsView));
   });
 }
+
+const optGoBackBtn = document.getElementById("optGoBackBtn");
+if (optGoBackBtn) {
+  optGoBackBtn.addEventListener("click", () => showView(subscribeView));
+}
+
+const optCard = document.getElementById("optCard");
+if (optCard) {
+  optCard.addEventListener("click", () => showView(paymentView));
+}
+
+// Add generic handlers for other options
+['optCrypto', 'optCashApp', 'optVenmo', 'optThrone', 'optAmazon'].forEach(id => {
+  const btn = document.getElementById(id);
+  if (btn) {
+    btn.addEventListener("click", () => {
+      alert(`You selected ${id.replace('opt', '')}. Instructions for this method will be provided here.`);
+    });
+  }
+});
 
 if (payGoBackBtn) {
   payGoBackBtn.addEventListener("click", () => showView(subscribeView));
@@ -567,12 +670,15 @@ document.addEventListener("DOMContentLoaded", () => {
   if (ageYesBtn && ageGate) {
     ageYesBtn.addEventListener("click", () => {
       ageGate.classList.add("fade-out");
+      // Wait for animation then hide
+      setTimeout(() => {
+        ageGate.style.display = "none";
+      }, 500);
+
       // Bypass login and enter app directly
       if (typeof enterApp === "function") {
         enterApp();
       }
-      // Optional: Store in localStorage to avoid re-prompting
-      // localStorage.setItem("ageVerified", "true");
     });
   }
 
