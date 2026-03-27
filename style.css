@@ -1787,6 +1787,13 @@ h3 {
   font-size: 20px;
   transition: all 0.18s cubic-bezier(0.2, 0, 0, 1);
   color: var(--muted);
+  touch-action: manipulation;
+  position: relative;
+  z-index: 5;
+}
+
+.fire-icon {
+  pointer-events: none;
 }
 
 .popular-toggle-btn:hover {
@@ -1796,7 +1803,8 @@ h3 {
 }
 
 .popular-toggle-btn:active {
-  transform: translateY(0) scale(0.94);
+  transform: translateY(0) scale(0.92);
+  transition-duration: 0.1s;
 }
 
 .popular-toggle-btn.active {
