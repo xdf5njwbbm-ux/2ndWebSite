@@ -286,10 +286,12 @@ const allViews = [homeView, videoDetail, chatView, videosView, freeVideosView, p
 let activeView = homeView; 
 
 function showView(viewToShow) {
-  if (!viewToShow || activeView === viewToShow) return;
+  if (!viewToShow) return;
 
-  // Instant scroll reset
+  // Mandatory scroll reset even if the view is already shown
   window.scrollTo(0, 0);
+
+  if (activeView === viewToShow) return;
 
   // Instant swap
   if (activeView) activeView.classList.add("hidden");

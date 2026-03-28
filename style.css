@@ -452,6 +452,11 @@ body.menu-open .mobile-menu-panel {
   margin: 0 auto;
 }
 
+.view-section {
+  padding-top: 10px; /* Bring headings closer to the top for a fresh landing position */
+  animation: fadeIn 0.4s ease-out;
+}
+
 .glow-card {
   position: relative;
   /* Removed overflow: hidden to allow badges and glows to breathe */
@@ -1791,6 +1796,17 @@ h3 {
   font-size: 20px;
   transition: all 0.18s cubic-bezier(0.2, 0, 0, 1);
   color: var(--muted);
+  /* Mobile Interaction Optimizations */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 10;
+}
+
+.popular-toggle-btn .fire-icon {
+  pointer-events: none;
 }
 
 .popular-toggle-btn:hover {
