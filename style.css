@@ -56,6 +56,10 @@ button {
   pointer-events: auto;
 }
 
+.clickable {
+  cursor: pointer;
+}
+
 .app-shell {
   min-height: 100vh;
 }
@@ -1787,13 +1791,6 @@ h3 {
   font-size: 20px;
   transition: all 0.18s cubic-bezier(0.2, 0, 0, 1);
   color: var(--muted);
-  touch-action: manipulation;
-  position: relative;
-  z-index: 5;
-}
-
-.fire-icon {
-  pointer-events: none;
 }
 
 .popular-toggle-btn:hover {
@@ -1803,8 +1800,7 @@ h3 {
 }
 
 .popular-toggle-btn:active {
-  transform: translateY(0) scale(0.92);
-  transition-duration: 0.1s;
+  transform: translateY(0) scale(0.94);
 }
 
 .popular-toggle-btn.active {
@@ -3414,6 +3410,14 @@ h3 {
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+.option-subtitle {
+  font-size: 14px;
+  color: #dadbe0;
+  margin: 0;
+  line-height: 1.4;
+  opacity: 0.85;
 }
 
 .option-bullets li {

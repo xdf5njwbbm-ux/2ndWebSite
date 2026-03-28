@@ -160,14 +160,7 @@
     <!-- ── MOBILE MENU OVERLAY ───────────────────────────── -->
     <div class="mobile-menu-overlay" id="mobileMenuOverlay">
       <div class="mobile-menu-panel" id="mobileMenuPanel">
-        <div class="menu-search-container">
-          <svg class="search-icon-svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
-            viewBox="0 0 24 24">
-            <circle cx="11" cy="11" r="8" />
-            <line x1="21" y1="21" x2="16.65" y2="16.65" />
-          </svg>
-          <input type="text" class="menu-search-input" placeholder="Search videos...">
-        </div>
+
         <div class="menu-grid">
           <button class="menu-grid-card" id="menuVideosBtn">Videos</button>
           <button class="menu-grid-card" id="menuFreeVideosBtn">Free Videos</button>
@@ -183,13 +176,13 @@
       <section id="homeView">
         <section class="hero-card glow-card">
           <div class="hero-copy">
-            <p class="eyebrow">Premium dashboard</p>
+            <p class="eyebrow">This is what you need</p>
             <h1>
-              Welcome back,<br />
-              <span class="accent-text">example</span>
+              all your desires <br />
+              <span class="accent-text">fulfilled</span>
             </h1>
             <p class="hero-subtext">
-              Explore exclusive content from muscle god.
+              I want to hear you say "sent sir".
             </p>
 
             <div class="hero-actions">
@@ -205,16 +198,16 @@
           <article class="stat-card">
             <div class="stat-icon">▶</div>
             <div>
-              <div class="stat-value">2347</div>
+              <div class="stat-value">2,347</div>
               <div class="stat-label">Total Videos</div>
             </div>
           </article>
 
-          <article class="stat-card">
-            <div class="stat-icon">✨</div>
+          <article class="stat-card clickable" id="statCustomBtn">
+            <div class="stat-icon">📥</div>
             <div>
               <div class="stat-value">Custom Requests</div>
-              <div class="stat-label">What do you want to see from your owner?</div>
+              <div class="stat-label">Fast delivery</div>
             </div>
           </article>
         </section>
@@ -308,20 +301,24 @@
           </button>
         </div>
       </section>
-      
+
       <!-- ── ACCESS OPTIONS VIEW ────────────────────────── -->
       <section id="optionsView" class="hidden">
         <div class="view-header-area">
-          <h1 class="view-title">Choose Your Access Method</h1>
-          <p class="view-subtitle">Select the method that works best for you to unlock access.</p>
+          <h1 class="view-title">Choose Your Payment Method</h1>
+          <p class="view-subtitle">Go ahead... you know you want it.</p>
         </div>
-        
+
         <div class="options-grid">
           <!-- Crypto -->
           <button class="access-option-card" id="optCrypto">
             <div class="option-icon-box crypto-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"/><path d="M12 8v8M9 12h6"/><path d="M10 8h4"/><path d="M10 16h4"/>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 8v8M9 12h6" />
+                <path d="M10 8h4" />
+                <path d="M10 16h4" />
               </svg>
             </div>
             <div class="option-content">
@@ -338,44 +335,40 @@
           <!-- Cash App -->
           <button class="access-option-card" id="optCashApp">
             <div class="option-icon-box cashapp-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="1" x2="12" y2="23" />
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
               </svg>
             </div>
             <div class="option-content">
               <h3>Cash App</h3>
-              <ul class="option-bullets">
-                <li>Buy Bitcoin on Cash App</li>
-                <li>Send to our BTC address</li>
-                <li>Submit transaction ID</li>
-                <li>Manual approval (5–15 min)</li>
-              </ul>
+              <p class="option-subtitle">Send payment to $JackedAlpha</p>
             </div>
           </button>
 
           <!-- Venmo -->
           <button class="access-option-card" id="optVenmo">
             <div class="option-icon-box venmo-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M7 4 L12 20 L17 4"/>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 4 L12 20 L17 4" />
               </svg>
             </div>
             <div class="option-content">
               <h3>Venmo</h3>
-              <ul class="option-bullets">
-                <li>Send payment through Venmo</li>
-                <li>Use the provided username or QR</li>
-                <li>Submit confirmation after payment</li>
-                <li>Fast manual approval</li>
-              </ul>
+              <p class="option-subtitle">Send payment to JackedAlpha</p>
             </div>
           </button>
 
           <!-- Throne -->
           <button class="access-option-card" id="optThrone">
             <div class="option-icon-box throne-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 17H2v-2l2-1V7a8 8 0 1 1 16 0v7l2 1v2z"/><path d="M6 21h12"/><path d="M12 17v4"/>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 17H2v-2l2-1V7a8 8 0 1 1 16 0v7l2 1v2z" />
+                <path d="M6 21h12" />
+                <path d="M12 17v4" />
               </svg>
             </div>
             <div class="option-content">
@@ -392,34 +385,17 @@
           <!-- Amazon -->
           <button class="access-option-card" id="optAmazon">
             <div class="option-icon-box amazon-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 14.5s2.5 3 8 3 8-3 8-3"/><path d="M17.5 13c0 0 1.5 1 2.5 4l-4-1"/>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 14.5s2.5 3 8 3 8-3 8-3" />
+                <path d="M17.5 13c0 0 1.5 1 2.5 4l-4-1" />
               </svg>
             </div>
             <div class="option-content">
-              <h3>Amazon</h3>
-              <ul class="option-bullets">
-                <li>Purchase via Amazon gift card option</li>
-                <li>Follow the provided steps carefully</li>
-                <li>Submit confirmation once completed</li>
-                <li>Manual approval after review</li>
-              </ul>
+              <h3>Amazon Gift Card</h3>
+              <p class="option-subtitle">Send through Amazon Wishlist</p>
             </div>
           </button>
-
-          <!-- Card -->
-          <button class="access-option-card" id="optCard">
-            <div class="option-icon-box card-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>
-              </svg>
-            </div>
-            <div class="option-content">
-              <h3>Debit / Credit Card</h3>
-              <ul class="option-bullets">
-                <li>Instant access after payment</li>
-                <li>Secure 256-bit encrypted checkout</li>
-                <li>All major cards accepted</li>
               </ul>
             </div>
           </button>
@@ -492,7 +468,7 @@
       <section id="videosView" class="hidden">
         <div class="videos-header-area">
           <h2 id="videosViewTitle">Videos</h2>
-          <p class="view-subtitle" id="videosViewSubtitle">42,236 videos available</p>
+          <p class="view-subtitle" id="videosViewSubtitle">12 videos available</p>
         </div>
 
         <div class="search-sort-bar">
@@ -502,7 +478,8 @@
             <button class="clear-search-btn" id="clearSearchBtn" aria-label="Clear">✕</button>
           </div>
           <div class="filter-actions">
-            <button class="popular-toggle-btn" id="popularToggleBtn" aria-label="Show Most Popular" title="Most Popular">
+            <button class="popular-toggle-btn" id="popularToggleBtn" aria-label="Show Most Popular"
+              title="Most Popular">
               <span class="fire-icon">🔥</span>
             </button>
           </div>
@@ -578,12 +555,12 @@
         <div class="chat-messages" id="chatMessagesList">
           <div class="chat-msg">
             <div class="chat-avatar">M</div>
-              <div class="chat-body">
-                <div class="chat-name">Master <span class="premium-badge content-badge">VIP</span> <span
-                    class="chat-time">12:44 PM</span></div>
-                <div class="chat-text">Whatever you say better be important.</div>
-              </div>
+            <div class="chat-body">
+              <div class="chat-name">Master <span class="premium-badge content-badge">VIP</span> <span
+                  class="chat-time">12:44 PM</span></div>
+              <div class="chat-text">Whatever you say better be important.</div>
             </div>
+          </div>
           <div class="chat-input-bar">
             <input type="text" class="chat-input-field" placeholder="Message the community...">
             <button class="chat-send-btn"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
@@ -835,11 +812,12 @@
     <div class="age-modal unavailable-modal">
       <div class="age-content">
         <div class="restricted-icon">
-          <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M16 16s-1.5-2-4-2-4 2-4 2"/>
-            <line x1="9" y1="9" x2="9.01" y2="9"/>
-            <line x1="15" y1="9" x2="15.01" y2="9"/>
+          <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M16 16s-1.5-2-4-2-4 2-4 2" />
+            <line x1="9" y1="9" x2="9.01" y2="9" />
+            <line x1="15" y1="9" x2="15.01" y2="9" />
           </svg>
         </div>
         <h1>SORRY, THIS PAGE IS <span class="accent-text">UNAVAILABLE</span></h1>
@@ -854,7 +832,7 @@
   <script src="script.js"></script>
   <script>
     // Temporary debug script to track click intercepts
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
       console.log('CLICK CAPTURED BY:', e.target.tagName, e.target.id, e.target.className);
       // See if it's the YES button or something blocking it
       if (e.target.id === 'ageYesBtn') {

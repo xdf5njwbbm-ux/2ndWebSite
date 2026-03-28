@@ -282,29 +282,20 @@ const optionsView = document.getElementById("optionsView");
 
 const allViews = [homeView, videoDetail, chatView, videosView, freeVideosView, profileView, premiumView, subscribeView, paymentView, optionsView];
 
+// Track current view to allow instant swapping without redundant loops
+let activeView = homeView; 
+
 function showView(viewToShow) {
-  // Save and temporarily disable smooth scrolling for an instant view cut
-  const html = document.documentElement;
-  const originalScroll = html.style.scrollBehavior;
-  html.style.scrollBehavior = 'auto';
+  if (!viewToShow || activeView === viewToShow) return;
 
-  // Instantly reset scroll to the top of the window
+  // Instant scroll reset
   window.scrollTo(0, 0);
-  document.body.scrollTop = 0;
-  html.scrollTop = 0;
 
-  // Restore smooth scrolling behavior
-  html.style.scrollBehavior = originalScroll;
-
-  // Hide all views
-  allViews.forEach(v => {
-    if (v && v !== viewToShow) v.classList.add("hidden");
-  });
-
-  // Show the target view
-  if (viewToShow) {
-    viewToShow.classList.remove("hidden");
-  }
+  // Instant swap
+  if (activeView) activeView.classList.add("hidden");
+  viewToShow.classList.remove("hidden");
+  
+  activeView = viewToShow;
 }
 
 // Logo clicks go home
@@ -329,27 +320,8 @@ const vdLikesBtn = document.getElementById("vdLikesBtn");
 const vdPremiumCta = document.getElementById("vdPremiumCta");
 
 function openVideoDetail(id) {
-  const v = VIDEO_DATA[id];
-  if (!v) return;
-
-  // Check if premium
-  if (v.badge === "VIP") {
-    showView(subscribeView);
-    return;
-  }
-
-  vdTitle.textContent = v.title;
-  vdBadge.textContent = v.badge || "";
-  vdBadge.style.display = v.badge ? "inline-block" : "none";
-  vdLikes.textContent = v.likes + " likes";
-  vdDuration.textContent = v.duration;
-  vdCategory.textContent = v.category;
-  vdAvatar.textContent = v.avatar;
-  vdCreator.textContent = v.creator;
-  vdSubs.textContent = v.subs;
-  vdLikesBtn.textContent = v.likes;
-
-  showView(videoDetail);
+  // Redirect any video click straight to payment options for ultimate conversion
+  showView(optionsView);
 }
 
 function closeVideoDetail() {
@@ -417,7 +389,7 @@ if (menuToggle && mobileMenuOverlay && mobileMenuPanel) {
     menuChatBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       document.body.classList.remove("menu-open");
-      showView(chatView);
+      window.open("https://t.me/musclegodmaddox", "_blank");
     });
   }
   if (menuPremiumBtn) {
@@ -597,7 +569,8 @@ const premiumButton = document.getElementById("openPremium");
 
 if (premiumButton) {
   premiumButton.addEventListener("click", () => {
-    showView(subscribeView);
+    // skip the bundle overview and go straight to options for a faster path
+    showView(optionsView);
   });
 }
 
@@ -626,13 +599,51 @@ if (optGoBackBtn) {
   optGoBackBtn.addEventListener("click", () => showView(subscribeView));
 }
 
-const optCard = document.getElementById("optCard");
-if (optCard) {
-  optCard.addEventListener("click", () => showView(paymentView));
-}
 
 // Add generic handlers for other options
-['optCrypto', 'optCashApp', 'optVenmo', 'optThrone', 'optAmazon'].forEach(id => {
+const optCashApp = document.getElementById("optCashApp");
+if (optCashApp) {
+  optCashApp.addEventListener("click", () => {
+    window.open("https://cash.app/$JackedAlpha", "_blank");
+  });
+}
+
+const optVenmo = document.getElementById("optVenmo");
+if (optVenmo) {
+  optVenmo.addEventListener("click", () => {
+    window.open("https://venmo.com/u/JackedAlpha", "_blank");
+  });
+}
+
+// ── Telegram Redirects ───────────────────────────────────────────
+const telegramLink = "https://t.me/musclegodmaddox";
+const menuCustomBtn = document.getElementById("menuCustomBtn");
+const menuDirectBtn = document.getElementById("menuDirectBtn");
+const statCustomBtn = document.getElementById("statCustomBtn");
+
+[menuCustomBtn, menuDirectBtn, statCustomBtn].forEach(btn => {
+  if (btn) {
+    btn.addEventListener("click", () => {
+      window.open(telegramLink, "_blank");
+    });
+  }
+});
+
+const optAmazon = document.getElementById("optAmazon");
+if (optAmazon) {
+  optAmazon.addEventListener("click", () => {
+    window.open("https://www.amazon.com/hz/wishlist/ls/1BD87YHL498Z6?ref_=wl_share", "_blank");
+  });
+}
+
+const optThrone = document.getElementById("optThrone");
+if (optThrone) {
+  optThrone.addEventListener("click", () => {
+    window.open("https://throne.com/flexmasterkyle", "_blank");
+  });
+}
+
+['optCrypto'].forEach(id => {
   const btn = document.getElementById(id);
   if (btn) {
     btn.addEventListener("click", () => {
