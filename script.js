@@ -1,16 +1,34 @@
 // ── Expanded Video Data (32 items) ─────────────────────────────
-const categories = ["All", "Domination", "Foot Worship", "Muscle Worship", "Giant POV", "Chokeholds", "Documentary", "Romance", "Thriller"];
+const categories = ["All", "Domination", "Foot Worship", "Giant POV"];
 const creators = ["Muscle God", "Muscle God", "Muscle God", "Muscle God", "Muscle God", "Muscle God"];
 const avatars = ["MG", "MG", "MG", "MG", "MG", "MG"];
 
-const VIDEO_DATA = Array.from({ length: 32 }).map((_, i) => {
+const VIDEO_DATA = Array.from({ length: 12 }).map((_, i) => {
   const cIdx = i % creators.length;
   const isPremium = i % 5 === 0;
   const isNew = i % 7 === 0 && !isPremium;
 
-  let badge = "";
-  if (isPremium) badge = "VIP";
-  else if (isNew) badge = "NEW";
+  let category = "";
+  let bg = "";
+
+  // 1-7: Domination
+  if (i < 7) {
+    category = "Domination";
+    const ext = [".jpg", ".png", ".png", ".png", ".png", ".png", ".png"][i];
+    bg = `url('assets/images/dom_${i + 1}${ext}') center/cover no-repeat`;
+  } 
+  // 8-11: Foot Worship
+  else if (i < 11) {
+    category = "Foot Worship";
+    bg = `url('assets/images/foot_${i - 6}.png') center/cover no-repeat`;
+  } 
+  // 12: Giant POV
+  else {
+    category = "Giant POV";
+    bg = `url('assets/images/giant_1.jpg') center/cover no-repeat`;
+  }
+
+  let badge = isPremium ? "VIP" : (isNew ? "NEW" : "");
 
   return {
     id: i,
@@ -20,87 +38,15 @@ const VIDEO_DATA = Array.from({ length: 32 }).map((_, i) => {
     likes: Math.floor(Math.random() * 10000).toLocaleString(),
     time: `${Math.floor(Math.random() * 11 + 1)}d ago`,
     duration: `${Math.floor(Math.random() * 10 + 10)}:${Math.floor(Math.random() * 50 + 10)}`,
-    category: categories[i % categories.length],
+    category: category,
     creator: creators[cIdx],
     avatar: avatars[cIdx],
     subs: `${(Math.random() * 50 + 5).toFixed(1)}K subscribers`,
-    // Generate a consistent gradient per card for the placeholder thumbnail
-    bg: `linear-gradient(135deg, rgba(8, 10, 18, 0.4), rgba(8, 10, 18, 0.1)), linear-gradient(${120 + (i * 15)}deg, #13141c 0%, #${(220000 + i * 1111).toString(16)} 40%, #0057b7 100%)`
+    bg: bg
   };
 });
 
-// ── Pagination Logic ───────────────────────────────────────────
-const ITEMS_PER_PAGE = 8;
-let currentPage = 1;
-const totalPages = Math.ceil(VIDEO_DATA.length / ITEMS_PER_PAGE);
-
-const browseList = document.getElementById("browseList");
-const prevPageBtn = document.getElementById("prevPageBtn");
-const nextPageBtn = document.getElementById("nextPageBtn");
-const currentPageDisplay = document.getElementById("currentPageDisplay");
-const totalPagesDisplay = document.getElementById("totalPagesDisplay");
-
-function renderBrowsePage(page) {
-  browseList.innerHTML = "";
-
-  const startIndex = (page - 1) * ITEMS_PER_PAGE;
-  const endIndex = startIndex + ITEMS_PER_PAGE;
-  const pageItems = VIDEO_DATA.slice(startIndex, endIndex);
-
-  pageItems.forEach(v => {
-    const badgeHTML = v.badge ? `<span class="content-badge">${v.badge}</span>` : "";
-
-    const cardHTML = `
-      <article class="content-card" data-video-id="${v.id}" role="button" tabindex="0" aria-label="Open ${v.title}">
-        <div class="content-image" style="background: ${v.bg}">
-          ${badgeHTML}
-          <div class="duration-badge">${v.duration}</div>
-        </div>
-        <div class="content-info">
-          <h3>${v.title}</h3>
-          <span class="content-category-tag">${v.category}</span>
-        </div>
-      </article>
-    `;
-    browseList.insertAdjacentHTML("beforeend", cardHTML);
-  });
-
-  // Attach click listeners to new cards
-  document.querySelectorAll(".content-card[data-video-id]").forEach((card) => {
-    const handler = () => openVideoDetail(Number(card.dataset.videoId));
-    card.addEventListener("click", handler);
-    card.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handler(); }
-    });
-  });
-
-  // Update pagination UI
-  currentPageDisplay.textContent = page;
-  totalPagesDisplay.textContent = totalPages;
-  prevPageBtn.disabled = page === 1;
-  nextPageBtn.disabled = page === totalPages;
-}
-
-prevPageBtn.addEventListener("click", () => {
-  if (currentPage > 1) {
-    currentPage--;
-    renderBrowsePage(currentPage);
-    browseList.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-});
-
-nextPageBtn.addEventListener("click", () => {
-  if (currentPage < totalPages) {
-    currentPage++;
-    renderBrowsePage(currentPage);
-    browseList.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-});
-
-// Initial render
-renderBrowsePage(currentPage);
-
-// ── Shared Video Rendering for Videos View ────────────────────────
+// ── Shared Video Rendering for Main Grid ──────────────────────────
 const videosViewGrid = document.getElementById("videosViewGrid");
 const videosSearchInput = document.getElementById("videosSearchInput");
 const clearSearchBtn = document.getElementById("clearSearchBtn");
@@ -272,7 +218,6 @@ renderVideosView();
 const homeView = document.getElementById("homeView");
 const videoDetail = document.getElementById("videoDetail");
 const chatView = document.getElementById("chatView");
-const videosView = document.getElementById("videosView");
 const freeVideosView = document.getElementById("freeVideosView");
 const profileView = document.getElementById("profileView");
 const premiumView = document.getElementById("premiumView");
@@ -280,7 +225,7 @@ const subscribeView = document.getElementById("subscribeView");
 const paymentView = document.getElementById("paymentView");
 const optionsView = document.getElementById("optionsView");
 
-const allViews = [homeView, videoDetail, chatView, videosView, freeVideosView, profileView, premiumView, subscribeView, paymentView, optionsView];
+const allViews = [homeView, videoDetail, chatView, freeVideosView, profileView, premiumView, subscribeView, paymentView, optionsView];
 
 // Track current view to allow instant swapping without redundant loops
 let activeView = homeView; 
@@ -377,7 +322,13 @@ if (menuToggle && mobileMenuOverlay && mobileMenuPanel) {
     menuVideosBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       document.body.classList.remove("menu-open");
-      showView(videosView);
+      showView(homeView);
+      
+      // Target the integrated video section on home page
+      setTimeout(() => {
+        const anchor = document.getElementById("videosAnchor");
+        if (anchor) anchor.scrollIntoView({ behavior: "smooth" });
+      }, 100);
     });
   }
   if (menuFreeVideosBtn) {

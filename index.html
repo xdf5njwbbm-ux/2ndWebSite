@@ -165,7 +165,7 @@
           <button class="menu-grid-card" id="menuVideosBtn">Videos</button>
           <button class="menu-grid-card" id="menuFreeVideosBtn">Free Videos</button>
           <button class="menu-grid-card" id="menuChatBtn">Chat</button>
-          <button class="menu-grid-card" id="menuPremiumBtn">Premium</button>
+          <button class="menu-grid-card" id="menuPremiumBtn">Payment</button>
         </div>
       </div>
     </div>
@@ -187,7 +187,7 @@
 
             <div class="hero-actions">
               <button class="primary-button" id="openPremium">
-                <span class="button-icon">👑</span>
+                <span class="button-icon"></span>
                 <span>Get Premium</span>
               </button>
             </div>
@@ -198,7 +198,7 @@
           <article class="stat-card">
             <div class="stat-icon">▶</div>
             <div>
-              <div class="stat-value">2,347</div>
+              <div class="stat-value">27</div>
               <div class="stat-label">Total Videos</div>
             </div>
           </article>
@@ -207,39 +207,47 @@
             <div class="stat-icon">📥</div>
             <div>
               <div class="stat-value">Custom Requests</div>
-              <div class="stat-label">Fast delivery</div>
+              <div class="stat-label">DM me</div>
             </div>
           </article>
         </section>
 
-        <section class="section-heading">
-          <h2>Browse Videos</h2>
-
-          <div class="segment-control">
-            <button class="segment active">🔥</button>
-            <button class="segment">🕘</button>
-            <button class="segment">↗</button>
-          </div>
+        <!-- ── MAIN VIDEOS SECTION (Integrated) ────────────────── -->
+        <div id="videosAnchor" style="scroll-margin-top: 85px;"></div>
+        <section class="videos-header-area">
+          <h2 id="videosViewTitle">Videos</h2>
+          <p class="view-subtitle" id="videosViewSubtitle">12 videos available</p>
         </section>
 
-        <div class="accent-line"></div>
-
-        <!-- Video Grid (populated by JS) -->
-        <section class="content-list" id="browseList">
-        </section>
-
-        <!-- Pagination Controls -->
-        <div class="pagination-section">
-          <button class="pagination-btn" id="prevPageBtn" disabled>
-            <span class="pag-icon">&#10094;</span> Previous
-          </button>
-          <div class="pagination-info">
-            Page <strong class="accent-text" id="currentPageDisplay">1</strong> of <span id="totalPagesDisplay">4</span>
+        <div class="search-sort-bar">
+          <div class="search-input-wrap">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="videosSearchInput" placeholder="Search videos or keywords">
+            <button class="clear-search-btn" id="clearSearchBtn" aria-label="Clear">✕</button>
           </div>
-          <button class="pagination-btn" id="nextPageBtn">
-            Next <span class="pag-icon">&#10095;</span>
-          </button>
+          <div class="filter-actions">
+            <button class="popular-toggle-btn" id="popularToggleBtn" aria-label="Show Most Popular"
+              title="Most Popular">
+              <span class="fire-icon">🔥</span>
+            </button>
+          </div>
         </div>
+
+        <div class="keyword-scroll-container">
+          <div class="keyword-pills">
+            <button class="pill active" data-category="All">All</button>
+            <button class="pill" data-category="Domination">Domination</button>
+            <button class="pill" data-category="Foot Worship">Foot Worship</button>
+            <button class="pill" data-category="Giant POV">Giant POV</button>
+          </div>
+        </div>
+
+        <!-- Popular status banner – shown above grid when active -->
+        <div id="popularStatusBadge" class="popular-status-badge hidden">
+          <span class="pop-fire">&#128293;</span> Most Popular Videos
+        </div>
+
+        <div class="video-grid" id="videosViewGrid"></div>
       </section> <!-- end homeView -->
 
       <!-- ── PREMIUM SUBSCRIBE VIEW ────────────────────────── -->
@@ -461,48 +469,6 @@
         </div>
       </section>
 
-      <!-- ── VIDEOS DIRECTORY VIEW ──────────────────────────── -->
-      <section id="videosView" class="hidden view-section">
-        <div class="videos-header-area">
-          <h2 id="videosViewTitle">Videos</h2>
-          <p class="view-subtitle" id="videosViewSubtitle">12 videos available</p>
-        </div>
-
-        <div class="search-sort-bar">
-          <div class="search-input-wrap">
-            <span class="search-icon">🔍</span>
-            <input type="text" id="videosSearchInput" placeholder="Search videos or keywords">
-            <button class="clear-search-btn" id="clearSearchBtn" aria-label="Clear">✕</button>
-          </div>
-          <div class="filter-actions">
-            <button class="popular-toggle-btn" id="popularToggleBtn" aria-label="Show Most Popular"
-              title="Most Popular">
-              <span class="fire-icon">🔥</span>
-            </button>
-          </div>
-        </div>
-
-        <div class="keyword-scroll-container">
-          <div class="keyword-pills">
-            <button class="pill active" data-category="All">All</button>
-            <button class="pill" data-category="Domination">Domination</button>
-            <button class="pill" data-category="Foot Worship">Foot Worship</button>
-            <button class="pill" data-category="Muscle Worship">Muscle Worship</button>
-            <button class="pill" data-category="Giant POV">Giant POV</button>
-            <button class="pill" data-category="Chokeholds">Chokeholds</button>
-            <button class="pill" data-category="Documentary">Documentary</button>
-            <button class="pill" data-category="Romance">Romance</button>
-            <button class="pill" data-category="Thriller">Thriller</button>
-          </div>
-        </div>
-
-        <!-- Popular status banner – shown above grid when active -->
-        <div id="popularStatusBadge" class="popular-status-badge hidden">
-          <span class="pop-fire">&#128293;</span> Most Popular Videos
-        </div>
-
-        <div class="video-grid" id="videosViewGrid"></div>
-      </section>
 
       <!-- ── FREE PREVIEWS VIEW ─────────────────────────────── -->
       <section id="freeVideosView" class="hidden view-section">

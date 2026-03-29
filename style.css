@@ -628,7 +628,7 @@ input {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
-  margin-top: 22px;
+  margin: 22px 0 35px; /* Increased bottom margin for better flow into Videos section */
 }
 
 .stat-card {
@@ -1715,6 +1715,11 @@ h3 {
   align-items: center;
   gap: 12px;
   letter-spacing: -0.5px;
+  padding-top: 10px; /* Slight top padding for the starting section */
+}
+
+#videosAnchor {
+  scroll-margin-top: 85px; /* Account for sticky topbar when scrolling */
 }
 
 .view-icon {
@@ -1820,16 +1825,22 @@ h3 {
 }
 
 .popular-toggle-btn.active {
-  /* ... same ... */
-  background: linear-gradient(135deg, rgba(255, 165, 0, 0.25), rgba(255, 80, 0, 0.15));
-  border-color: #FFD700;
-  color: #FFB700;
+  background: linear-gradient(135deg, rgba(0, 136, 255, 0.25), rgba(0, 87, 183, 0.15));
+  border-color: var(--accent);
+  color: #fff;
   box-shadow: 
-    0 0 25px rgba(255, 165, 0, 0.5), 
-    inset 0 0 15px rgba(255, 165, 0, 0.2),
-    0 0 40px rgba(255, 80, 0, 0.2);
-  text-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
+    0 0 25px rgba(0, 136, 255, 0.5), 
+    inset 0 0 15px rgba(0, 136, 255, 0.2),
+    0 0 40px rgba(0, 136, 255, 0.2);
+  text-shadow: 0 0 12px rgba(0, 136, 255, 0.8);
   transform: translateY(-2px) scale(1.1);
+  animation: popularPulse 2s infinite ease-in-out;
+}
+
+@keyframes popularPulse {
+  0% { transform: translateY(-2px) scale(1.1); box-shadow: 0 0 20px rgba(0, 136, 255, 0.4); }
+  50% { transform: translateY(-2px) scale(1.15); box-shadow: 0 0 35px rgba(0, 136, 255, 0.6); }
+  100% { transform: translateY(-2px) scale(1.1); box-shadow: 0 0 20px rgba(0, 136, 255, 0.4); }
 }
 
 .popular-status-badge {
@@ -1837,9 +1848,9 @@ h3 {
   align-items: center;
   gap: 8px;
   width: 100%;
-  background: linear-gradient(90deg, rgba(255, 165, 0, 0.08), rgba(255, 215, 0, 0.04), transparent);
-  border: 1px solid rgba(255, 215, 0, 0.2);
-  border-left: 3px solid #FFD700;
+  background: linear-gradient(90deg, rgba(0, 136, 255, 0.08), rgba(0, 87, 183, 0.04), transparent);
+  border: 1px solid rgba(0, 136, 255, 0.2);
+  border-left: 3px solid var(--accent);
   color: #FFD700;
   padding: 10px 16px;
   border-radius: 12px;
@@ -2513,6 +2524,7 @@ h3 {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  pointer-events: none; /* Let clicks pass through to content below */
 }
 
 .support-fab {
@@ -2529,6 +2541,7 @@ h3 {
   justify-content: center;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
+  pointer-events: auto; /* Re-enable clicks for the button itself */
 }
 
 .support-fab:hover {
