@@ -3,6 +3,22 @@ const categories = ["All", "Domination", "Foot Worship", "Giant POV"];
 const creators = ["Muscle God", "Muscle God", "Muscle God", "Muscle God", "Muscle God", "Muscle God"];
 const avatars = ["MG", "MG", "MG", "MG", "MG", "MG"];
 
+// ── Edit these durations to match each video card (cards 1–12) ──
+const durations = [
+  "5:16",  // Card 1  – Domination Vol. 1
+  "5:51",  // Card 2  – Domination Vol. 2
+  "4:15", // Card 3  – Domination Vol. 3
+  "8:13",  // Card 4  – Domination Vol. 4
+  "4:23",  // Card 5  – Domination Vol. 5
+  "4:36", // Card 6  – Domination Vol. 6
+  "3:13",  // Card 7  – Domination Vol. 7
+  "5:49", // Card 8  – Foot Worship Vol. 8
+  "5:41",  // Card 9  – Foot Worship Vol. 9
+  "5:23", // Card 10 – Foot Worship Vol. 10
+  "4:58",  // Card 11 – Foot Worship Vol. 11
+  "3:03", // Card 12 – Giant POV Vol. 12
+];
+
 const VIDEO_DATA = Array.from({ length: 12 }).map((_, i) => {
   const cIdx = i % creators.length;
   const isPremium = i % 5 === 0;
@@ -37,7 +53,7 @@ const VIDEO_DATA = Array.from({ length: 12 }).map((_, i) => {
     views: `${(Math.random() * 100 + 1).toFixed(1)}K views`,
     likes: Math.floor(Math.random() * 10000).toLocaleString(),
     time: `${Math.floor(Math.random() * 11 + 1)}d ago`,
-    duration: `${Math.floor(Math.random() * 10 + 10)}:${Math.floor(Math.random() * 50 + 10)}`,
+    duration: durations[i],
     category: category,
     creator: creators[cIdx],
     avatar: avatars[cIdx],
@@ -45,6 +61,38 @@ const VIDEO_DATA = Array.from({ length: 12 }).map((_, i) => {
     bg: bg
   };
 });
+
+const customVideos = [
+  {
+    id: 998,
+    title: "Exclusive Premium Chokehold",
+    badge: "VIP",
+    views: "23.5K views",
+    likes: "4,440",
+    time: "2d ago",
+    duration: "2:01",
+    category: "Domination",
+    creator: creators[0],
+    avatar: avatars[0],
+    subs: "22.1K subscribers",
+    bg: "url('assets/images/img_video_2.png') center/cover no-repeat"
+  },
+  {
+    id: 999,
+    title: "Exclusive Foot Worship",
+    badge: "NEW",
+    views: "18.2K views",
+    likes: "2,204",
+    time: "1d ago",
+    duration: "6:10",
+    category: "Foot Worship",
+    creator: creators[0],
+    avatar: avatars[0],
+    subs: "22.1K subscribers",
+    bg: "url('assets/images/img_video_1.png') center/cover no-repeat"
+  }
+];
+VIDEO_DATA.unshift(...customVideos);
 
 // ── Shared Video Rendering for Main Grid ──────────────────────────
 const videosViewGrid = document.getElementById("videosViewGrid");
@@ -90,8 +138,8 @@ function renderVideosView() {
     dataCopy.sort((a, b) => parseViewsNum(b.views) - parseViewsNum(a.views));
   }
 
-  // 2. Render first 12 results for this view
-  const pageItems = dataCopy.slice(0, 12);
+  // 2. Render all results for this view
+  const pageItems = dataCopy;
 
   if (pageItems.length === 0) {
     videosViewGrid.innerHTML = `
