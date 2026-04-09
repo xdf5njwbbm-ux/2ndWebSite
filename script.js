@@ -657,6 +657,13 @@ if (optThrone) {
   });
 }
 
+const optOnlyFans = document.getElementById("optOnlyFans");
+if (optOnlyFans) {
+  optOnlyFans.addEventListener("click", () => {
+    window.open("https://onlyfans.com/musclegod", "_blank");
+  });
+}
+
 ['optCrypto'].forEach(id => {
   const btn = document.getElementById(id);
   if (btn) {
