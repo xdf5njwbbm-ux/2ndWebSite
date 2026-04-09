@@ -660,7 +660,7 @@ if (optThrone) {
 const optOnlyFans = document.getElementById("optOnlyFans");
 if (optOnlyFans) {
   optOnlyFans.addEventListener("click", () => {
-    window.open("https://onlyfans.com/musclegod", "_blank");
+    window.open("https://onlyfans.com/flexmasterkyle", "_blank");
   });
 }
 
