@@ -19,6 +19,12 @@ const durations = [
   "3:03", // Card 12 – Giant POV Vol. 12
 ];
 
+// ── Edit these to control the stats shown on each card (cards 1–12) ──
+const views  = ["45.2K","28.7K","63.1K","12.4K","89.0K","34.6K","51.3K","22.8K","76.5K","18.9K","40.2K","55.7K"];
+const likes  = ["3,841","1,204","5,672","988","7,430","2,115","4,560","1,780","6,320","902","3,200","4,890"];
+const times  = ["3d ago","1d ago","5d ago","2d ago","7d ago","4d ago","6d ago","1d ago","8d ago","2d ago","3d ago","5d ago"];
+const subs   = ["22.1K","22.1K","22.1K","22.1K","22.1K","22.1K","22.1K","22.1K","22.1K","22.1K","22.1K","22.1K"];
+
 const VIDEO_DATA = Array.from({ length: 12 }).map((_, i) => {
   const cIdx = i % creators.length;
   const isPremium = i % 5 === 0;
@@ -50,14 +56,14 @@ const VIDEO_DATA = Array.from({ length: 12 }).map((_, i) => {
     id: i,
     title: `${category} Vol. ${i + 1}`,
     badge: badge,
-    views: `${(Math.random() * 100 + 1).toFixed(1)}K views`,
-    likes: Math.floor(Math.random() * 10000).toLocaleString(),
-    time: `${Math.floor(Math.random() * 11 + 1)}d ago`,
+    views: views[i],
+    likes: likes[i],
+    time: times[i],
     duration: durations[i],
     category: category,
     creator: creators[cIdx],
     avatar: avatars[cIdx],
-    subs: `${(Math.random() * 50 + 5).toFixed(1)}K subscribers`,
+    subs: `${subs[i]} subscribers`,
     bg: bg
   };
 });
