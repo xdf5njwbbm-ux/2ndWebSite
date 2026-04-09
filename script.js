@@ -32,7 +32,7 @@ const VIDEO_DATA = Array.from({ length: 12 }).map((_, i) => {
 
   return {
     id: i,
-    title: `Premium Collection Vol. ${i + 1}`,
+    title: `${category} Vol. ${i + 1}`,
     badge: badge,
     views: `${(Math.random() * 100 + 1).toFixed(1)}K views`,
     likes: Math.floor(Math.random() * 10000).toLocaleString(),
@@ -280,7 +280,7 @@ vdGoBack.addEventListener("click", closeVideoDetail);
 
 if (vdPremiumCta) {
   vdPremiumCta.addEventListener("click", () => {
-    showView(subscribeView);
+    showView(optionsView);
   });
 }
 
@@ -349,7 +349,7 @@ if (menuToggle && mobileMenuOverlay && mobileMenuPanel) {
     menuPremiumBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       document.body.classList.remove("menu-open");
-      showView(subscribeView);
+      showView(optionsView);
     });
   }
 }
@@ -543,13 +543,13 @@ const billingForm = document.getElementById("billingForm");
 
 if (subNowBtns) {
   subNowBtns.forEach(btn => {
-    btn.addEventListener("click", () => showView(optionsView));
+    btn.addEventListener("click", () => showView(paymentView));
   });
 }
 
 const optGoBackBtn = document.getElementById("optGoBackBtn");
 if (optGoBackBtn) {
-  optGoBackBtn.addEventListener("click", () => showView(subscribeView));
+  optGoBackBtn.addEventListener("click", () => showView(homeView));
 }
 
 
@@ -606,7 +606,7 @@ if (optThrone) {
 });
 
 if (payGoBackBtn) {
-  payGoBackBtn.addEventListener("click", () => showView(subscribeView));
+  payGoBackBtn.addEventListener("click", () => showView(optionsView));
 }
 
 if (billingForm) {
