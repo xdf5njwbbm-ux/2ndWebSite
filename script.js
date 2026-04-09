@@ -287,16 +287,23 @@ let activeView = homeView;
 function showView(viewToShow) {
   if (!viewToShow) return;
 
-  // Mandatory scroll reset even if the view is already shown
-  window.scrollTo(0, 0);
+  if (activeView === viewToShow) {
+    // Already on this view — still force scroll to top
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    return;
+  }
 
-  if (activeView === viewToShow) return;
-
-  // Instant swap
+  // Swap views
   if (activeView) activeView.classList.add("hidden");
   viewToShow.classList.remove("hidden");
-  
   activeView = viewToShow;
+
+  // Scroll to top AFTER view is visible — works on iOS, Android, and desktop
+  window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
 }
 
 // Logo clicks go home
