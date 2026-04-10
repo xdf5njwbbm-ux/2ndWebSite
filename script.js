@@ -713,8 +713,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const ageNoBtn = document.getElementById("ageNoBtn");
   const ageBackBtn = document.getElementById("ageBackBtn");
 
+  if (ageGate) {
+    if (localStorage.getItem("ageVerified") === "true") {
+      ageGate.style.display = "none";
+      if (typeof enterApp === "function") {
+        enterApp();
+      }
+    }
+  }
+
   if (ageYesBtn && ageGate) {
     ageYesBtn.addEventListener("click", () => {
+      localStorage.setItem("ageVerified", "true");
       ageGate.classList.add("fade-out");
       // Wait for animation then hide
       setTimeout(() => {
