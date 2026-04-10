@@ -801,14 +801,17 @@ h3 {
 }
 
 .content-image::after {
-  content: "▶";
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 38px;
-  text-shadow: 0 0 15px rgba(0, 136, 255, 0.8), 0 0 30px rgba(255, 204, 0, 0.5);
+  transform: translate(-40%, -50%); /* slightly offset to center the triangle */
+  width: 0;
+  height: 0;
+  border-top: 16px solid transparent;
+  border-bottom: 16px solid transparent;
+  border-left: 26px solid rgba(255, 255, 255, 0.85);
+  filter: drop-shadow(0 0 12px rgba(0, 136, 255, 0.8)) drop-shadow(0 0 24px rgba(255, 204, 0, 0.5));
   transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
   z-index: 2;
   pointer-events: none;
@@ -819,10 +822,9 @@ h3 {
 }
 
 .content-card:hover .content-image::after {
-  transform: translate(-50%, -50%) scale(1.15);
-  color: #fff;
-  opacity: 1;
-  text-shadow: 0 0 25px rgba(0, 136, 255, 1), 0 0 45px rgba(255, 204, 0, 0.8);
+  transform: translate(-40%, -50%) scale(1.15);
+  border-left-color: #fff;
+  filter: drop-shadow(0 0 20px rgba(0, 136, 255, 1)) drop-shadow(0 0 36px rgba(255, 204, 0, 0.8));
 }
 
 /* Bottom right duration badge */
@@ -2041,14 +2043,17 @@ video::-webkit-media-controls-start-playback-button {
 }
 
 .free-video-thumb::after {
-  content: "▶";
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 38px;
-  text-shadow: 0 0 15px rgba(0, 136, 255, 0.8), 0 0 30px rgba(255, 204, 0, 0.5);
+  transform: translate(-40%, -50%); /* slightly offset to center the triangle */
+  width: 0;
+  height: 0;
+  border-top: 16px solid transparent;
+  border-bottom: 16px solid transparent;
+  border-left: 26px solid rgba(255, 255, 255, 0.85);
+  filter: drop-shadow(0 0 12px rgba(0, 136, 255, 0.8)) drop-shadow(0 0 24px rgba(255, 204, 0, 0.5));
   transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
   z-index: 2;
   pointer-events: none;
@@ -2059,10 +2064,9 @@ video::-webkit-media-controls-start-playback-button {
 }
 
 .free-video-card:hover .free-video-thumb::after {
-  transform: translate(-50%, -50%) scale(1.15);
-  color: #fff;
-  opacity: 1;
-  text-shadow: 0 0 25px rgba(0, 136, 255, 1), 0 0 45px rgba(255, 204, 0, 0.8);
+  transform: translate(-40%, -50%) scale(1.15);
+  border-left-color: #fff;
+  filter: drop-shadow(0 0 20px rgba(0, 136, 255, 1)) drop-shadow(0 0 36px rgba(255, 204, 0, 0.8));
 }
 
 .free-video-thumb.is-playing::before,
