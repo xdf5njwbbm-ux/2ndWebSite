@@ -3370,12 +3370,8 @@ h3 {
   font-size: 36px;
   font-weight: 900;
   margin-bottom: 12px;
-  background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: #fff;
-  text-shadow: 0 10px 20px rgba(0, 136, 255, 0.2);
+  color: var(--accent);
+  text-shadow: 0 0 28px rgba(0, 136, 255, 0.35), 0 0 12px rgba(0, 136, 255, 0.2);
 }
 
 .view-header-area .view-subtitle {
