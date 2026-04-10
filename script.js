@@ -70,6 +70,20 @@ const VIDEO_DATA = Array.from({ length: 12 }).map((_, i) => {
 
 const customVideos = [
   {
+    id: 997,
+    title: "Face Sitting Domination",
+    badge: "NEW",
+    views: "12.1K views",
+    likes: "1,102",
+    time: "4h ago",
+    duration: "4:30",
+    category: "Domination",
+    creator: creators[0],
+    avatar: avatars[0],
+    subs: "22.1K subscribers",
+    bg: "url('assets/images/img_video_3.png') center/cover no-repeat"
+  },
+  {
     id: 998,
     title: "Foot Worship",
     badge: "VIP",
