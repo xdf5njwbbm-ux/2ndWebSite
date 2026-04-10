@@ -71,7 +71,7 @@ const VIDEO_DATA = Array.from({ length: 12 }).map((_, i) => {
 const customVideos = [
   {
     id: 998,
-    title: "Exclusive Premium Chokehold",
+    title: "Foot Worship",
     badge: "VIP",
     views: "23.5K views",
     likes: "4,440",
