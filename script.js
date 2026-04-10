@@ -228,7 +228,7 @@ function updateHeaderText() {
     videosViewTitle.textContent = isPopularActive ? "Most Popular Videos" : "Videos";
     videosViewSubtitle.textContent = isPopularActive 
       ? "Showing trending content" 
-      : "42,236 videos available";
+      : "15 videos available";
   }
 }
 
