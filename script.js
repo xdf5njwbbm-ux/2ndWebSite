@@ -657,26 +657,7 @@ const statCustomBtn = document.getElementById("statCustomBtn");
   }
 });
 
-const optAmazon = document.getElementById("optAmazon");
-if (optAmazon) {
-  optAmazon.addEventListener("click", () => {
-    window.open("https://www.amazon.com/hz/wishlist/ls/1BD87YHL498Z6?ref_=wl_share", "_blank");
-  });
-}
 
-const optThrone = document.getElementById("optThrone");
-if (optThrone) {
-  optThrone.addEventListener("click", () => {
-    window.open("https://throne.com/flexmasterkyle", "_blank");
-  });
-}
-
-const optOnlyFans = document.getElementById("optOnlyFans");
-if (optOnlyFans) {
-  optOnlyFans.addEventListener("click", () => {
-    window.open("https://onlyfans.com/flexmasterkyle", "_blank");
-  });
-}
 
 ['optCrypto'].forEach(id => {
   const btn = document.getElementById(id);
