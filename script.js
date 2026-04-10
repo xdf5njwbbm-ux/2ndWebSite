@@ -741,4 +741,28 @@ document.addEventListener("DOMContentLoaded", () => {
       ageGate.classList.remove("hidden");
     });
   }
+
+  // ── FREE PREVIEWS CUSTOM PLAY LOGIC ───────────────────────────
+  const freeVideos = document.querySelectorAll(".free-video-thumb video");
+  freeVideos.forEach(vid => {
+    // Hide our custom play button when playing natively
+    vid.addEventListener("play", () => {
+      vid.parentElement.classList.add("is-playing");
+    });
+    vid.addEventListener("pause", () => {
+      vid.parentElement.classList.remove("is-playing");
+    });
+    vid.addEventListener("ended", () => {
+      vid.parentElement.classList.remove("is-playing");
+    });
+    
+    // Ensure tapping the video plays it, even if native start button is hidden
+    vid.addEventListener("click", (e) => {
+      if (vid.paused) {
+        vid.play().catch(err => console.log("Playback failed:", err));
+      } else {
+        vid.pause();
+      }
+    });
+  });
 });

@@ -2025,6 +2025,52 @@ h3 {
   justify-content: center;
 }
 
+video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
+.free-video-thumb::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.free-video-thumb::after {
+  content: "▶";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 38px;
+  text-shadow: 0 0 15px rgba(0, 136, 255, 0.8), 0 0 30px rgba(255, 204, 0, 0.5);
+  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.free-video-card:hover .free-video-thumb::before {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.free-video-card:hover .free-video-thumb::after {
+  transform: translate(-50%, -50%) scale(1.15);
+  color: #fff;
+  opacity: 1;
+  text-shadow: 0 0 25px rgba(0, 136, 255, 1), 0 0 45px rgba(255, 204, 0, 0.8);
+}
+
+.free-video-thumb.is-playing::before,
+.free-video-thumb.is-playing::after {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .free-badge {
   position: absolute;
   top: 16px;
