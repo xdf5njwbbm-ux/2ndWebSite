@@ -482,42 +482,7 @@ if (navMyProfileBtn) {
 }
 
 // ── Support FAB ───────────────────────────────────────────────
-const supportFabBtn = document.getElementById("supportFabBtn");
-const supportMenu = document.getElementById("supportMenu");
 
-if (supportFabBtn && supportMenu) {
-  supportFabBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    supportMenu.classList.toggle("open");
-
-    // Toggle the icons inside the button
-    const closedIcon = supportFabBtn.querySelector(".opened-hidden");
-    const openedIcon = supportFabBtn.querySelector(".opened-visible");
-    if (closedIcon && openedIcon) {
-      if (supportMenu.classList.contains("open")) {
-        closedIcon.style.display = "none";
-        openedIcon.style.display = "block";
-      } else {
-        closedIcon.style.display = "block";
-        openedIcon.style.display = "none";
-      }
-    }
-  });
-
-  // Close when clicking outside
-  document.addEventListener("click", (e) => {
-    if (!supportMenu.contains(e.target) && e.target !== supportFabBtn && !supportFabBtn.contains(e.target)) {
-      supportMenu.classList.remove("open");
-
-      const closedIcon = supportFabBtn.querySelector(".opened-hidden");
-      const openedIcon = supportFabBtn.querySelector(".opened-visible");
-      if (closedIcon && openedIcon) {
-        closedIcon.style.display = "block";
-        openedIcon.style.display = "none";
-      }
-    }
-  });
-}
 
 // ── Login Gate ──────────────────────────────────────────────────
 const loginScreen = document.getElementById("loginScreen");
