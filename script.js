@@ -608,8 +608,8 @@ if (optVenmo) {
   });
 }
 
-// ── Telegram Redirects ───────────────────────────────────────────
-const telegramLink = "https://t.me/musclegodmaddox";
+// ── OnlyFans Redirects ───────────────────────────────────────────
+const onlyfansLink = "https://onlyfans.com/flexmasterkyle";
 const menuCustomBtn = document.getElementById("menuCustomBtn");
 const menuDirectBtn = document.getElementById("menuDirectBtn");
 const statCustomBtn = document.getElementById("statCustomBtn");
@@ -617,7 +617,7 @@ const statCustomBtn = document.getElementById("statCustomBtn");
 [menuCustomBtn, menuDirectBtn, statCustomBtn].forEach(btn => {
   if (btn) {
     btn.addEventListener("click", () => {
-      window.open(telegramLink, "_blank");
+      window.open(onlyfansLink, "_blank");
     });
   }
 });
