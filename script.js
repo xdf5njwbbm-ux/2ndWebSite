@@ -417,7 +417,7 @@ if (menuToggle && mobileMenuOverlay && mobileMenuPanel) {
     menuChatBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       document.body.classList.remove("menu-open");
-      window.open("https://t.me/musclegodmaddox", "_blank");
+      window.open("https://onlyfans.com/flexmasterkyle", "_blank");
     });
   }
   if (menuPremiumBtn) {
