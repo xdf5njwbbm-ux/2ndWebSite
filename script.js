@@ -1,5 +1,5 @@
 // ── Expanded Video Data (32 items) ─────────────────────────────
-const categories = ["All", "Domination", "Foot Worship", "Giant POV"];
+const categories = ["Domination", "Foot Worship", "Giant POV"];
 const creators = ["Muscle God", "Muscle God", "Muscle God", "Muscle God", "Muscle God", "Muscle God"];
 const avatars = ["MG", "MG", "MG", "MG", "MG", "MG"];
 
@@ -12,11 +12,11 @@ const durations = [
   "4:23",  // Card 5  – Domination Vol. 5
   "4:36", // Card 6  – Domination Vol. 6
   "3:13",  // Card 7  – Domination Vol. 7
-  "5:49", // Card 8  – Foot Worship Vol. 8
-  "5:41",  // Card 9  – Foot Worship Vol. 9
-  "5:23", // Card 10 – Foot Worship Vol. 10
-  "4:58",  // Card 11 – Foot Worship Vol. 11
-  "3:03", // Card 12 – Giant POV Vol. 12
+  "5:49", // Card 8  – Foot Worship Pt 2
+  "5:41",  // Card 9  – Foot Worship Pt 3
+  "5:23", // Card 10 – Foot Worship Pt 4
+  "4:58",  // Card 11 – Foot Worship Pt 5
+  "3:03", // Card 12 – Giant POV Pt 1
 ];
 
 // ── Edit these to control the stats shown on each card (cards 1–12) ──
@@ -52,9 +52,18 @@ const VIDEO_DATA = Array.from({ length: 12 }).map((_, i) => {
 
   let badge = isPremium ? "VIP" : (isNew ? "NEW" : "");
 
+  let titleStr = "";
+  if (category === "Domination") {
+    titleStr = `Domination Pt ${i + 2}`;
+  } else if (category === "Foot Worship") {
+    titleStr = `Foot Worship Pt ${i - 4}`;
+  } else {
+    titleStr = `Giant POV Pt ${i - 10}`;
+  }
+
   return {
     id: i,
-    title: `${category} Vol. ${i + 1}`,
+    title: titleStr,
     badge: badge,
     views: views[i],
     likes: likes[i],
@@ -71,7 +80,7 @@ const VIDEO_DATA = Array.from({ length: 12 }).map((_, i) => {
 const customVideos = [
   {
     id: 997,
-    title: "Face Sitting Domination",
+    title: "Domination Pt 1",
     badge: "NEW",
     views: "12.1K views",
     likes: "1,102",
@@ -85,13 +94,13 @@ const customVideos = [
   },
   {
     id: 998,
-    title: "Foot Worship",
+    title: "Foot Worship Pt 1",
     badge: "VIP",
     views: "23.5K views",
     likes: "4,440",
     time: "2d ago",
     duration: "2:01",
-    category: "Domination",
+    category: "Foot Worship",
     creator: creators[0],
     avatar: avatars[0],
     subs: "22.1K subscribers",
@@ -99,7 +108,7 @@ const customVideos = [
   },
   {
     id: 999,
-    title: "Exclusive Foot Worship",
+    title: "Foot Worship Pt 2",
     badge: "NEW",
     views: "18.2K views",
     likes: "2,204",
@@ -125,7 +134,7 @@ const videosViewSubtitle = document.getElementById("videosViewSubtitle");
 
 let isPopularActive = false;
 let currentSearchQuery = "";
-let activeCategory = "All";
+let activeCategory = "Domination";
 
 function renderVideosView() {
   if (!videosViewGrid) return;
@@ -135,9 +144,7 @@ function renderVideosView() {
   let dataCopy = [...VIDEO_DATA];
 
   // Filter by Category
-  if (activeCategory !== "All") {
-    dataCopy = dataCopy.filter(v => v.category === activeCategory);
-  }
+  dataCopy = dataCopy.filter(v => v.category === activeCategory);
 
   // Filter by Search Query
   if (currentSearchQuery) {
@@ -206,7 +213,7 @@ function renderVideosView() {
 
 // Global reset helper for "No Results"
 window.resetFilters = () => {
-  activeCategory = "All";
+  activeCategory = "Domination";
   currentSearchQuery = "";
   isPopularActive = false;
   
@@ -216,7 +223,7 @@ window.resetFilters = () => {
   
   // Reset pills
   document.querySelectorAll(".keyword-pills .pill").forEach(p => {
-    p.classList.toggle("active", p.dataset.category === "All");
+    p.classList.toggle("active", p.dataset.category === "Domination");
   });
 
   updateHeaderText();
@@ -273,7 +280,7 @@ document.querySelectorAll(".keyword-pills .pill").forEach(pill => {
     pill.classList.add("active");
 
     // Update state and re-render
-    activeCategory = pill.dataset.category || "All";
+    activeCategory = pill.dataset.category || "Domination";
     renderVideosView();
   });
 });
