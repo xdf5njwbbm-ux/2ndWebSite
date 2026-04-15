@@ -50,7 +50,7 @@ const VIDEO_DATA = Array.from({ length: 12 }).map((_, i) => {
     bg = `url('assets/images/giant_1.jpg') center/cover no-repeat`;
   }
 
-  let badge = isPremium ? "VIP" : (isNew ? "NEW" : "");
+  let badge = "";
 
   let titleStr = "";
   if (category === "Domination") {
@@ -81,7 +81,7 @@ const customVideos = [
   {
     id: 997,
     title: "Domination Pt 1",
-    badge: "NEW",
+    badge: "",
     views: "12.1K views",
     likes: "1,102",
     time: "4h ago",
@@ -95,7 +95,7 @@ const customVideos = [
   {
     id: 998,
     title: "Foot Worship Pt 1",
-    badge: "VIP",
+    badge: "",
     views: "23.5K views",
     likes: "4,440",
     time: "2d ago",
@@ -109,7 +109,7 @@ const customVideos = [
   {
     id: 999,
     title: "Foot Worship Pt 2",
-    badge: "NEW",
+    badge: "",
     views: "18.2K views",
     likes: "2,204",
     time: "1d ago",
@@ -620,8 +620,10 @@ const onlyfansLink = "https://onlyfans.com/flexmasterkyle";
 const menuCustomBtn = document.getElementById("menuCustomBtn");
 const menuDirectBtn = document.getElementById("menuDirectBtn");
 const statCustomBtn = document.getElementById("statCustomBtn");
+const claimAccessBtn = document.getElementById("claimAccessBtn");
+const claimFootAccessBtn = document.getElementById("claimFootAccessBtn");
 
-[menuCustomBtn, menuDirectBtn, statCustomBtn].forEach(btn => {
+[menuCustomBtn, menuDirectBtn, statCustomBtn, claimAccessBtn, claimFootAccessBtn].forEach(btn => {
   if (btn) {
     btn.addEventListener("click", () => {
       window.open(onlyfansLink, "_blank");
@@ -631,14 +633,7 @@ const statCustomBtn = document.getElementById("statCustomBtn");
 
 
 
-['optCrypto'].forEach(id => {
-  const btn = document.getElementById(id);
-  if (btn) {
-    btn.addEventListener("click", () => {
-      alert(`You selected ${id.replace('opt', '')}. Instructions for this method will be provided here.`);
-    });
-  }
-});
+
 
 if (payGoBackBtn) {
   payGoBackBtn.addEventListener("click", () => showView(optionsView));
