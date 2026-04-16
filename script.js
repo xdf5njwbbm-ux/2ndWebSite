@@ -56,7 +56,7 @@ const VIDEO_DATA = Array.from({ length: 12 }).map((_, i) => {
   if (category === "Domination") {
     titleStr = `Domination Pt ${i + 2}`;
   } else if (category === "Foot Worship") {
-    titleStr = `Foot Worship Pt ${i - 4}`;
+    titleStr = `Foot Worship Pt ${i - 5}`;
   } else {
     titleStr = `Giant POV Pt ${i - 10}`;
   }
@@ -105,20 +105,6 @@ const customVideos = [
     avatar: avatars[0],
     subs: "22.1K subscribers",
     bg: "url('assets/images/img_video_2.png') center/cover no-repeat"
-  },
-  {
-    id: 999,
-    title: "Foot Worship Pt 2",
-    badge: "",
-    views: "18.2K views",
-    likes: "2,204",
-    time: "1d ago",
-    duration: "6:10",
-    category: "Foot Worship",
-    creator: creators[0],
-    avatar: avatars[0],
-    subs: "22.1K subscribers",
-    bg: "url('assets/images/img_video_1.png') center/cover no-repeat"
   }
 ];
 VIDEO_DATA.unshift(...customVideos);
