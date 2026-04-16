@@ -2,758 +2,827 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#05060a" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <title>DRAIN</title>
-  
-  <!-- App Icons & Favicon -->
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/icons/icon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/icons/icon-16x16.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/icons/icon-180x180.png" />
-  
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#05060a" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>DRAIN</title>
+
+    <!-- App Icons & Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/icons/icon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/icons/icon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/icons/icon-180x180.png" />
+
+    <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
-  <!-- ── LOGIN SCREEN (shown first) ───────────────────────────── -->
-  <div class="login-screen" id="loginScreen">
-    <div class="login-inner">
-      <div class="auth-brand">
-        <div class="brand-wrap auth-brand-wrap">
-          <div class="brand-text-logo">
-            <span class="t-drain">DRAIN</span> <span class="t-me">ME</span>
-          </div>
-        </div>
-        <div class="mini-accent-line"></div>
-        <p class="auth-brand-subtitle">Findom Master & Muscle God</p>
-      </div>
-
-      <div class="auth-card" id="signinForm">
-        <h2>Sign In</h2>
-        <p class="auth-subtitle">Returning to your owner?</p>
-
-        <label class="field-label">Username</label>
-        <div class="input-wrap">
-          <div class="icon-box">
-            <span class="input-icon">&#9750;</span>
-          </div>
-          <input type="text" placeholder="Username" />
-        </div>
-
-        <label class="field-label">Password</label>
-        <div class="input-wrap">
-          <div class="icon-box">
-            <span class="input-icon">&#128274;</span>
-          </div>
-          <input type="password" id="passwordInput" placeholder="Password" />
-          <button class="toggle-box" type="button" id="togglePassword">
-            <span class="eye-icon">&#128065;</span>
-          </button>
-        </div>
-
-        <label class="field-label">Verification</label>
-        <div class="verification-group">
-          <div class="verify-row">
-            <div class="verify-code-display" id="verifyCode1">7712</div>
-            <button class="verify-refresh-btn" type="button" id="refreshCode1">&#8635;</button>
-          </div>
-          <div class="input-wrap mini-wrap">
-            <input type="text" placeholder="Enter the 4 digits" />
-          </div>
-        </div>
-
-        <button class="submit-button" id="signInBtn">SIGN IN</button>
-      </div>
-
-      <div class="auth-card mini-card" id="signupPrompt">
-        <p>Don't have an account?</p>
-        <button class="secondary-button" id="showSignupBtn">Sign Up</button>
-      </div>
-
-      <div class="auth-card hidden" id="signupForm">
-        <h2>Create Account</h2>
-        <p class="auth-subtitle">Join the VOID community</p>
-
-        <label class="field-label">Username</label>
-        <div class="input-wrap">
-          <div class="icon-box">
-            <span class="input-icon">👤</span>
-          </div>
-          <input type="text" placeholder="Username" />
-        </div>
-
-        <label class="field-label">Password</label>
-        <div class="input-wrap">
-          <div class="icon-box">
-            <span class="input-icon">🔒</span>
-          </div>
-          <input type="password" id="signupPasswordInput" placeholder="Password" />
-          <button class="toggle-box" type="button" id="toggleSignupPassword">
-            <span class="eye-icon">👁</span>
-          </button>
-        </div>
-
-        <label class="field-label">Verification</label>
-        <div class="verification-group">
-          <div class="verify-row">
-            <div class="verify-code-display" id="verifyCode2">1511</div>
-            <button class="verify-refresh-btn" type="button" id="refreshCode2">↻</button>
-          </div>
-          <div class="input-wrap mini-wrap">
-            <input type="text" placeholder="Enter the 4 digits" />
-          </div>
-        </div>
-
-        <button class="submit-button" id="createAccountBtn">CREATE ACCOUNT</button>
-      </div>
-
-      <div class="auth-card mini-card hidden" id="signinPrompt">
-        <p>Already a member?</p>
-        <button class="secondary-button" id="showSigninBtn">Sign In</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── MAIN APP (hidden until signed in) ────────────────────── -->
-  <div class="app-shell hidden" id="appShell">
-    <header class="topbar">
-      <div class="brand-wrap" id="navLogoBtn" style="cursor: pointer;">
-        <div class="brand-text-logo">
-          <span class="t-drain">DRAIN</span> <span class="t-me">ME</span>
-        </div>
-      </div>
-
-      <div class="topbar-actions">
-        <div class="notification-wrap">
-          <button class="icon-button notification-button" id="notificationBtn" aria-label="Notifications">
-            <svg class="notify-icon-svg" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
-              viewBox="0 0 24 24">
-              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-              <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-            </svg>
-          </button>
-
-          <div class="notification-dropdown" id="notificationDropdown">
-            <div class="notif-header">
-              <h3>Notifications</h3>
-            </div>
-            <div class="notif-body">
-              <div class="notif-pref-row">
-                <div class="notif-pref-text">
-                  <h4>Notify me when new videos are uploaded</h4>
+    <!-- ── LOGIN SCREEN (shown first) ───────────────────────────── -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-inner">
+            <div class="auth-brand">
+                <div class="brand-wrap auth-brand-wrap">
+                    <div class="brand-text-logo">
+                        <span class="t-drain">DRAIN</span> <span class="t-me">ME</span>
+                    </div>
                 </div>
-                <label class="premium-toggle">
-                  <input type="checkbox" checked id="notifPrefToggle">
-                  <span class="toggle-slider"></span>
-                </label>
-              </div>
+                <div class="mini-accent-line"></div>
+                <p class="auth-brand-subtitle">Findom Master & Muscle God</p>
             </div>
-          </div>
+
+            <div class="auth-card" id="signinForm">
+                <h2>Sign In</h2>
+                <p class="auth-subtitle">Returning to your owner?</p>
+
+                <label class="field-label">Username</label>
+                <div class="input-wrap">
+                    <div class="icon-box">
+                        <span class="input-icon">&#9750;</span>
+                    </div>
+                    <input type="text" placeholder="Username" />
+                </div>
+
+                <label class="field-label">Password</label>
+                <div class="input-wrap">
+                    <div class="icon-box">
+                        <span class="input-icon">&#128274;</span>
+                    </div>
+                    <input type="password" id="passwordInput" placeholder="Password" />
+                    <button class="toggle-box" type="button" id="togglePassword">
+                        <span class="eye-icon">&#128065;</span>
+                    </button>
+                </div>
+
+                <label class="field-label">Verification</label>
+                <div class="verification-group">
+                    <div class="verify-row">
+                        <div class="verify-code-display" id="verifyCode1">7712</div>
+                        <button class="verify-refresh-btn" type="button" id="refreshCode1">&#8635;</button>
+                    </div>
+                    <div class="input-wrap mini-wrap">
+                        <input type="text" placeholder="Enter the 4 digits" />
+                    </div>
+                </div>
+
+                <button class="submit-button" id="signInBtn">SIGN IN</button>
+            </div>
+
+            <div class="auth-card mini-card" id="signupPrompt">
+                <p>Don't have an account?</p>
+                <button class="secondary-button" id="showSignupBtn">Sign Up</button>
+            </div>
+
+            <div class="auth-card hidden" id="signupForm">
+                <h2>Create Account</h2>
+                <p class="auth-subtitle">Join the VOID community</p>
+
+                <label class="field-label">Username</label>
+                <div class="input-wrap">
+                    <div class="icon-box">
+                        <span class="input-icon">👤</span>
+                    </div>
+                    <input type="text" placeholder="Username" />
+                </div>
+
+                <label class="field-label">Password</label>
+                <div class="input-wrap">
+                    <div class="icon-box">
+                        <span class="input-icon">🔒</span>
+                    </div>
+                    <input type="password" id="signupPasswordInput" placeholder="Password" />
+                    <button class="toggle-box" type="button" id="toggleSignupPassword">
+                        <span class="eye-icon">👁</span>
+                    </button>
+                </div>
+
+                <label class="field-label">Verification</label>
+                <div class="verification-group">
+                    <div class="verify-row">
+                        <div class="verify-code-display" id="verifyCode2">1511</div>
+                        <button class="verify-refresh-btn" type="button" id="refreshCode2">↻</button>
+                    </div>
+                    <div class="input-wrap mini-wrap">
+                        <input type="text" placeholder="Enter the 4 digits" />
+                    </div>
+                </div>
+
+                <button class="submit-button" id="createAccountBtn">CREATE ACCOUNT</button>
+            </div>
+
+            <div class="auth-card mini-card hidden" id="signinPrompt">
+                <p>Already a member?</p>
+                <button class="secondary-button" id="showSigninBtn">Sign In</button>
+            </div>
         </div>
-
-
-        <button class="icon-button menu-button" id="menuToggle" aria-label="Menu">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-      </div>
-    </header>
-
-    <!-- ── MOBILE MENU OVERLAY ───────────────────────────── -->
-    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
-      <div class="mobile-menu-panel" id="mobileMenuPanel">
-
-        <div class="menu-grid">
-          <button class="menu-grid-card" id="menuVideosBtn">Videos</button>
-          <button class="menu-grid-card" id="menuFreeVideosBtn">Free Videos</button>
-          <button class="menu-grid-card" id="menuChatBtn">Chat</button>
-          <button class="menu-grid-card" id="menuPremiumBtn">Payment</button>
-        </div>
-      </div>
     </div>
 
-
-
-    <main class="page-content" id="appContent">
-      <section id="homeView">
-        <section class="hero-card glow-card">
-          <div class="hero-copy">
-            <p class="eyebrow">This is what you need</p>
-            <h1>
-              All your desires <br />
-              <span class="accent-text">FULFILLED</span>
-            </h1>
-            <p class="hero-subtext">
-              I want to hear you say "Sent, Sir."
-            </p>
-
-            <div class="hero-actions">
-              <button class="primary-button" id="openPremium">
-                <span class="button-icon"></span>
-                <span>Get Premium</span>
-              </button>
+    <!-- ── MAIN APP (hidden until signed in) ────────────────────── -->
+    <div class="app-shell hidden" id="appShell">
+        <header class="topbar">
+            <div class="brand-wrap" id="navLogoBtn" style="cursor: pointer;">
+                <div class="brand-text-logo">
+                    <span class="t-drain">DRAIN</span> <span class="t-me">ME</span>
+                </div>
             </div>
-          </div>
-        </section>
 
-        <section class="stats-grid">
-          <article class="stat-card">
-            <div class="stat-icon">▶</div>
-            <div>
-              <div class="stat-value">15</div>
-              <div class="stat-label">Total Videos</div>
+            <div class="topbar-actions">
+                <div class="notification-wrap">
+                    <button class="icon-button notification-button" id="notificationBtn" aria-label="Notifications">
+                        <svg class="notify-icon-svg" width="22" height="22" fill="none" stroke="currentColor"
+                            stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                        </svg>
+                    </button>
+
+                    <div class="notification-dropdown" id="notificationDropdown">
+                        <div class="notif-header">
+                            <h3>Notifications</h3>
+                        </div>
+                        <div class="notif-body">
+                            <div class="notif-pref-row">
+                                <div class="notif-pref-text">
+                                    <h4>Notify me when new videos are uploaded</h4>
+                                </div>
+                                <label class="premium-toggle">
+                                    <input type="checkbox" checked id="notifPrefToggle">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <button class="icon-button menu-button" id="menuToggle" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
-          </article>
+        </header>
 
-          <article class="stat-card clickable" id="statCustomBtn">
-            <div class="stat-icon">📥</div>
-            <div>
-              <div class="stat-value" style="color: var(--accent); text-shadow: 0 0 10px rgba(0, 136, 255, 0.3);">Want your own video?</div>
-              <div class="stat-label">DM me</div>
+        <!-- ── MOBILE MENU OVERLAY ───────────────────────────── -->
+        <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+            <div class="mobile-menu-panel" id="mobileMenuPanel">
+
+                <div class="menu-grid">
+                    <button class="menu-grid-card" id="menuVideosBtn">Videos</button>
+                    <button class="menu-grid-card" id="menuFreeVideosBtn">Free Videos</button>
+                    <button class="menu-grid-card" id="menuChatBtn">Chat</button>
+                    <button class="menu-grid-card" id="menuPremiumBtn">Payment</button>
+                </div>
             </div>
-          </article>
-        </section>
-
-        <!-- ── MAIN VIDEOS SECTION (Integrated) ────────────────── -->
-        <div id="videosAnchor" style="scroll-margin-top: 85px;"></div>
-        <section class="videos-header-area">
-          <h2 id="videosViewTitle" style="color: var(--yellow); text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);">Videos</h2>
-          <p class="view-subtitle" id="videosViewSubtitle">15 videos available</p>
-        </section>
-
-        <div class="search-sort-bar">
-          <div class="search-input-wrap">
-            <span class="search-icon">🔍</span>
-            <input type="text" id="videosSearchInput" placeholder="Search videos or keywords">
-            <button class="clear-search-btn" id="clearSearchBtn" aria-label="Clear">✕</button>
-          </div>
-          <div class="filter-actions">
-            <button class="popular-toggle-btn" id="popularToggleBtn" aria-label="Show Most Popular"
-              title="Most Popular">
-              <span class="fire-icon">🔥</span>
-            </button>
-          </div>
         </div>
 
-        <div class="keyword-scroll-container">
-          <div class="keyword-pills">
-            <button class="pill active" data-category="Domination">Domination</button>
-            <button class="pill" data-category="Foot Worship">Foot Worship</button>
-            <button class="pill" data-category="Giant POV">Giant POV</button>
-          </div>
-        </div>
-
-        <!-- Popular status banner – shown above grid when active -->
-        <div id="popularStatusBadge" class="popular-status-badge hidden">
-          <span class="pop-fire">&#128293;</span> Most Popular Videos
-        </div>
-
-        <div class="video-grid" id="videosViewGrid"></div>
-      </section> <!-- end homeView -->
-
-      <!-- ── PREMIUM SUBSCRIBE VIEW ────────────────────────── -->
-      <section id="subscribeView" class="hidden view-section">
-        <div class="subscribe-container">
-          <div class="subscribe-header">
-            <h1>Premium Bundles</h1>
-            <p class="subscribe-subtext">Sometimes you just want it all.</p>
-          </div>
 
 
+        <main class="page-content" id="appContent">
+            <section id="homeView">
+                <section class="hero-card glow-card">
+                    <div class="hero-copy">
+                        <p class="eyebrow">This is what you need</p>
+                        <h1>
+                            All your desires <br />
+                            <span class="accent-text">FULFILLED</span>
+                        </h1>
+                        <p class="hero-subtext">
+                            I want to hear you say "Sent, Sir."
+                        </p>
 
-          <button class="secondary-button go-back-btn" id="subGoBackBtn">
-            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path d="M19 12H5M12 19l-7-7 7-7" />
-            </svg>
-            Go Back
-          </button>
-        </div>
-      </section>
+                        <div class="hero-actions">
+                            <button class="primary-button" id="openPremium">
+                                <span class="button-icon"></span>
+                                <span>Get Premium</span>
+                            </button>
+                        </div>
+                    </div>
+                </section>
 
-      <!-- ── ACCESS OPTIONS VIEW ────────────────────────── -->
-      <section id="optionsView" class="hidden view-section">
-        <div class="view-header-area">
-          <h1 class="view-title">Choose Your Payment Method</h1>
-          <p class="view-subtitle">Go ahead... you know you want it.</p>
-        </div>
+                <section class="stats-grid">
+                    <article class="stat-card">
+                        <div class="stat-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none"
+                                stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+                                style="filter: drop-shadow(0 0 6px rgba(0,136,255,0.5));">
+                                <path
+                                    d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-4l-2-3H8L6 6H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2z" />
+                                <path d="M2 6h20" />
+                                <path d="M7 3l1.5 3" />
+                                <path d="M12 3l1.5 3" />
+                                <polygon points="10 10 15 13 10 16 10 10" fill="var(--accent)" stroke="none"
+                                    opacity="0.9" />
+                            </svg></div>
+                        <div>
+                            <div class="stat-value">15</div>
+                            <div class="stat-label">Total Videos</div>
+                        </div>
+                    </article>
 
-        <div class="options-grid">
+                    <article class="stat-card clickable" id="statCustomBtn">
+                        <div class="stat-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none"
+                                stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+                                style="filter: drop-shadow(0 0 6px rgba(0,136,255,0.5));">
+                                <path d="M22 2L11 13" />
+                                <path d="M22 2L15 22L11 13L2 9L22 2Z" fill="rgba(0,136,255,0.15)" />
+                            </svg></div>
+                        <div>
+                            <div class="stat-value"
+                                style="color: var(--accent); text-shadow: 0 0 10px rgba(0, 136, 255, 0.3);">Want your
+                                own video?</div>
+                            <div class="stat-label">DM me</div>
+                        </div>
+                    </article>
+                </section>
 
-          <!-- Cash App -->
-          <button class="access-option-card" id="optCashApp">
-            <div class="option-icon-box cashapp-icon">
-              <img src="assets/images/logo_cashapp.png" alt="Cash App" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit;">
-            </div>
-            <div class="option-content">
-              <h3>Cash App</h3>
-              <p class="option-subtitle">Send payment to $JackedAlpha</p>
-            </div>
-          </button>
+                <!-- ── MAIN VIDEOS SECTION (Integrated) ────────────────── -->
+                <div id="videosAnchor" style="scroll-margin-top: 85px;"></div>
+                <section class="videos-header-area">
+                    <h2 id="videosViewTitle"
+                        style="color: var(--yellow); text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);">Videos</h2>
+                    <p class="view-subtitle" id="videosViewSubtitle">15 videos available</p>
+                </section>
 
-          <!-- Venmo -->
-          <button class="access-option-card" id="optVenmo">
-            <div class="option-icon-box venmo-icon">
-              <img src="assets/images/logo_venmo.png" alt="Venmo" style="width: 100%; height: 100%; object-fit: contain; display: block; border-radius: inherit;">
-            </div>
-            <div class="option-content">
-              <h3>Venmo</h3>
-              <p class="option-subtitle">Send payment to JackedAlpha</p>
-            </div>
-          </button>
+                <div class="search-sort-bar">
+                    <div class="search-input-wrap">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="videosSearchInput" placeholder="Search videos or keywords">
+                        <button class="clear-search-btn" id="clearSearchBtn" aria-label="Clear">✕</button>
+                    </div>
+                    <div class="filter-actions">
+                        <button class="popular-toggle-btn" id="popularToggleBtn" aria-label="Show Most Popular"
+                            title="Most Popular">
+                            <span class="fire-icon">🔥</span>
+                        </button>
+                    </div>
+                </div>
 
-          <!-- Throne -->
-          <a href="https://throne.com/flexmasterkyle" target="_blank" class="access-option-card" id="optThrone" style="text-decoration: none;">
-            <div class="option-icon-box throne-icon">
-              <img src="assets/images/logo_throne.png" alt="Throne" style="width: 100%; height: 100%; object-fit: contain; display: block; border-radius: inherit;">
-            </div>
-            <div class="option-content">
-              <h3>Throne</h3>
-              <p class="option-subtitle">Send payment to Muscle God</p>
-            </div>
-          </a>
+                <div class="keyword-scroll-container">
+                    <div class="keyword-pills">
+                        <button class="pill active" data-category="Domination">Domination</button>
+                        <button class="pill" data-category="Foot Worship">Foot Worship</button>
+                        <button class="pill" data-category="Giant POV">Giant POV</button>
+                    </div>
+                </div>
 
-          <!-- OnlyFans -->
-          <a href="https://onlyfans.com/flexmasterkyle" target="_blank" class="access-option-card" id="optOnlyFans" style="text-decoration: none;">
-            <div class="option-icon-box onlyfans-icon">
-              <img src="assets/images/logo_onlyfans.png" alt="OnlyFans" style="width: 100%; height: 100%; object-fit: contain; display: block; border-radius: inherit;">
-            </div>
-            <div class="option-content">
-              <h3>OnlyFans</h3>
-              <p class="option-subtitle">Send payment to Muscle God</p>
-            </div>
-          </a>
+                <!-- Popular status banner – shown above grid when active -->
+                <div id="popularStatusBadge" class="popular-status-badge hidden">
+                    <span class="pop-fire">&#128293;</span> Most Popular Videos
+                </div>
 
-          <!-- Amazon -->
+                <div class="video-grid" id="videosViewGrid"></div>
+            </section> <!-- end homeView -->
 
-          <a href="https://www.amazon.com/hz/wishlist/ls/1BD87YHL498Z6?ref_=wl_share" target="_blank" class="access-option-card" id="optAmazon" style="text-decoration: none;">
-            <div class="option-icon-box amazon-icon">
-              <img src="assets/images/logo_amazon.png" alt="Amazon" style="width: 100%; height: 100%; object-fit: contain; display: block; border-radius: inherit;">
-            </div>
-            <div class="option-content">
-              <h3>Amazon Gift Card</h3>
-              <p class="option-subtitle">Send through Amazon Wishlist</p>
-            </div>
-          </a>
-        </div>
-
-          <div class="pricing-card glow-card active-plan" style="margin-top: 1rem; margin-bottom: 1rem;">
-            <div class="plan-badge">BEST VALUE</div>
-            <h2 class="plan-title">Domination Bundle</h2>
-            <div class="plan-price">
-              <span class="currency">$</span>
-              <span class="amount">19.99</span>
-            </div>
-
-            <ul class="benefits-list">
-              <li class="benefit-item">
-                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
-                Full Control Package
-              </li>
-              <li class="benefit-item">
-                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
-                Humiliation
-              </li>
-              <li class="benefit-item">
-                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
-                Traumitizing
-              </li>
-              <li class="benefit-item">
-                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
-                NO remorse
-              </li>
-            </ul>
-
-            <button class="primary-button subscribe-now-btn" id="claimAccessBtn">
-              <span>Claim Your Access</span>
-              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </button>
-          </div>
-
-          <div class="pricing-card glow-card active-plan blue" style="margin-top: 1rem; margin-bottom: 2rem;">
-            <div class="plan-badge blue">BEST VALUE</div>
-            <h2 class="plan-title">Foot Bundle</h2>
-            <div class="plan-price">
-              <span class="currency">$</span>
-              <span class="amount">19.99</span>
-            </div>
-
-            <ul class="benefits-list">
-              <li class="benefit-item blue-check">
-                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
-                Foot Worship
-              </li>
-              <li class="benefit-item blue-check">
-                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
-                Teasing
-              </li>
-              <li class="benefit-item blue-check">
-                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
-                Exclusive Content
-              </li>
-              <li class="benefit-item blue-check">
-                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
-                Custom Experience
-              </li>
-            </ul>
-
-            <button class="primary-button subscribe-now-btn blue" id="claimFootAccessBtn">
-              <span>CLAIM YOUR ACCESS</span>
-              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </button>
-          </div>
-
-        <button class="secondary-button go-back-btn" id="optGoBackBtn">
-          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path d="M19 12H5M12 19l-7-7 7-7" />
-          </svg>
-          Go Back
-        </button>
-      </section>
-
-      <!-- ── VIDEO DETAIL SCREEN ───────────────────────────── -->
-      <section class="vd-screen hidden" id="videoDetail" aria-label="Video detail">
-        <div class="vd-back-row">
-          <button class="vd-back-btn" id="vdBackBtn">&#8592; Back</button>
-        </div>
-
-        <div class="vd-premium-card glow-card">
-          <div class="panel-crown">👑</div>
-          <h2>Premium Content</h2>
-          <p class="panel-subtext">Unlock exclusive content with premium access!</p>
-          <div class="feature-pill-grid">
-            <div class="feature-pill">∞ Unlimited Videos</div>
-            <div class="feature-pill">⇩ Download Access</div>
-            <div class="feature-pill">★ Premium Content</div>
-            <div class="feature-pill">🎧 Priority Support</div>
-          </div>
-          <div class="panel-actions">
-            <button class="primary-button vd-premium-cta" id="vdPremiumCta">GET PREMIUM</button>
-            <button class="secondary-button vd-go-back" id="vdGoBack">&#8592; GO BACK</button>
-          </div>
-        </div>
-
-        <div class="vd-info-card">
-          <div class="vd-title-row">
-            <h3 class="vd-title" id="vdTitle">Featured Premium Collection</h3>
-            <span class="vd-badge" id="vdBadge">VIP</span>
-          </div>
-          <div class="vd-meta">
-            <span class="vd-meta-item">&#128077; <span id="vdLikes">2,334 likes</span></span>
-            <span class="vd-meta-item">&#9200; <span id="vdDuration">23:53</span></span>
-            <span class="vd-category" id="vdCategory">Lifestyle</span>
-          </div>
-          <div class="vd-creator-row">
-            <div class="vd-avatar" id="vdAvatar">C</div>
-            <div class="vd-creator-info">
-              <span class="vd-creator-name" id="vdCreator">@Creator</span>
-              <span class="vd-subs" id="vdSubs">1.2K subscribers</span>
-            </div>
-          </div>
-          <div class="vd-actions">
-            <button class="vd-subscribe-btn">+ SUBSCRIBE</button>
-            <button class="vd-action-pill" id="vdLikeBtn">&#128077; <span id="vdLikesBtn">2,334</span></button>
-            <button class="vd-action-icon" aria-label="Save">&#128278;</button>
-          </div>
-        </div>
-
-        <div class="vd-comments">
-          <h2>Comments (0)</h2>
-          <div class="comment-box">
-            <textarea placeholder="Write a comment..."></textarea>
-            <button class="comment-float-button" aria-label="Audio">🎧</button>
-          </div>
-        </div>
-      </section>
+            <!-- ── PREMIUM SUBSCRIBE VIEW ────────────────────────── -->
+            <section id="subscribeView" class="hidden view-section">
+                <div class="subscribe-container">
+                    <div class="subscribe-header">
+                        <h1>Premium Bundles</h1>
+                        <p class="subscribe-subtext">Sometimes you just want it all.</p>
+                    </div>
 
 
-      <!-- ── FREE PREVIEWS VIEW ─────────────────────────────── -->
-      <section id="freeVideosView" class="hidden view-section">
-        <div class="videos-header-area">
-          <h2>
-            Free Previews
-            <span class="badge-tag"
-              style="background:rgba(255,255,255,0.05); color:#999; font-size:12px; margin-left:8px; border:none; padding:4px 8px;">8
-              videos</span>
-          </h2>
-        </div>
-        <div class="mini-accent-line" style="margin: 8px 0 24px 0; width: 155px; background: linear-gradient(90deg, var(--yellow), transparent);"></div>
 
-        <div class="free-video-list" id="freeVideosList">
-          <div class="free-video-card glow-card" style="cursor: default;">
-            <div class="free-video-thumb" style="background: #000;">
-              <span class="free-badge" style="z-index: 10; pointer-events: none;">FREE</span>
-              <video src="assets/videos/free_preview_2.mp4#t=0.001" preload="metadata" disablePictureInPicture controlsList="nodownload noplaybackrate" oncontextmenu="return false;" playsinline style="width: 100%; height: 100%; object-fit: cover; display: block;"></video>
-            </div>
-            <div class="free-card-info">
-              <h3>Exclusive Free Preview 1</h3>
-              <p class="free-card-sub"><span class="icon">🎬</span> Full Video</p>
-            </div>
-          </div>
-          <div class="free-video-card glow-card" style="cursor: default;">
-            <div class="free-video-thumb" style="background: #000;">
-              <span class="free-badge" style="z-index: 10; pointer-events: none;">FREE</span>
-              <video src="assets/videos/free_preview_3.mp4#t=0.001" preload="metadata" disablePictureInPicture controlsList="nodownload noplaybackrate" oncontextmenu="return false;" playsinline style="width: 100%; height: 100%; object-fit: cover; display: block;"></video>
-            </div>
-            <div class="free-card-info">
-              <h3>Exclusive Free Preview 2</h3>
-              <p class="free-card-sub"><span class="icon">🎬</span> Full Video</p>
-            </div>
-          </div>
-          <div class="free-video-card glow-card" style="cursor: default;">
-            <div class="free-video-thumb" style="background: #000;">
-              <span class="free-badge" style="z-index: 10; pointer-events: none;">FREE</span>
-              <video src="assets/videos/free_preview_4.mp4#t=0.001" preload="metadata" disablePictureInPicture controlsList="nodownload noplaybackrate" oncontextmenu="return false;" playsinline style="width: 100%; height: 100%; object-fit: cover; display: block;"></video>
-            </div>
-            <div class="free-card-info">
-              <h3>Exclusive Free Preview 3</h3>
-              <p class="free-card-sub"><span class="icon">🎬</span> Full Video</p>
-            </div>
-          </div>
-          <div class="free-video-card glow-card" style="cursor: default;">
-            <div class="free-video-thumb" style="background: #000;">
-              <span class="free-badge" style="z-index: 10; pointer-events: none;">FREE</span>
-              <video src="assets/videos/free_preview_5.mp4#t=0.001" preload="metadata" disablePictureInPicture controlsList="nodownload noplaybackrate" oncontextmenu="return false;" playsinline style="width: 100%; height: 100%; object-fit: cover; display: block;"></video>
-            </div>
-            <div class="free-card-info">
-              <h3>Exclusive Free Preview 4</h3>
-              <p class="free-card-sub"><span class="icon">🎬</span> Full Video</p>
-            </div>
-          </div>
-          <div class="free-video-card glow-card" style="cursor: default;">
-            <div class="free-video-thumb" style="background: #000;">
-              <span class="free-badge" style="z-index: 10; pointer-events: none;">FREE</span>
-              <video src="assets/videos/free_preview_6.mp4#t=0.001" preload="metadata" disablePictureInPicture controlsList="nodownload noplaybackrate" oncontextmenu="return false;" playsinline style="width: 100%; height: 100%; object-fit: cover; display: block;"></video>
-            </div>
-            <div class="free-card-info">
-              <h3>Exclusive Free Preview 5</h3>
-              <p class="free-card-sub"><span class="icon">🎬</span> Full Video</p>
-            </div>
-          </div>
-          <div class="free-video-card glow-card" style="cursor: default;">
-            <div class="free-video-thumb" style="background: #000;">
-              <span class="free-badge" style="z-index: 10; pointer-events: none;">FREE</span>
-              <video src="assets/videos/free_preview_7.mp4#t=0.001" preload="metadata" disablePictureInPicture controlsList="nodownload noplaybackrate" oncontextmenu="return false;" playsinline style="width: 100%; height: 100%; object-fit: cover; display: block;"></video>
-            </div>
-            <div class="free-card-info">
-              <h3>Exclusive Free Preview 6</h3>
-              <p class="free-card-sub"><span class="icon">🎬</span> Full Video</p>
-            </div>
-          </div>
-          <div class="free-video-card glow-card" style="cursor: default;">
-            <div class="free-video-thumb" style="background: #000;">
-              <span class="free-badge" style="z-index: 10; pointer-events: none;">FREE</span>
-              <video src="assets/videos/free_preview_8.mp4#t=0.001" preload="metadata" disablePictureInPicture controlsList="nodownload noplaybackrate" oncontextmenu="return false;" playsinline style="width: 100%; height: 100%; object-fit: cover; display: block;"></video>
-            </div>
-            <div class="free-card-info">
-              <h3>Exclusive Free Preview 7</h3>
-              <p class="free-card-sub"><span class="icon">🎬</span> Full Video</p>
-            </div>
-          </div>
-          <div class="free-video-card glow-card" style="cursor: default;">
-            <div class="free-video-thumb" style="background: #000;">
-              <span class="free-badge" style="z-index: 10; pointer-events: none;">FREE</span>
-              <video src="assets/videos/free_preview_9.mp4#t=0.001" preload="metadata" disablePictureInPicture controlsList="nodownload noplaybackrate" oncontextmenu="return false;" playsinline style="width: 100%; height: 100%; object-fit: cover; display: block;"></video>
-            </div>
-            <div class="free-card-info">
-              <h3>Exclusive Free Preview 8</h3>
-              <p class="free-card-sub"><span class="icon">🎬</span> Full Video</p>
-            </div>
-          </div>
-        </div>
-      </section>
+                    <button class="secondary-button go-back-btn" id="subGoBackBtn">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path d="M19 12H5M12 19l-7-7 7-7" />
+                        </svg>
+                        Go Back
+                    </button>
+                </div>
+            </section>
 
-      <!-- ── CHAT VIEW ──────────────────────────────────────── -->
-      <section id="chatView" class="hidden view-section chat-layout">
-        <div class="chat-room-header">
-          <div class="room-title">
-            <span class="chat-icon">💬</span> Owner/Master Chat
-          </div>
-          <div class="room-status"><span class="status-dot"></span> Online</div>
-        </div>
+            <!-- ── ACCESS OPTIONS VIEW ────────────────────────── -->
+            <section id="optionsView" class="hidden view-section">
+                <div class="view-header-area">
+                    <h1 class="view-title">Choose Your Payment Method</h1>
+                    <p class="view-subtitle">Go ahead... you know you want it.</p>
+                </div>
 
-        <div class="chat-messages" id="chatMessagesList">
-          <div class="chat-msg">
-            <div class="chat-avatar">M</div>
-            <div class="chat-body">
-              <div class="chat-name">Master <span class="premium-badge content-badge">VIP</span> <span
-                  class="chat-time">12:44 PM</span></div>
-              <div class="chat-text">Whatever you say better be important.</div>
-            </div>
-          </div>
-          <div class="chat-input-bar">
-            <input type="text" class="chat-input-field" placeholder="Message the community...">
-            <button class="chat-send-btn"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
-                viewBox="0 0 24 24">
-                <line x1="22" y1="2" x2="11" y2="13" />
-                <polygon points="22 2 15 22 11 13 2 9 22 2" />
-              </svg></button>
-          </div>
-        </div>
-      </section>
+                <div class="options-grid">
 
-      <!-- ── PROFILE VIEW ─────────────────────────────────────── -->
-      <section id="profileView" class="hidden view-section">
-        <div class="videos-header-area">
-          <h2><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
-              style="color:var(--accent)">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-              <circle cx="12" cy="7" r="4" />
-            </svg> My Profile</h2>
-        </div>
-        <div class="mini-accent-line"
-          style="margin: 8px 0 24px 0; width: 60px; background:linear-gradient(90deg, var(--accent), transparent);">
-        </div>
+                    <!-- Cash App -->
+                    <button class="access-option-card" id="optCashApp">
+                        <div class="option-icon-box cashapp-icon">
+                            <img src="assets/images/logo_cashapp.png" alt="Cash App"
+                                style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit;">
+                        </div>
+                        <div class="option-content">
+                            <h3>Cash App</h3>
+                            <p class="option-subtitle">Send payment to $JackedAlpha</p>
+                        </div>
+                    </button>
 
-        <div class="profile-card glow-card">
-          <div class="profile-badge-free">FREE MEMBER</div>
+                    <!-- Venmo -->
+                    <button class="access-option-card" id="optVenmo">
+                        <div class="option-icon-box venmo-icon">
+                            <img src="assets/images/logo_venmo.png" alt="Venmo"
+                                style="width: 100%; height: 100%; object-fit: contain; display: block; border-radius: inherit;">
+                        </div>
+                        <div class="option-content">
+                            <h3>Venmo</h3>
+                            <p class="option-subtitle">Send payment to Alpha</p>
+                        </div>
+                    </button>
 
-          <div class="profile-avatar-wrap">
-            <button class="profile-avatar-circle">J</button>
-          </div>
+                    <!-- Throne -->
+                    <a href="https://throne.com/flexmasterkyle" target="_blank" class="access-option-card"
+                        id="optThrone" style="text-decoration: none;">
+                        <div class="option-icon-box throne-icon">
+                            <img src="assets/images/logo_throne.png" alt="Throne"
+                                style="width: 100%; height: 100%; object-fit: contain; display: block; border-radius: inherit;">
+                        </div>
+                        <div class="option-content">
+                            <h3>Throne</h3>
+                            <p class="option-subtitle">Send payment to Muscle God</p>
+                        </div>
+                    </a>
 
-          <div class="profile-username-wrap">
-            <h3>Jejdjdjsnx</h3>
-            <div class="profile-stat-mini">
-              <span class="stat-label">Videos Bought</span>
-              <span class="stat-value">0</span>
-            </div>
-            <p class="tap-to-change">Tap photo to change</p>
-          </div>
-        </div>
-      </section>
+                    <!-- OnlyFans -->
+                    <a href="https://onlyfans.com/flexmasterkyle" target="_blank" class="access-option-card"
+                        id="optOnlyFans" style="text-decoration: none;">
+                        <div class="option-icon-box onlyfans-icon">
+                            <img src="assets/images/logo_onlyfans.png" alt="OnlyFans"
+                                style="width: 100%; height: 100%; object-fit: contain; display: block; border-radius: inherit;">
+                        </div>
+                        <div class="option-content">
+                            <h3>OnlyFans</h3>
+                            <p class="option-subtitle">Send payment to Muscle God</p>
+                        </div>
+                    </a>
 
-      <!-- ── PREMIUM / PACKAGES VIEW ─────────────────────────── -->
-      <section id="premiumView" class="hidden">
-        <div class="premium-header-area">
-          <h2 class="premium-welcome">Welcome, Jejdjdjsnx</h2>
-          <p class="premium-subtitle">Choose a subscription plan or purchase content packages</p>
-        </div>
+                    <!-- Amazon -->
 
-        <div class="premium-toggle-group">
-          <button class="p-toggle-btn"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
-              viewBox="0 0 24 24">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-            </svg> Subscription Plans</button>
-          <button class="p-toggle-btn active"><svg width="18" height="18" fill="none" stroke="currentColor"
-              stroke-width="2" viewBox="0 0 24 24">
-              <path
-                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
-              <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
-              <line x1="12" y1="22.08" x2="12" y2="12" />
-            </svg> Content Packages</button>
-        </div>
+                    <a href="https://www.amazon.com/hz/wishlist/ls/1BD87YHL498Z6?ref_=wl_share" target="_blank"
+                        class="access-option-card" id="optAmazon" style="text-decoration: none;">
+                        <div class="option-icon-box amazon-icon">
+                            <img src="assets/images/logo_amazon.png" alt="Amazon"
+                                style="width: 100%; height: 100%; object-fit: contain; display: block; border-radius: inherit;">
+                        </div>
+                        <div class="option-content">
+                            <h3>Amazon Gift Card</h3>
+                            <p class="option-subtitle">Send through Amazon Wishlist</p>
+                        </div>
+                    </a>
+                </div>
 
-        <div class="premium-card">
-          <div class="p-card-header">
-            <h3>Tier 1</h3>
-            <p>30 invites or buy directly</p>
-            <div class="p-card-price">$15</div>
-          </div>
-          <div class="p-card-banner">
-            60GB MEGA LINK
-          </div>
-          <div class="p-card-body">
-            <ul class="p-card-features">
-              <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <polyline points="20 6 9 17 4 12" />
-                </svg> Access to Tier 1 content</li>
-              <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <polyline points="20 6 9 17 4 12" />
-                </svg> Basic support</li>
-              <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <polyline points="20 6 9 17 4 12" />
-                </svg> 30 day access</li>
-            </ul>
+                <div class="pricing-card glow-card active-plan" style="margin-top: 1rem; margin-bottom: 1rem;">
+                    <div class="plan-badge">BEST VALUE</div>
+                    <h2 class="plan-title">Domination Bundle</h2>
+                    <div class="plan-price">
+                        <span class="currency">$</span>
+                        <span class="amount">19.99</span>
+                    </div>
 
-            <button class="p-card-buy-btn">
-              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <circle cx="9" cy="21" r="1" />
-                <circle cx="20" cy="21" r="1" />
-                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-              </svg> Buy Now
-            </button>
-          </div>
-        </div>
-      </section>
-    </main>
+                    <ul class="benefits-list">
+                        <li class="benefit-item">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"
+                                viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            Full Control Package
+                        </li>
+                        <li class="benefit-item">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"
+                                viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            Humiliation
+                        </li>
+                        <li class="benefit-item">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"
+                                viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            Traumitizing
+                        </li>
+                        <li class="benefit-item">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"
+                                viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            NO remorse
+                        </li>
+                    </ul>
+
+                    <button class="primary-button subscribe-now-btn" id="claimAccessBtn">
+                        <span>Claim Your Access</span>
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="pricing-card glow-card active-plan blue" style="margin-top: 1rem; margin-bottom: 2rem;">
+                    <div class="plan-badge blue">BEST VALUE</div>
+                    <h2 class="plan-title">Foot Bundle</h2>
+                    <div class="plan-price">
+                        <span class="currency">$</span>
+                        <span class="amount">19.99</span>
+                    </div>
+
+                    <ul class="benefits-list">
+                        <li class="benefit-item blue-check">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"
+                                viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            Foot Worship
+                        </li>
+                        <li class="benefit-item blue-check">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"
+                                viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            Teasing
+                        </li>
+                        <li class="benefit-item blue-check">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"
+                                viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            Exclusive Content
+                        </li>
+                        <li class="benefit-item blue-check">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"
+                                viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            Custom Experience
+                        </li>
+                    </ul>
+
+                    <button class="primary-button subscribe-now-btn blue" id="claimFootAccessBtn">
+                        <span>CLAIM YOUR ACCESS</span>
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
+
+                <button class="secondary-button go-back-btn" id="optGoBackBtn">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M19 12H5M12 19l-7-7 7-7" />
+                    </svg>
+                    Go Back
+                </button>
+            </section>
+
+            <!-- ── VIDEO DETAIL SCREEN ───────────────────────────── -->
+            <section class="vd-screen hidden" id="videoDetail" aria-label="Video detail">
+                <div class="vd-back-row">
+                    <button class="vd-back-btn" id="vdBackBtn">&#8592; Back</button>
+                </div>
+
+                <div class="vd-premium-card glow-card">
+                    <div class="panel-crown">👑</div>
+                    <h2>Premium Content</h2>
+                    <p class="panel-subtext">Unlock exclusive content with premium access!</p>
+                    <div class="feature-pill-grid">
+                        <div class="feature-pill">∞ Unlimited Videos</div>
+                        <div class="feature-pill">⇩ Download Access</div>
+                        <div class="feature-pill">★ Premium Content</div>
+                        <div class="feature-pill">🎧 Priority Support</div>
+                    </div>
+                    <div class="panel-actions">
+                        <button class="primary-button vd-premium-cta" id="vdPremiumCta">GET PREMIUM</button>
+                        <button class="secondary-button vd-go-back" id="vdGoBack">&#8592; GO BACK</button>
+                    </div>
+                </div>
+
+                <div class="vd-info-card">
+                    <div class="vd-title-row">
+                        <h3 class="vd-title" id="vdTitle">Featured Premium Collection</h3>
+                        <span class="vd-badge" id="vdBadge">VIP</span>
+                    </div>
+                    <div class="vd-meta">
+                        <span class="vd-meta-item">&#128077; <span id="vdLikes">2,334 likes</span></span>
+                        <span class="vd-meta-item">&#9200; <span id="vdDuration">23:53</span></span>
+                        <span class="vd-category" id="vdCategory">Lifestyle</span>
+                    </div>
+                    <div class="vd-creator-row">
+                        <div class="vd-avatar" id="vdAvatar">C</div>
+                        <div class="vd-creator-info">
+                            <span class="vd-creator-name" id="vdCreator">@Creator</span>
+                            <span class="vd-subs" id="vdSubs">1.2K subscribers</span>
+                        </div>
+                    </div>
+                    <div class="vd-actions">
+                        <button class="vd-subscribe-btn">+ SUBSCRIBE</button>
+                        <button class="vd-action-pill" id="vdLikeBtn">&#128077; <span
+                                id="vdLikesBtn">2,334</span></button>
+                        <button class="vd-action-icon" aria-label="Save">&#128278;</button>
+                    </div>
+                </div>
+
+                <div class="vd-comments">
+                    <h2>Comments (0)</h2>
+                    <div class="comment-box">
+                        <textarea placeholder="Write a comment..."></textarea>
+                        <button class="comment-float-button" aria-label="Audio">🎧</button>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ── FREE PREVIEWS VIEW ─────────────────────────────── -->
+            <section id="freeVideosView" class="hidden view-section">
+                <div class="videos-header-area">
+                    <h2>
+                        Free Previews
+                        <span class="badge-tag"
+                            style="background:rgba(255,255,255,0.05); color:#999; font-size:12px; margin-left:8px; border:none; padding:4px 8px;">8
+                            videos</span>
+                    </h2>
+                </div>
+                <div class="mini-accent-line"
+                    style="margin: 8px 0 24px 0; width: 155px; background: linear-gradient(90deg, var(--yellow), transparent);">
+                </div>
+
+                <div class="free-video-list" id="freeVideosList">
+                    <div class="free-video-card glow-card" style="cursor: default;">
+                        <div class="free-video-thumb" style="background: #000;">
+                            <span class="free-badge" style="z-index: 10; pointer-events: none;">FREE</span>
+                            <video src="assets/videos/free_preview_2.mp4#t=0.001" preload="metadata"
+                                disablePictureInPicture controlsList="nodownload noplaybackrate"
+                                oncontextmenu="return false;" playsinline
+                                style="width: 100%; height: 100%; object-fit: cover; display: block;"></video>
+                        </div>
+                        <div class="free-card-info">
+                            <h3>Exclusive Free Preview 1</h3>
+                            <p class="free-card-sub"><span class="icon">🎬</span> Full Video</p>
+                        </div>
+                    </div>
+                    <div class="free-video-card glow-card" style="cursor: default;">
+                        <div class="free-video-thumb" style="background: #000;">
+                            <span class="free-badge" style="z-index: 10; pointer-events: none;">FREE</span>
+                            <video src="assets/videos/free_preview_3.mp4#t=0.001" preload="metadata"
+                                disablePictureInPicture controlsList="nodownload noplaybackrate"
+                                oncontextmenu="return false;" playsinline
+                                style="width: 100%; height: 100%; object-fit: cover; display: block;"></video>
+                        </div>
+                        <div class="free-card-info">
+                            <h3>Exclusive Free Preview 2</h3>
+                            <p class="free-card-sub"><span class="icon">🎬</span> Full Video</p>
+                        </div>
+                    </div>
+                    <div class="free-video-card glow-card" style="cursor: default;">
+                        <div class="free-video-thumb" style="background: #000;">
+                            <span class="free-badge" style="z-index: 10; pointer-events: none;">FREE</span>
+                            <video src="assets/videos/free_preview_4.mp4#t=0.001" preload="metadata"
+                                disablePictureInPicture controlsList="nodownload noplaybackrate"
+                                oncontextmenu="return false;" playsinline
+                                style="width: 100%; height: 100%; object-fit: cover; display: block;"></video>
+                        </div>
+                        <div class="free-card-info">
+                            <h3>Exclusive Free Preview 3</h3>
+                            <p class="free-card-sub"><span class="icon">🎬</span> Full Video</p>
+                        </div>
+                    </div>
+                    <div class="free-video-card glow-card" style="cursor: default;">
+                        <div class="free-video-thumb" style="background: #000;">
+                            <span class="free-badge" style="z-index: 10; pointer-events: none;">FREE</span>
+                            <video src="assets/videos/free_preview_5.mp4#t=0.001" preload="metadata"
+                                disablePictureInPicture controlsList="nodownload noplaybackrate"
+                                oncontextmenu="return false;" playsinline
+                                style="width: 100%; height: 100%; object-fit: cover; display: block;"></video>
+                        </div>
+                        <div class="free-card-info">
+                            <h3>Exclusive Free Preview 4</h3>
+                            <p class="free-card-sub"><span class="icon">🎬</span> Full Video</p>
+                        </div>
+                    </div>
+                    <div class="free-video-card glow-card" style="cursor: default;">
+                        <div class="free-video-thumb" style="background: #000;">
+                            <span class="free-badge" style="z-index: 10; pointer-events: none;">FREE</span>
+                            <video src="assets/videos/free_preview_6.mp4#t=0.001" preload="metadata"
+                                disablePictureInPicture controlsList="nodownload noplaybackrate"
+                                oncontextmenu="return false;" playsinline
+                                style="width: 100%; height: 100%; object-fit: cover; display: block;"></video>
+                        </div>
+                        <div class="free-card-info">
+                            <h3>Exclusive Free Preview 5</h3>
+                            <p class="free-card-sub"><span class="icon">🎬</span> Full Video</p>
+                        </div>
+                    </div>
+                    <div class="free-video-card glow-card" style="cursor: default;">
+                        <div class="free-video-thumb" style="background: #000;">
+                            <span class="free-badge" style="z-index: 10; pointer-events: none;">FREE</span>
+                            <video src="assets/videos/free_preview_7.mp4#t=0.001" preload="metadata"
+                                disablePictureInPicture controlsList="nodownload noplaybackrate"
+                                oncontextmenu="return false;" playsinline
+                                style="width: 100%; height: 100%; object-fit: cover; display: block;"></video>
+                        </div>
+                        <div class="free-card-info">
+                            <h3>Exclusive Free Preview 6</h3>
+                            <p class="free-card-sub"><span class="icon">🎬</span> Full Video</p>
+                        </div>
+                    </div>
+                    <div class="free-video-card glow-card" style="cursor: default;">
+                        <div class="free-video-thumb" style="background: #000;">
+                            <span class="free-badge" style="z-index: 10; pointer-events: none;">FREE</span>
+                            <video src="assets/videos/free_preview_8.mp4#t=0.001" preload="metadata"
+                                disablePictureInPicture controlsList="nodownload noplaybackrate"
+                                oncontextmenu="return false;" playsinline
+                                style="width: 100%; height: 100%; object-fit: cover; display: block;"></video>
+                        </div>
+                        <div class="free-card-info">
+                            <h3>Exclusive Free Preview 7</h3>
+                            <p class="free-card-sub"><span class="icon">🎬</span> Full Video</p>
+                        </div>
+                    </div>
+                    <div class="free-video-card glow-card" style="cursor: default;">
+                        <div class="free-video-thumb" style="background: #000;">
+                            <span class="free-badge" style="z-index: 10; pointer-events: none;">FREE</span>
+                            <video src="assets/videos/free_preview_9.mp4#t=0.001" preload="metadata"
+                                disablePictureInPicture controlsList="nodownload noplaybackrate"
+                                oncontextmenu="return false;" playsinline
+                                style="width: 100%; height: 100%; object-fit: cover; display: block;"></video>
+                        </div>
+                        <div class="free-card-info">
+                            <h3>Exclusive Free Preview 8</h3>
+                            <p class="free-card-sub"><span class="icon">🎬</span> Full Video</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── CHAT VIEW ──────────────────────────────────────── -->
+            <section id="chatView" class="hidden view-section chat-layout">
+                <div class="chat-room-header">
+                    <div class="room-title">
+                        <span class="chat-icon">💬</span> Owner/Master Chat
+                    </div>
+                    <div class="room-status"><span class="status-dot"></span> Online</div>
+                </div>
+
+                <div class="chat-messages" id="chatMessagesList">
+                    <div class="chat-msg">
+                        <div class="chat-avatar">M</div>
+                        <div class="chat-body">
+                            <div class="chat-name">Master <span class="premium-badge content-badge">VIP</span> <span
+                                    class="chat-time">12:44 PM</span></div>
+                            <div class="chat-text">Whatever you say better be important.</div>
+                        </div>
+                    </div>
+                    <div class="chat-input-bar">
+                        <input type="text" class="chat-input-field" placeholder="Message the community...">
+                        <button class="chat-send-btn"><svg width="20" height="20" fill="none" stroke="currentColor"
+                                stroke-width="2" viewBox="0 0 24 24">
+                                <line x1="22" y1="2" x2="11" y2="13" />
+                                <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                            </svg></button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── PROFILE VIEW ─────────────────────────────────────── -->
+            <section id="profileView" class="hidden view-section">
+                <div class="videos-header-area">
+                    <h2><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24" style="color:var(--accent)">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg> My Profile</h2>
+                </div>
+                <div class="mini-accent-line"
+                    style="margin: 8px 0 24px 0; width: 60px; background:linear-gradient(90deg, var(--accent), transparent);">
+                </div>
+
+                <div class="profile-card glow-card">
+                    <div class="profile-badge-free">FREE MEMBER</div>
+
+                    <div class="profile-avatar-wrap">
+                        <button class="profile-avatar-circle">J</button>
+                    </div>
+
+                    <div class="profile-username-wrap">
+                        <h3>Jejdjdjsnx</h3>
+                        <div class="profile-stat-mini">
+                            <span class="stat-label">Videos Bought</span>
+                            <span class="stat-value">0</span>
+                        </div>
+                        <p class="tap-to-change">Tap photo to change</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── PREMIUM / PACKAGES VIEW ─────────────────────────── -->
+            <section id="premiumView" class="hidden">
+                <div class="premium-header-area">
+                    <h2 class="premium-welcome">Welcome, Jejdjdjsnx</h2>
+                    <p class="premium-subtitle">Choose a subscription plan or purchase content packages</p>
+                </div>
+
+                <div class="premium-toggle-group">
+                    <button class="p-toggle-btn"><svg width="18" height="18" fill="none" stroke="currentColor"
+                            stroke-width="2" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                        </svg> Subscription Plans</button>
+                    <button class="p-toggle-btn active"><svg width="18" height="18" fill="none" stroke="currentColor"
+                            stroke-width="2" viewBox="0 0 24 24">
+                            <path
+                                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                            <line x1="12" y1="22.08" x2="12" y2="12" />
+                        </svg> Content Packages</button>
+                </div>
+
+                <div class="premium-card">
+                    <div class="p-card-header">
+                        <h3>Tier 1</h3>
+                        <p>30 invites or buy directly</p>
+                        <div class="p-card-price">$15</div>
+                    </div>
+                    <div class="p-card-banner">
+                        60GB MEGA LINK
+                    </div>
+                    <div class="p-card-body">
+                        <ul class="p-card-features">
+                            <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                                    viewBox="0 0 24 24">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg> Access to Tier 1 content</li>
+                            <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                                    viewBox="0 0 24 24">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg> Basic support</li>
+                            <li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                                    viewBox="0 0 24 24">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg> 30 day access</li>
+                        </ul>
+
+                        <button class="p-card-buy-btn">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                                viewBox="0 0 24 24">
+                                <circle cx="9" cy="21" r="1" />
+                                <circle cx="20" cy="21" r="1" />
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                            </svg> Buy Now
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
 
     </div>
-  </div><!-- end #appShell -->
+    </div><!-- end #appShell -->
 
-  <!-- ── AGE VERIFICATION OVERLAY ───────────────────────── -->
-  <div id="ageVerification" class="age-gate">
-    <div class="age-modal">
-      <div class="age-content">
-        <h1>ARE YOU 18+?</h1>
-        <div class="age-accent-line"></div>
-        <p>This content is for adults only.</p>
-        <p class="age-subtext">Are you 18 or over?</p>
-      </div>
-      <div class="age-actions">
-        <button class="age-btn-yes" id="ageYesBtn">YES</button>
-        <button class="age-btn-no" id="ageNoBtn">NO</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── PAGE UNAVAILABLE OVERLAY (Access Denied) ────────── -->
-  <div id="ageUnavailable" class="age-gate hidden">
-    <div class="age-modal unavailable-modal">
-      <div class="age-content">
-        <div class="restricted-icon">
-          <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-            stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10" />
-            <path d="M16 16s-1.5-2-4-2-4 2-4 2" />
-            <line x1="9" y1="9" x2="9.01" y2="9" />
-            <line x1="15" y1="9" x2="15.01" y2="9" />
-          </svg>
+    <!-- ── AGE VERIFICATION OVERLAY ───────────────────────── -->
+    <div id="ageVerification" class="age-gate">
+        <div class="age-modal">
+            <div class="age-content">
+                <h1>ARE YOU 18+?</h1>
+                <div class="age-accent-line"></div>
+                <p>This content is for adults only.</p>
+                <p class="age-subtext">Are you 18 or over?</p>
+            </div>
+            <div class="age-actions">
+                <button class="age-btn-yes" id="ageYesBtn">YES</button>
+                <button class="age-btn-no" id="ageNoBtn">NO</button>
+            </div>
         </div>
-        <h1>SORRY, THIS PAGE IS <span class="accent-text">UNAVAILABLE</span></h1>
-        <p>You must be 18 or over to access this content.</p>
-      </div>
-      <div class="age-actions">
-        <button class="age-btn-yes" id="ageBackBtn">GO BACK</button>
-      </div>
     </div>
-  </div>
 
-  <script src="script.js"></script>
-  <script>
-    // Temporary debug script to track click intercepts
-    document.addEventListener('click', function (e) {
-      console.log('CLICK CAPTURED BY:', e.target.tagName, e.target.id, e.target.className);
-      // See if it's the YES button or something blocking it
-      if (e.target.id === 'ageYesBtn') {
-        console.log('YES button actually clicked natively!');
-      }
-    }, true); // Use capture phase to see the first element hit
-  </script>
+    <!-- ── PAGE UNAVAILABLE OVERLAY (Access Denied) ────────── -->
+    <div id="ageUnavailable" class="age-gate hidden">
+        <div class="age-modal unavailable-modal">
+            <div class="age-content">
+                <div class="restricted-icon">
+                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M16 16s-1.5-2-4-2-4 2-4 2" />
+                        <line x1="9" y1="9" x2="9.01" y2="9" />
+                        <line x1="15" y1="9" x2="15.01" y2="9" />
+                    </svg>
+                </div>
+                <h1>SORRY, THIS PAGE IS <span class="accent-text">UNAVAILABLE</span></h1>
+                <p>You must be 18 or over to access this content.</p>
+            </div>
+            <div class="age-actions">
+                <button class="age-btn-yes" id="ageBackBtn">GO BACK</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Temporary debug script to track click intercepts
+        document.addEventListener('click', function (e) {
+            console.log('CLICK CAPTURED BY:', e.target.tagName, e.target.id, e.target.className);
+            // See if it's the YES button or something blocking it
+            if (e.target.id === 'ageYesBtn') {
+                console.log('YES button actually clicked natively!');
+            }
+        }, true); // Use capture phase to see the first element hit
+    </script>
 </body>
 
 </html>
