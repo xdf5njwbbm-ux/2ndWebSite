@@ -178,9 +178,6 @@ function renderVideosView() {
           <div class="content-meta">
             ${v.creator}
           </div>
-          <div class="content-tags">
-            <span class="tag">${v.category}</span>
-          </div>
         </div>
       </article>
     `;
