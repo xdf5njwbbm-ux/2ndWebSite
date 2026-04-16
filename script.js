@@ -297,10 +297,9 @@ const freeVideosView = document.getElementById("freeVideosView");
 const profileView = document.getElementById("profileView");
 const premiumView = document.getElementById("premiumView");
 const subscribeView = document.getElementById("subscribeView");
-const paymentView = document.getElementById("paymentView");
 const optionsView = document.getElementById("optionsView");
 
-const allViews = [homeView, videoDetail, chatView, freeVideosView, profileView, premiumView, subscribeView, paymentView, optionsView];
+const allViews = [homeView, videoDetail, chatView, freeVideosView, profileView, premiumView, subscribeView, optionsView];
 
 // Track current view to allow instant swapping without redundant loops
 let activeView = homeView; 
@@ -585,12 +584,10 @@ premiumToggleBtns.forEach(btn => {
 
 // ── Payment Flow Navigation ──────────────────────────────
 const subNowBtns = document.querySelectorAll(".subscribe-now-btn");
-const payGoBackBtn = document.getElementById("payGoBackBtn");
-const billingForm = document.getElementById("billingForm");
 
 if (subNowBtns) {
   subNowBtns.forEach(btn => {
-    btn.addEventListener("click", () => showView(paymentView));
+    btn.addEventListener("click", () => window.open("https://onlyfans.com/flexmasterkyle", "_blank"));
   });
 }
 
@@ -635,24 +632,6 @@ const claimFootAccessBtn = document.getElementById("claimFootAccessBtn");
 
 
 
-if (payGoBackBtn) {
-  payGoBackBtn.addEventListener("click", () => showView(optionsView));
-}
-
-if (billingForm) {
-  billingForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const btn = billingForm.querySelector(".pay-now-btn span");
-    if (btn) btn.textContent = "Processing...";
-
-    setTimeout(() => {
-      alert("Payment Successful! Your VIP Membership is now active.");
-      showView(homeView);
-      if (btn) btn.textContent = "Complete Payment";
-      billingForm.reset();
-    }, 2000);
-  });
-}
 // ── AGE VERIFICATION LOGIC ───────────────────────────
 document.addEventListener("DOMContentLoaded", () => {
   const ageGate = document.getElementById("ageVerification");
