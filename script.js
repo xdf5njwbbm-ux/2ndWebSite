@@ -635,8 +635,36 @@ document.addEventListener("DOMContentLoaded", () => {
       if (typeof enterApp === "function") {
         enterApp();
       }
+
+      // Start the 9-second timer for the promo popup
+      setTimeout(() => {
+        const promoOverlay = document.getElementById("promoOverlay");
+        if (promoOverlay) {
+          promoOverlay.classList.remove("hidden");
+        }
+      }, 9000);
     });
   }
+
+  // ── PROMO POPUP LOGIC ─────────────────────────────
+  const promoOverlay = document.getElementById("promoOverlay");
+  const promoCloseBtn = document.getElementById("promoCloseBtn");
+  const promoLaterBtn = document.getElementById("promoLaterBtn");
+  const promoActionBtn = document.getElementById("promoActionBtn");
+
+  function closePromo() {
+    if (promoOverlay) {
+      promoOverlay.style.opacity = "0";
+      setTimeout(() => {
+        promoOverlay.classList.add("hidden");
+        promoOverlay.style.opacity = "1"; // reset setup
+      }, 400); // match transition duration
+    }
+  }
+
+  if (promoCloseBtn) promoCloseBtn.addEventListener("click", closePromo);
+  if (promoLaterBtn) promoLaterBtn.addEventListener("click", (e) => { e.preventDefault(); closePromo(); });
+  if (promoActionBtn) promoActionBtn.addEventListener("click", closePromo);
 
   if (ageNoBtn && ageGate && ageUnavailable) {
     ageNoBtn.addEventListener("click", () => {

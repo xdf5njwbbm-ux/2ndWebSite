@@ -202,7 +202,7 @@
                 </section>
 
                 <section class="stats-grid">
-                    <article class="stat-card">
+                    <article class="stat-card clickable" id="promoSaleBtn">
                         <div class="stat-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none"
                                 stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
                                 style="filter: drop-shadow(0 0 6px rgba(0,136,255,0.5));">
@@ -215,8 +215,8 @@
                                     opacity="0.9" />
                             </svg></div>
                         <div>
-                            <div class="stat-value">15</div>
-                            <div class="stat-label">Total Videos</div>
+                            <div class="stat-value">$25 ONLY</div>
+                            <div class="stat-label" style="color: #fff;">All Videos on Sale</div>
                         </div>
                     </article>
 
@@ -797,6 +797,38 @@
             <div class="age-actions">
                 <button class="age-btn-yes" id="ageBackBtn">GO BACK</button>
             </div>
+        </div>
+    </div>
+
+    <!-- ── PROMO POPUP OVERLAY ──────────────────────────────── -->
+    <div id="promoOverlay" class="promo-overlay hidden">
+        <div class="promo-card">
+            <button class="promo-close" id="promoCloseBtn">✕</button>
+            
+            <div class="promo-top-text">
+                <div class="promo-line"></div>
+                <span class="promo-eyebrow">LIMITED TIME OFFER</span>
+                <div class="promo-line"></div>
+            </div>
+
+            <div class="promo-icon">
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 10px rgba(0,136,255,0.4)); transform: rotate(15deg);">
+                    <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                    <line x1="7" y1="7" x2="7.01" y2="7" stroke-width="2"></line>
+                    <circle cx="14" cy="14" r="1.5" fill="currentColor" stroke="none"></circle>
+                    <path d="M12 16l4-4"></path>
+                    <circle cx="16" cy="12" r="1.5" fill="currentColor" stroke="none"></circle>
+                </svg>
+            </div>
+
+            <h2 class="promo-headline">
+                I see you've been looking, any <span class="promo-highlight-blue">2</span> videos are on sale right now for only <span class="promo-highlight-yellow">$40!</span>
+            </h2>
+
+            <div class="promo-divider"></div>
+
+            <button class="promo-btn" id="promoActionBtn">GET 2 FOR $40</button>
+            <button class="promo-later" id="promoLaterBtn">Maybe Later</button>
         </div>
     </div>
 
