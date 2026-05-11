@@ -105,6 +105,34 @@ const customVideos = [
     avatar: avatars[0],
     subs: "22.1K subscribers",
     bg: "url('assets/images/img_video_2.png') center/cover no-repeat"
+  },
+  {
+    id: 999,
+    title: "Domination Pt 9",
+    badge: "",
+    views: "15.3K views",
+    likes: "2,315",
+    time: "1d ago",
+    duration: "5:10",
+    category: "Domination",
+    creator: creators[0],
+    avatar: avatars[0],
+    subs: "22.1K subscribers",
+    bg: "url('assets/images/dom_custom_1.png') center/cover no-repeat"
+  },
+  {
+    id: 1000,
+    title: "Domination Pt 10",
+    badge: "",
+    views: "9.8K views",
+    likes: "1,098",
+    time: "3d ago",
+    duration: "4:45",
+    category: "Domination",
+    creator: creators[0],
+    avatar: avatars[0],
+    subs: "22.1K subscribers",
+    bg: "url('assets/images/dom_custom_2.png') center/cover no-repeat"
   }
 ];
 VIDEO_DATA.unshift(...customVideos);
@@ -142,7 +170,14 @@ function renderVideosView() {
     );
   }
 
-  // Sort by Popularity
+  // Default sort: order by the numeric part in the title (e.g. "Domination Pt 9" → 9)
+  const getPartNum = (title) => {
+    const match = title.match(/(\d+)$/);
+    return match ? parseInt(match[1], 10) : 0;
+  };
+  dataCopy.sort((a, b) => getPartNum(a.title) - getPartNum(b.title));
+
+  // Sort by Popularity (overrides default order when toggled on)
   if (isPopularActive) {
     const parseViewsNum = (str) => {
       const num = parseFloat(str.replace(/[^0-9.]/g, ''));
@@ -218,7 +253,7 @@ function updateHeaderText() {
     videosViewTitle.textContent = isPopularActive ? "Most Popular Videos" : "Videos";
     videosViewSubtitle.textContent = isPopularActive 
       ? "Showing trending content" 
-      : "15 videos available";
+      : "17 videos available";
   }
 }
 
